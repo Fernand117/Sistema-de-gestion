@@ -11,6 +11,7 @@ public class UsuariosModel {
     private String usuario;
     private String clave;
     private String foto_perfil;
+    private String fullName;
     private int idTipo;
 
     public int getId() {
@@ -83,5 +84,13 @@ public class UsuariosModel {
 
     public void setIdTipo(int idTipo) {
         this.idTipo = idTipo;
+    }
+
+    public void fullName(String nombre, String paterno, String materno){
+        this.fullName = nombre + " " + paterno + " " + materno;
+    }
+
+    public String getFullName(){
+        return fullName;
     }
 }

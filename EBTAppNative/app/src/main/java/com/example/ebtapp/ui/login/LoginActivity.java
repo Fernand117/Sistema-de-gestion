@@ -149,13 +149,21 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         if (jsonObject != null){
-                            mensaje("Guardando datos");
                             txtMensaje.setTextColor(Color.GREEN);
                             JSONArray jsonArray = jsonObject.optJSONArray("Usuarios");
-                            SharedPreferences sharedPreferences = getSharedPreferences("Usuario", LoginActivity.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("UsuarioList", String.valueOf(jsonArray));
-                            editor.commit();
+                            /*SharedPreferences sharedPreferences = getSharedPreferences("Usuario", LoginActivity.MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();*/
+                            for (int i= 0; i < jsonArray.length(); i++){
+                                JSONObject jsonObjectUs = jsonArray.getJSONObject(i);
+                                /*editor.putString("Nombre", nombreCompleto);
+                                editor.putString("Usuario", jsonObjectUs.getString("usuario"));
+                                editor.putString("Foto", jsonObjectUs.getString("foto_perfil"));*/
+                                usuariosModel.setUsuario(jsonObjectUs.getString("usuario"));
+                                usuariosModel.fullName(jsonObjectUs.getString("nombre"), jsonObjectUs.getString("paterno"), jsonObjectUs.getString("materno"));
+                                usuariosModel.setUrl_foto(jsonObjectUs.getString("foto_perfil"));
+                                mensaje(usuariosModel.getFullName());
+                            }
+                            //editor.commit();
                         }
                     } else {
                         mensaje("Ocurrió un error en el servidor.");
@@ -177,7 +185,11 @@ public class LoginActivity extends AppCompatActivity {
             if (progressDialog != null && progressDialog.isShowing()){
                 progressDialog.dismiss();
             }
+
             if (responseCode == 200){
+                homeIntent.putExtra("usuario", usuariosModel.getUsuario());
+                homeIntent.putExtra("nombre", usuariosModel.getFullName());
+                homeIntent.putExtra("foto", usuariosModel.getUrl_foto());
                 startActivity(homeIntent);
             }
         }

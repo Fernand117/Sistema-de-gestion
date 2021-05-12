@@ -32,14 +32,19 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtNFull;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    UsuariosModel usuariosModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        usuariosModel = new UsuariosModel();
+        usuariosModel.setUrl_foto(getIntent().getStringExtra("foto"));
+        usuariosModel.setNombre(getIntent().getStringExtra("nombre"));
+        usuariosModel.setUsuario(getIntent().getStringExtra("usuario"));
+
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         setSupportActionBar(binding.appBarMain.toolbar);
         binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,16 +69,14 @@ public class MainActivity extends AppCompatActivity {
         txtNUsuario = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtNUsuario);
         txtNFull = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtNFull);
 
-        SharedPreferences sharedPreferences = getSharedPreferences("Usuario", Activity.MODE_PRIVATE);
-        String lista = sharedPreferences.getString("UsuarioList", "");
-        Gson gson = new Gson();
-        UsuariosModel usuariosModel[] = gson.fromJson(lista, UsuariosModel[].class);
-        for (int i = 0; i < usuariosModel.length; i++){
-            UsuariosModel usuariosModel1 = usuariosModel[i];
-            Picasso.with(getApplicationContext()).load(usuariosModel1.getUrl_foto()).into(imageView);
-            txtNUsuario.setText(usuariosModel1.getUsuario());
-            txtNFull.setText(usuariosModel1.getNombre() + " " + usuariosModel1.getPaterno() + " " + usuariosModel1.getMaterno());
-        }
+        /*SharedPreferences sharedPreferences = getSharedPreferences("Usuario", Activity.MODE_PRIVATE);
+        String nombreCompleto = sharedPreferences.getString("Nombre", "");
+        String usuario = sharedPreferences.getString("Usuario", "");
+        String foto_url = sharedPreferences.getString("Foto", "");*/
+
+        Picasso.with(getApplicationContext()).load(usuariosModel.getUrl_foto()).into(imageView);
+        txtNUsuario.setText(usuariosModel.getUsuario());
+        txtNFull.setText(usuariosModel.getNombre());
     }
 
     @Override
