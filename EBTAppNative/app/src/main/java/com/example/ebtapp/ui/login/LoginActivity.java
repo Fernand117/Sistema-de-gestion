@@ -3,24 +3,27 @@ package com.example.ebtapp.ui.login;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
+import android.content.ContentValues;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.ebtapp.MainActivity;
 import com.example.ebtapp.R;
+import com.example.ebtapp.database.DataBaseBack;
 import com.example.ebtapp.model.UsuariosModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import com.example.ebtapp.service.usuariosService;
+import com.example.ebtapp.service.APIService;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.BufferedInputStream;
@@ -41,12 +44,16 @@ public class LoginActivity extends AppCompatActivity {
     private HttpURLConnection connection;
     private BufferedReader bufferedReader;
 
+    private DataBaseBack dataBaseBack;
+
     private Button btnLogin;
     private TextInputEditText txtUsuario;
     private TextInputEditText txtPassword;
     private TextView txtMensaje;
     private Intent homeIntent;
     private UsuariosModel usuariosModel;
+    private SQLiteDatabase database;
+    private ContentValues contentValues;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +61,17 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
 
+        dataBaseBack = new DataBaseBack(this);
         usuariosModel = new UsuariosModel();
+
+        database = dataBaseBack.getWritableDatabase();
+        contentValues = new ContentValues();
+
         homeIntent = new Intent(LoginActivity.this, MainActivity.class);
         txtUsuario = (TextInputEditText) findViewById(R.id.txtUsuario);
         txtPassword = (TextInputEditText) findViewById(R.id.txtPassword);
         txtMensaje = (TextView) findViewById(R.id.txtMensaje);
+
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +89,6 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     usuariosModel.setUsuario(txtUsuario.getText().toString());
                     usuariosModel.setClave(txtPassword.getText().toString());
-                    //mensaje(usuariosModel.getUsuario() + " " + usuariosModel.getClave());
                     txtMensaje.setTextColor(Color.GREEN);
                     new loginAsync().execute();
                 }
@@ -93,8 +105,13 @@ public class LoginActivity extends AppCompatActivity {
 
     private class loginAsync extends AsyncTask<String, String, JSONObject> {
 
+        private static final String urlComplement = "/login/usuarios";
+        private static final String method = "POST";
+        private static final String style = "normal";
+        private static final String jsonMsj = "Mensaje";
+        private static final String jsonResponse = "Usuarios";
         private ProgressDialog progressDialog;
-        usuariosService usuariosService = new usuariosService();
+        APIService usuariosService = new APIService();
 
         @Override
         protected void onPreExecute() {
@@ -113,8 +130,7 @@ public class LoginActivity extends AppCompatActivity {
                 HashMap<String, String> params = new HashMap<>();
                 params.put("usuario", usuariosModel.getUsuario());
                 params.put("clave", usuariosModel.getClave());
-                connection = usuariosService.login(params);
-                System.out.println("*******MENSAJE RESPUESTA SERVIDOR: " + connection.getResponseMessage());
+                connection = usuariosService.ServiceSF(params, urlComplement, method, style);
                 try {
                     responseCode = connection.getResponseCode();
 
@@ -133,7 +149,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         if (jsonObject != null){
-                            mensaje(jsonObject.getString("Mensaje"));
+                            mensaje(jsonObject.getString(jsonMsj));
                         }
                     } else if (responseCode == 200) {
                         inputStream = new BufferedInputStream(connection.getInputStream());
@@ -149,21 +165,15 @@ public class LoginActivity extends AppCompatActivity {
                         }
 
                         if (jsonObject != null){
-                            txtMensaje.setTextColor(Color.GREEN);
-                            JSONArray jsonArray = jsonObject.optJSONArray("Usuarios");
-                            /*SharedPreferences sharedPreferences = getSharedPreferences("Usuario", LoginActivity.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();*/
+                            JSONArray jsonArray = jsonObject.optJSONArray(jsonResponse);
                             for (int i= 0; i < jsonArray.length(); i++){
                                 JSONObject jsonObjectUs = jsonArray.getJSONObject(i);
-                                /*editor.putString("Nombre", nombreCompleto);
-                                editor.putString("Usuario", jsonObjectUs.getString("usuario"));
-                                editor.putString("Foto", jsonObjectUs.getString("foto_perfil"));*/
+                                usuariosModel.setId(Integer.parseInt(jsonObjectUs.getString("id")));
                                 usuariosModel.setUsuario(jsonObjectUs.getString("usuario"));
                                 usuariosModel.fullName(jsonObjectUs.getString("nombre"), jsonObjectUs.getString("paterno"), jsonObjectUs.getString("materno"));
                                 usuariosModel.setUrl_foto(jsonObjectUs.getString("foto_perfil"));
-                                mensaje(usuariosModel.getFullName());
+                                usuariosModel.setIdTipo(Integer.parseInt(jsonObjectUs.getString("idTipo")));
                             }
-                            //editor.commit();
                         }
                     } else {
                         mensaje("Ocurrió un error en el servidor.");
@@ -185,13 +195,42 @@ public class LoginActivity extends AppCompatActivity {
             if (progressDialog != null && progressDialog.isShowing()){
                 progressDialog.dismiss();
             }
-
             if (responseCode == 200){
+                try {
+                    if (database != null){
+                        database.acquireReference();
+                        String[] args = new String[] {usuariosModel.getUsuario()};
+                        Cursor consultaUsuario = database.rawQuery("SELECT * FROM usuario WHERE usuario = ?", args);
+                        if (consultaUsuario != null && consultaUsuario.getCount() <= 0) {
+                            Cursor consutlaUsuarios = database.rawQuery("SELECT * FROM usuario", null);
+                            if (consutlaUsuarios != null && consutlaUsuarios.getCount() > 0) {
+                                database.delete("usuario",null,null);
+                                saveData();
+                            } else {
+                                saveData();
+                            }
+                            consutlaUsuarios.close();
+                        }
+                        consultaUsuario.close();
+                        database.close();
+                    }
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
                 homeIntent.putExtra("usuario", usuariosModel.getUsuario());
-                homeIntent.putExtra("nombre", usuariosModel.getFullName());
-                homeIntent.putExtra("foto", usuariosModel.getUrl_foto());
                 startActivity(homeIntent);
             }
+        }
+
+        private void saveData(){
+            contentValues.put("idUsuario", usuariosModel.getId());
+            contentValues.put("fullname", usuariosModel.getFullName());
+            contentValues.put("usuario", usuariosModel.getUsuario());
+            contentValues.put("foto", usuariosModel.getUrl_foto());
+            contentValues.put("idTipo", usuariosModel.getIdTipo());
+            database.insert("usuario", null, contentValues);
         }
     }
 }

@@ -1,15 +1,16 @@
 package com.example.ebtapp;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.ebtapp.database.DataBaseBack;
 import com.example.ebtapp.model.UsuariosModel;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
@@ -19,10 +20,8 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.example.ebtapp.databinding.ActivityMainBinding;
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,15 +31,16 @@ public class MainActivity extends AppCompatActivity {
     private TextView txtNFull;
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
-    UsuariosModel usuariosModel;
+    private UsuariosModel usuariosModel;
+    private DataBaseBack dataBaseBack;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        dataBaseBack = new DataBaseBack(this);
         usuariosModel = new UsuariosModel();
-        usuariosModel.setUrl_foto(getIntent().getStringExtra("foto"));
-        usuariosModel.setNombre(getIntent().getStringExtra("nombre"));
         usuariosModel.setUsuario(getIntent().getStringExtra("usuario"));
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
@@ -69,10 +69,25 @@ public class MainActivity extends AppCompatActivity {
         txtNUsuario = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtNUsuario);
         txtNFull = (TextView) navigationView.getHeaderView(0).findViewById(R.id.txtNFull);
 
-        /*SharedPreferences sharedPreferences = getSharedPreferences("Usuario", Activity.MODE_PRIVATE);
-        String nombreCompleto = sharedPreferences.getString("Nombre", "");
-        String usuario = sharedPreferences.getString("Usuario", "");
-        String foto_url = sharedPreferences.getString("Foto", "");*/
+        try {
+            SQLiteDatabase database = dataBaseBack.getWritableDatabase();
+            if (database != null){
+                String[] args = new String[] {usuariosModel.getUsuario()};
+                Cursor cursor = database.rawQuery("SELECT * FROM usuario WHERE usuario = ?", args);
+                if (cursor != null && cursor.getCount() > 0){
+                    cursor.moveToFirst();
+                    do {
+                        usuariosModel.setNombre(cursor.getString(cursor.getColumnIndex("fullname")));
+                        usuariosModel.setUsuario(cursor.getString(cursor.getColumnIndex("usuario")));
+                        usuariosModel.setUrl_foto(cursor.getString(cursor.getColumnIndex("foto")));
+                    } while (cursor.moveToNext());
+                }
+                cursor.close();
+                database.close();
+            }
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
 
         Picasso.with(getApplicationContext()).load(usuariosModel.getUrl_foto()).into(imageView);
         txtNUsuario.setText(usuariosModel.getUsuario());

@@ -10,11 +10,23 @@ class RutasController extends Controller
     public function listarRutas()
     {
         $rutas = Rutas::all();
-        
-        if ($rutas != null) {
-            return response()->json(['Rutas' => $rutas]);
+        if (count($rutas) <= 0) {
+		    return response()->json(['Mensaje' => 'Aún no hay rutas registradas.'], 404);
         } else {
-            return response()->json(['Mensaje' => 'Aún no hay rutas registradas.'], 404);
+		    return response()->json(['Rutas' => $rutas]);
+        }
+    }
+
+    public function listaRutasUsuario(Request $request)
+    {
+        $datos = $request->all();
+        $id = $datos['id'];
+
+        $rutas = Rutas::where('idUsuario', '=', $id)->get();
+        if (count($rutas) <= 0){
+            return response()->json(['Mensaje' => 'Usted no tiene rutas asignadas.', 404]);
+        } else {
+            return response()->json(['Rutas' => $rutas]);
         }
     }
 
@@ -22,7 +34,7 @@ class RutasController extends Controller
     {
         $datos = $request->all();
         $consultaRuta = Rutas::where('nombre','=', $datos['nombre'])->get();
-        if ($consultaRuta != null) {
+        if (count($consultaRuta) > 0) {
             return response()->json(['Mensaje' => 'Esta ruta ya está registrada']);
         } else {
             $rutas = new Rutas();

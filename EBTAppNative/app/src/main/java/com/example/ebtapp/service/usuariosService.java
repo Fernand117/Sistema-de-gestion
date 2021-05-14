@@ -29,7 +29,7 @@ public class usuariosService {
     private DataOutputStream dataOutputStream;
     private InputStream inputStream;
     private BufferedReader bufferedReader;
-    private String urlBase = "http://192.168.1.69/sistemaAPI/api";
+    private String urlBase = "http://192.168.1.75/sistemaAPI/api";
 
     //MÉTODO PARA INICIAR SESIÓN
     public HttpURLConnection login(HashMap<String, String> parametros){

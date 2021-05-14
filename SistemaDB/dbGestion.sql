@@ -62,3 +62,11 @@ create table TIROS(
     foreign key (idPVenta) references PUNTOS_VENTAS(id),
     foreign key (idUsuario) references USUARIOS(id)
 );
+
+select * from PUNTOS_VENTAS;
+select  * from RUTAS;
+
+create view ViewRutasPuntos as
+select R.id as IDRuta, R.nombre as Ruta, PV.id as IDPUnto, PV.nombre as Punto, PV.foto from RUTAS R inner join PUNTOS_VENTAS PV on R.id = PV.idRuta;
+
+select * from ViewRutasPuntos;

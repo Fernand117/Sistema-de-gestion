@@ -4,16 +4,37 @@ namespace App\Http\Controllers;
 
 use App\models\PuntosVentas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PuntosVentasController extends Controller
 {
     public function listarPuntosVentas()
     {
         $puntos = PuntosVentas::all();
-        if ($puntos != null) {
+        if (count($puntos) > 0) {
             return response()->json(['Puntos' => $puntos]);
         } else {
             return response()->json(['Mensaje' => 'Aún no hay puntos de ventas registrados.'], 404);
+        }
+    }
+
+    public function listarPuntosRutas(Request $request)
+    {
+        $datos = $request->all();
+        $idRuta = $datos['idRuta'];
+
+        $consulta = DB::select('select * from ViewRutasPuntos where IDRuta = ?;', [$idRuta]);
+
+        $item = json_decode(json_encode($consulta), true);
+
+        for ($i=0; $i < count($consulta); $i++) { 
+            $item[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/puntosVentas/'.$item[$i]['foto'];
+        }
+
+        if (count($consulta) <= 0){
+            return response()->json(['Mensaje' => 'Aún no hay puntos de ventas para esta ruta.', 404]);
+        } else {
+            return response()->json(['Puntos' => $item]);
         }
     }
 
@@ -21,8 +42,8 @@ class PuntosVentasController extends Controller
     {
         $datos = $request->all();
         $consultaPunto = PuntosVentas::where('nombre', '=', $datos['nombre'])->get();
-        if ($consultaPunto != null) {
-            return response()->json(['Mensaje', 'Este punto de venta ya está registrado.'], 404);
+        if (count($consultaPunto) > 0) {
+            return response()->json(['Mensaje' => 'Este punto de venta ya está registrado.'], 404);
         } else {
             $puntos = new PuntosVentas();
             if (isset($datos['foto'])) {
