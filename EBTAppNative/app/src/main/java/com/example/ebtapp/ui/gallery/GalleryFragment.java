@@ -40,13 +40,13 @@ import java.util.HashMap;
 
 public class GalleryFragment extends Fragment {
 
-        private String line;
-        private int responseCode;
-        private JSONObject jsonObject;
-        private InputStream inputStream;
-        private StringBuilder builderResult;
-        private HttpURLConnection connection;
-        private BufferedReader bufferedReader;
+    private String line;
+    private int responseCode;
+    private JSONObject jsonObject;
+    private InputStream inputStream;
+    private StringBuilder builderResult;
+    private HttpURLConnection connection;
+    private BufferedReader bufferedReader;
 
     private DataBaseBack dataBaseBack;
 
@@ -164,13 +164,10 @@ public class GalleryFragment extends Fragment {
 
                         try {
                             jsonObject = new JSONObject(builderResult.toString());
-
                             if (jsonObject != null){
                                 JSONArray jsonArray = jsonObject.getJSONArray(jsonResponse);
-
                                 for (int i = 0; i < jsonArray.length(); i++){
                                     JSONObject jsonRutas = jsonArray.getJSONObject(i);
-
                                     rutas.setId(Integer.parseInt(jsonRutas.getString("id")));
                                     rutas.setNombre(jsonRutas.getString("nombre"));
                                     HashMap<String, String> mapRutas = new HashMap<>();
@@ -179,7 +176,6 @@ public class GalleryFragment extends Fragment {
                                     listRutas.add(mapRutas);
                                 }
                             }
-
                         } catch (JSONException jsonException) {
                             jsonException.printStackTrace();
                         }

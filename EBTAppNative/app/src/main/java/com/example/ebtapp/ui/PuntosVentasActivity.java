@@ -170,10 +170,8 @@ public class PuntosVentasActivity extends AppCompatActivity {
             if (progressDialog != null && progressDialog.isShowing()){
                 progressDialog.dismiss();
             }
-
             PVentasRutasAdapter pVentasRutasAdapter = new PVentasRutasAdapter(PuntosVentasActivity.this, listPVRutas, R.layout.item_pv_list, new String[]{}, new int[]{});
             listViewPVRutas.setAdapter(pVentasRutasAdapter);
-
         }
     }
 }

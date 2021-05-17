@@ -32,7 +32,7 @@ class PuntosVentasController extends Controller
         }
 
         if (count($consulta) <= 0){
-            return response()->json(['Mensaje' => 'Aún no hay puntos de ventas para esta ruta.', 404]);
+            return response()->json(['Mensaje' => 'Aún no hay puntos de ventas para esta ruta.'], 404);
         } else {
             return response()->json(['Puntos' => $item]);
         }

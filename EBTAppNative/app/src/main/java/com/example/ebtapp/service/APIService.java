@@ -16,14 +16,12 @@ public class APIService {
     private StringBuilder sbparams;
     private HttpURLConnection connection;
     private DataOutputStream dataOutputStream;
-    private String urlBase = "http://192.168.1.75/sistemaAPI/api";
+    private String urlBase = "http://192.168.1.69/sistemaAPI/api";
 
-    //MÉTODO PARA INICIAR SESIÓN
     public HttpURLConnection ServiceSF(HashMap<String, String> parametros, String urlComplement, String method, String style){
         urlBase = urlBase + urlComplement;
         sbparams = new StringBuilder();
         int i = 0;
-
         for (String key : parametros.keySet()){
             try{
                 if (i != 0){
@@ -35,14 +33,12 @@ public class APIService {
             }
             i++;
         }
-
         if (method.equals("POST")){
             try {
                 url = new URL(urlBase);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setRequestMethod("POST");
                 connection.setDoOutput(true);
-
                 if (style.equals("normal")){
                     connection.setRequestProperty("Accept-Charset", charset);
                     connection.setReadTimeout(100000);

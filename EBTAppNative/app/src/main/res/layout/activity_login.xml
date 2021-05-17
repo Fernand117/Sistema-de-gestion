@@ -76,7 +76,7 @@
                 <Button
                     android:id="@+id/btnLogin"
                     android:layout_width="match_parent"
-                    android:layout_height="65dp"
+                    android:layout_height="60dp"
                     android:text="Iniciar sesión"
                     android:textColor="@color/white"
                     android:backgroundTint="@color/primary_dark1"/>

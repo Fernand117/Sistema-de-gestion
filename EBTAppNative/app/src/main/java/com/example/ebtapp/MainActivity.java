@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity {
     private UsuariosModel usuariosModel;
     private DataBaseBack dataBaseBack;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
