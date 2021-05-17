@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "~bootstrap-icons/font/bootstrap-icons.css";
+@font-face {
+    font-family: UnifrakturCook-Bold;
+    src: url(assets/font/UnifrakturCook-Bold.ttf);
+}
+
+@font-face {
+    font-family: Lora;
+    src: url(assets/font/Lora-VariableFont_wght.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}

@@ -1,0 +1,33 @@
+.content {
+    width: 20%;
+    height: 100vh;
+    background-color: #263238;
+    float: left;
+    .menu {
+        //background-color: royalblue;
+        text-align: center;
+        color: white;
+        margin: 2%;
+        .img {
+            width: 80%;
+        }
+        .txtNombre {
+            font-size: 20px;
+        }
+        input {
+            width: 80%;
+        }
+        ul {
+            margin-top: 10%;
+            text-align: left;
+            list-style: none;
+        }
+        a {
+            color: white;
+            text-decoration: none;
+        }
+        a:hover {
+            color: #B71C1C;
+        }
+    }
+}

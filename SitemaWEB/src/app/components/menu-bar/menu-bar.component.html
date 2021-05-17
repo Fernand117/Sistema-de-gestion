@@ -1,0 +1,24 @@
+<div class="content">
+    <div class="menu" *ngFor="let item of usuario">
+        <img src="{{item.foto_perfil}}" alt="foto" class="img">
+        <h3 class="txtNombre"> {{item.nombre}} </h3>
+        <button class="btn btn-danger">Cerrar sesión <i class="bi bi-box-arrow-left"></i></button>
+        <ul>
+            <li>
+                <a [routerLink]="['/inicio']">Inicio</a>
+            </li>
+            <li>
+                <a [routerLink]="['/rutas']">Rutas</a>
+            </li>
+            <li>
+                <a href="">Puntos de venta</a>
+            </li>
+            <li>
+                <a href="">Vendedores</a>
+            </li>
+            <li>
+                <a href="">Tiros</a>
+            </li>
+        </ul>
+    </div>
+</div>
