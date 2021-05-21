@@ -9,6 +9,9 @@ import { InicioComponent } from './pages/inicio/inicio.component';
 import { FormsModule } from '@angular/forms';
 import { RutasComponent } from './pages/rutas/rutas.component';
 import { HeaderComponent } from './components/header/header.component';
+import { AdminRutasComponent } from './pages/admin-rutas/admin-rutas.component';
+import { PuntosVentasComponent } from './pages/puntos-ventas/puntos-ventas.component';
+import { AdminPuntosComponent } from './pages/admin-puntos/admin-puntos.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,10 @@ import { HeaderComponent } from './components/header/header.component';
     LoginComponent,
     InicioComponent,
     RutasComponent,
-    HeaderComponent
+    HeaderComponent,
+    AdminRutasComponent,
+    PuntosVentasComponent,
+    AdminPuntosComponent
   ],
   imports: [
     BrowserModule,

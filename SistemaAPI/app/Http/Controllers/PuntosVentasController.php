@@ -11,8 +11,28 @@ class PuntosVentasController extends Controller
     public function listarPuntosVentas()
     {
         $puntos = PuntosVentas::all();
+        $item = json_decode(json_encode($puntos), true);
+
+        for($i = 0; $i < count($puntos); $i++) {
+            $item[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/puntosVentas/'.$item[$i]['foto'];            
+        }
+
         if (count($puntos) > 0) {
-            return response()->json(['Puntos' => $puntos]);
+            return response()->json(['Puntos' => $item]);
+        } else {
+            return response()->json(['Mensaje' => 'Aún no hay puntos de ventas registrados.'], 404);
+        }
+    }
+
+    public function listarPuntosVentasID(Request $request)
+    {
+        $datos = $request->all();
+        $id = $datos['id'];
+        $puntos = PuntosVentas::find($id);
+        $item = json_decode(json_encode($puntos), true);
+        $item['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/puntosVentas/'.$item['foto'];
+        if ($puntos != null) {
+            return response()->json(['Puntos' => $item]);
         } else {
             return response()->json(['Mensaje' => 'Aún no hay puntos de ventas registrados.'], 404);
         }

@@ -1,0 +1,17 @@
+.content {
+    float: left;
+    width: 80%;
+    height: 100vh;
+    overflow: scroll;
+    padding: 2%;
+    .sheader {
+        margin-top: 5%;
+        margin-bottom: 5%;
+        .txtTitle {
+            float: left;
+        }
+        .btnAdd {
+            float: right;
+        }
+    }
+}

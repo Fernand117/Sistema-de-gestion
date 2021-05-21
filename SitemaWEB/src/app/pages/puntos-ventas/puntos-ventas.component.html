@@ -1,0 +1,28 @@
+<app-menu-bar></app-menu-bar>
+<div class="content">
+    <app-header></app-header>
+    <div class="sheader">
+        <h1 class="txtTitle">Lista general de los puntos de ventas.</h1>
+        <button class="btn btnAdd btn-success" [routerLink]="['/admin/puntos', 'add']">Añadir nuevo PV <i class="bi bi-plus-circle"></i></button>
+    </div>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Foto</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Eliminar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of listPuntos">
+                <th scope="row"> {{item.id}} </th>
+                <th class="col-6 col-sm-1"> <img src="{{item.foto}}" alt="" class="card-img-top"> </th>
+                <td> {{item.nombre}} </td>
+                <td><button class="btn btn-warning" [routerLink]="['/admin/puntos', item.id]"><i class="bi bi-pencil-square"></i></button></td>
+                <td><button class="btn btn-danger" (click)="eliminarPuntoVenta(item.id)"><i class="bi bi-trash"></i></button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -17,6 +17,18 @@ class RutasController extends Controller
         }
     }
 
+    public function listarRutaID(Request $request)
+    {
+        $datos = $request->all();
+        $id = $datos['id'];
+        $consultaRuta = Rutas::find($id);
+        if ($consultaRuta != null) {
+            return response()->json(['Ruta' => $consultaRuta]);
+        } else {
+            return response()->json(['Mensaje' => 'Esta ruta no existe'], 404);
+        }
+    }
+
     public function listaRutasUsuario(Request $request)
     {
         $datos = $request->all();
@@ -59,12 +71,7 @@ class RutasController extends Controller
             $ruta->nombre = $datos['nombre'];
             $ruta->idUsuario = $datos['idUsuario'];
             $ruta->update();
-            $ruta = Rutas::find($id);
-            if ($ruta != null) {
-                return response()->json(['Mensaje' => 'No se ha podido actualizar la ruta'], 404);
-            } else {
-                return response()->json(['Mensaje' => 'Ruta actualizada correctamente']);
-            }
+            return response()->json(['Mensaje' => 'Ruta actualizada correctamente']);
         } else {
             return response()->json(['Mensaje' => 'Esta ruta no existe']);
         }
@@ -81,12 +88,12 @@ class RutasController extends Controller
             $ruta = Rutas::find($id);
 
             if ($ruta != null) {
-                return response()->json(['Mensaje' => 'No se pudo eliminar la ruta selecionada']);
+                return response()->json(['Mensaje' => 'No se pudo eliminar la ruta selecionada'], 404);
             } else {
                 return response()->json(['Mensaje' => 'Ruta eliminada correctamente']);
             }
         } else {
-            return response()->json(['Mensaje' => 'No se ha podido localiar esta ruta.']);
+            return response()->json(['Mensaje' => 'No se ha podido localiar esta ruta.'], 404);
         }
     }
 }

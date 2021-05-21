@@ -3,6 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { InicioComponent } from './pages/inicio/inicio.component';
 import { RutasComponent } from './pages/rutas/rutas.component';
+import { AdminRutasComponent } from './pages/admin-rutas/admin-rutas.component';
+import { PuntosVentasComponent } from './pages/puntos-ventas/puntos-ventas.component';
+import { AdminPuntosComponent } from './pages/admin-puntos/admin-puntos.component';
 
 const routes: Routes = [
   {
@@ -13,6 +16,15 @@ const routes: Routes = [
   },
   {
     path: 'rutas', component: RutasComponent
+  },
+  {
+    path: 'admin/rutas/:id', component: AdminRutasComponent
+  },
+  {
+    path: 'puntos', component: PuntosVentasComponent
+  },
+  {
+    path: 'admin/puntos/:id', component: AdminPuntosComponent
   },
   {
     path: '**', redirectTo: 'login', pathMatch: 'full'

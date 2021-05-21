@@ -1,0 +1,16 @@
+.content {
+    float: left;
+    width: 80%;
+    height: 100vh;
+    overflow: scroll;
+    padding: 2%;
+    .formulario {
+        width: 90%;
+        height: 100px;
+        margin: 0 auto;
+        margin-top: 5%;
+    }
+    .form-control {
+        margin-bottom: 2%;
+    }
+}

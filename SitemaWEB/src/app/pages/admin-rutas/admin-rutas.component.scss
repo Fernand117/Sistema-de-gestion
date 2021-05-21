@@ -1,0 +1,18 @@
+.content {
+    float: left;
+    width: 80%;
+    height: 100vh;
+    overflow: scroll;
+    padding: 2%;
+    .formulario {
+        //background-color: royalblue;
+        width: 90%;
+        height: 100px;
+        margin: 0 auto;
+        margin-top: 5%;
+        .datos {
+            width: 100%;
+            float: left;
+        }
+    }
+}

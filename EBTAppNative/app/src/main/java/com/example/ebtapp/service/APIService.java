@@ -16,7 +16,7 @@ public class APIService {
     private StringBuilder sbparams;
     private HttpURLConnection connection;
     private DataOutputStream dataOutputStream;
-    private String urlBase = "http://192.168.1.75/sistemaAPI/api";
+    private String urlBase = "http://192.168.1.79/sistemaAPI/api";
 
     public HttpURLConnection ServiceSF(HashMap<String, String> parametros, String urlComplement, String method, String style){
         urlBase = urlBase + urlComplement;

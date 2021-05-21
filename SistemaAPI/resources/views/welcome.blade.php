@@ -5,91 +5,70 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
-
+        <title>EL BUEN TONO - API</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
         <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Raleway', sans-serif;
-                font-weight: 100;
-                height: 100vh;
+            *{
                 margin: 0;
+                padding: 0;
+            }
+            body {
+                font-family: 'Courier New', Courier, monospace;
+                background-image: url("http://www.serverfer.com/sistemaAPI/img/mechanical-key_2K.jpg");
             }
 
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
+            header{
+                width: 100%;
+                text-align: center;
+                background-color: royalblue;
+                color: white;
             }
 
             .content {
+                margin: 0 auto;
+                width: 90%;
+                background-color: red;
+                padding: 2%;
+                color: white;
+                margin-top: 8%;
                 text-align: center;
             }
 
-            .title {
-                font-size: 84px;
+            .doc {
+                width: 90%;
+                height: 50vh;
+                margin: 0 auto;
+                margin-top: 2%;
+                overflow: scroll;
+                text-align: center;
+                color: white;
+                background-color: royalblue;
             }
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
+            .contentDoc{
+                width: 100%;
+                background-color: rebeccapurple;
+                height: 100vh;
             }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
+        <header>
+            <h1>EL BUEN TONO - API</h1>
+        </header>
 
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
+        <div class="content">
+            BIENVENIDO AL SERVIDOR DE EL BUEN TONO, QUEDA PROHÍBIDO SU ACCESO A PERSONAS NO AUTORIZADAS, CUALQUIER TIPO DE ACTIVIDAD DENTRO DEL MISMO ESTÁ SIENDO MONITOREADA POR I.A
+        </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
+        <div class="doc">
+
+            <h1>DOCUMENTACIÓN DEL FUNCIONAMIENTO DEL API</h1>
+            <div class="contentDoc"></div>
         </div>
     </body>
 </html>

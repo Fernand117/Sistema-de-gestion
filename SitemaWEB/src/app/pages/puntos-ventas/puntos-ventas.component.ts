@@ -1,42 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiServiceService } from '../../services/api-service.service';
 import Swal from 'sweetalert2';
-import { ActivatedRoute, Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-rutas',
-  templateUrl: './rutas.component.html',
-  styleUrls: ['./rutas.component.scss']
+  selector: 'app-puntos-ventas',
+  templateUrl: './puntos-ventas.component.html',
+  styleUrls: ['./puntos-ventas.component.scss']
 })
-export class RutasComponent implements OnInit {
+export class PuntosVentasComponent implements OnInit {
 
-  datos: any;
-  listRutas: any;
+  listPuntos: any;
+  itemsPuntos: any;
   formData: FormData = new FormData();
 
   constructor(
-    private apiService: ApiServiceService,
-    private route: ActivatedRoute,
-    private router: Router
+    private apiService: ApiServiceService
   ) { }
 
   ngOnInit(): void {
-    this.getListRutas();
+    this.getListPuntos();
   }
 
-  getListRutas() {
-    this.apiService.listaRutas().subscribe(
-      respuesta => {
-        this.datos = respuesta;
-        this.listRutas = this.datos['Rutas'];
-      }, err => {
-        console.log(err);
+  getListPuntos() {
+    this.apiService.listPuntosVentas().subscribe(
+      res => {
+        this.itemsPuntos = res;
+        this.listPuntos = this.itemsPuntos['Puntos'];
       }
     );
   }
 
-  deleteRuta(id: any){
+  eliminarPuntoVenta(id: any) {
     Swal.fire({
       title: 'Alerta',
       text: "Desea eliminar la ruta con ID: " + id + "?",
@@ -48,15 +42,15 @@ export class RutasComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.formData.append('id', id);
-        this.apiService.eliminarRutas(this.formData).subscribe(
+        this.apiService.eliminarPuntoVenta(this.formData).subscribe(
           response => {
             console.log(response);
             Swal.fire(
               'Eliminado!',
-              'La ruta ' + id + " ha sido eliminada",
+              'El punto de venta con el id ' + id + " ha sido eliminado.",
               'success'
             );
-            this.getListRutas();
+            this.getListPuntos();
           }, err => {
             if (err['status'] === 500) {
               Swal.fire(

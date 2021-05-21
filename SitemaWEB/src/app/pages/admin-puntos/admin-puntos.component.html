@@ -1,0 +1,20 @@
+<app-menu-bar></app-menu-bar>
+<div class="content">
+    <app-header></app-header>
+    <div class="formulario">
+
+        <form (ngSubmit)="guardarDatos()" #form="ngForm">
+            <label for="idRuta">Selecciona una ruta.</label>
+            <select name="idRuta" id="idRuta" class="form-control" [(ngModel)]="puntosModel.idRuta">
+              <option value="0">Lista de rutas.</option>
+              <option value="{{item.id}}" *ngFor="let item of listDatosRutas">{{item.nombre}}</option>
+            </select>
+            <label for="foto">Foto del punto de venta.</label>
+            <input type="file" (change)="cargar_imagen($event)" name="foto" id="foto" class="form-control" [(ngModel)]="puntosModel.foto" accept="image/png, image/jpeg">
+            <label for="nombre">Nombre del PV.</label>
+            <input type="text" name="nombre" id="nombre" placeholder="Punto de venta" class="form-control" [(ngModel)]="puntosModel.nombre">
+            <button class="btn btn-primary">Guardar <i class="bi bi-save"></i></button>
+        </form>
+
+    </div>
+</div>
