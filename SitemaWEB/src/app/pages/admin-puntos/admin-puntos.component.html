@@ -6,7 +6,7 @@
         <form (ngSubmit)="guardarDatos()" #form="ngForm">
             <label for="idRuta">Selecciona una ruta.</label>
             <select name="idRuta" id="idRuta" class="form-control" [(ngModel)]="puntosModel.idRuta">
-              <option value="0">Lista de rutas.</option>
+              <option selected>Lista de rutas.</option>
               <option value="{{item.id}}" *ngFor="let item of listDatosRutas">{{item.nombre}}</option>
             </select>
             <label for="foto">Foto del punto de venta.</label>

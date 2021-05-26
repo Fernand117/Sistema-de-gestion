@@ -70,3 +70,11 @@ create view ViewRutasPuntos as
 select R.id as IDRuta, R.nombre as Ruta, PV.id as IDPUnto, PV.nombre as Punto, PV.foto from RUTAS R inner join PUNTOS_VENTAS PV on R.id = PV.idRuta;
 
 select * from ViewRutasPuntos;
+
+select * from USUARIOS;
+select * from TIPOS_USUARIOS;
+
+create view ViewLoginUsuario
+select u.id as IDUsuario, u.nombre, u.paterno, u.materno, u.fecha_nac, u.usuario, u.clave, u.foto_perfil, t.id as IDTipo, t.tipo from USUARIOS u, TIPOS_USUARIOS t where u.idTipo = t.id;
+
+select * from USUARIOS;

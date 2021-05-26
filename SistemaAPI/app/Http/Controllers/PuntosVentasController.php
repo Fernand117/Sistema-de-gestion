@@ -86,17 +86,20 @@ class PuntosVentasController extends Controller
         $id = $datos['id'];
         $punto = PuntosVentas::find($id);
         if ($punto != null) {
-            $puntos = new PuntosVentas();
             if (isset($datos['foto'])) {
-                $extension = $request->file('imagen')->getClientOriginalExtension();
+                $extension = $request->file('foto')->getClientOriginalExtension();
                 $path = base_path().'/public/img/puntosVentas/';
                 $nombre = "foto_".date('Y_m_d_h_i_s').".".$extension;
                 $request->file("foto")->move($path, $nombre);
-                $puntos->foto = $nombre;
+                $punto->foto = $nombre;
             }
-            $punto->nombre = $datos['nombre'];
-            $puntos->idRuta = $datos['idRuta'];
-            $puntos->update();
+            if (isset($datos['nombre'])) {
+                $punto->nombre = $datos['nombre'];
+            }
+            if (isset($datos['idRuta'])) {
+                $punto->idRuta = $datos['idRuta'];
+            }
+            $punto->update();
             return response()->json(['Mensaje' => 'Punto de venta actualizado correctamente']);
         }
     }

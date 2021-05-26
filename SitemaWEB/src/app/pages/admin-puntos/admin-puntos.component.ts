@@ -1,8 +1,8 @@
+import Swal from 'sweetalert2';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import Swal from 'sweetalert2';
-import { PuntosModelModule } from '../../models/puntos-model/puntos-model.module';
 import { ApiServiceService } from '../../services/api-service.service';
+import { PuntosModelModule } from '../../models/puntos-model/puntos-model.module';
 
 @Component({
   selector: 'app-admin-puntos',
@@ -57,7 +57,6 @@ export class AdminPuntosComponent implements OnInit {
     }
   }
 
-
   mensaje(mensaje: string, header: string){
     Swal.fire(
       header,
@@ -67,7 +66,12 @@ export class AdminPuntosComponent implements OnInit {
   }
 
   guardarDatos() {
-    this.formData.append('idRuta', this.puntosModel.idRuta.toString());
+    this.formData.append('id', this.id);
+    if (this.listDatos.idRuta !== this.puntosModel.idRuta && this.puntosModel.idRuta > 0) {
+      this.formData.append('idRuta', this.puntosModel.idRuta.toString());
+    } else {
+      this.formData.append('idRuta', this.listDatos.idRuta);
+    }
     this.formData.append('nombre', this.puntosModel.nombre);
     if (this.id === 'add') {
       this.apiService.crearPuntoVenta(this.formData).subscribe(
@@ -79,7 +83,6 @@ export class AdminPuntosComponent implements OnInit {
         }
       );
     } else {
-      this.formData.append('id', this.id);
       this.apiService.editarPuntoVenta(this.formData).subscribe(
         res => {
           this.itemDatos = res;
