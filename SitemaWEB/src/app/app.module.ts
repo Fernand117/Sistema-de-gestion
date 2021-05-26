@@ -12,6 +12,8 @@ import { HeaderComponent } from './components/header/header.component';
 import { AdminRutasComponent } from './pages/admin-rutas/admin-rutas.component';
 import { PuntosVentasComponent } from './pages/puntos-ventas/puntos-ventas.component';
 import { AdminPuntosComponent } from './pages/admin-puntos/admin-puntos.component';
+import { VendedoresComponent } from './pages/vendedores/vendedores.component';
+import { AdminVendedoresComponent } from './pages/admin-vendedores/admin-vendedores.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { AdminPuntosComponent } from './pages/admin-puntos/admin-puntos.componen
     HeaderComponent,
     AdminRutasComponent,
     PuntosVentasComponent,
-    AdminPuntosComponent
+    AdminPuntosComponent,
+    VendedoresComponent,
+    AdminVendedoresComponent
   ],
   imports: [
     BrowserModule,

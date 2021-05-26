@@ -10,7 +10,7 @@ class PuntosVentasController extends Controller
 {
     public function listarPuntosVentas()
     {
-        $puntos = PuntosVentas::all();
+        $puntos = DB::select('select * from ViewPuntosVentas');
         $item = json_decode(json_encode($puntos), true);
 
         for($i = 0; $i < count($puntos); $i++) {
@@ -28,9 +28,11 @@ class PuntosVentasController extends Controller
     {
         $datos = $request->all();
         $id = $datos['id'];
-        $puntos = PuntosVentas::find($id);
+        $puntos = DB::select('select * from ViewPuntosVentas where IDPunto = ?', [$id]);
         $item = json_decode(json_encode($puntos), true);
-        $item['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/puntosVentas/'.$item['foto'];
+        for ($i=0; $i < count($puntos); $i++) { 
+                    $item[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/puntosVentas/'.$item[$i]['foto'];
+        }
         if ($puntos != null) {
             return response()->json(['Puntos' => $item]);
         } else {

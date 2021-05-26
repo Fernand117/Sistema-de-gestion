@@ -6,14 +6,12 @@ use App\models\Usuarios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-#use Illuminate\Support\Facades\DB;
-
 class UsuariosController extends Controller
 {
     public function loginUsuarios(Request $request)
     {
         $datos = $request->all();
-        $usuario = DB::select('select * from USUARIOS where usuario = ? and clave = ?',[$datos['usuario'], md5($datos['clave'])]);
+        $usuario = DB::select('select * from ViewLoginUsuario where usuario = ? and clave = ?',[$datos['usuario'], md5($datos['clave'])]);
         if (count($usuario) <= 0) {
             return response()->json(['Mensaje' => 'Usuario o contraseña incorrectos.'], 404);
         } else {
@@ -27,7 +25,7 @@ class UsuariosController extends Controller
 
     public function listarUsuarios()
     {
-        $usuarios = Usuarios::all();
+        $usuarios = DB::select('select * from ViewUsuarios');
         if (count($usuarios) <= 0) {
             return response()->json(['Mensaje' => 'Aún no existen usuarios registrados'], 404);
         } else {

@@ -4,15 +4,15 @@
     <div class="formulario">
         <div class="nruta" id="nTitle"></div>
         <div class="datos">
-            <form (ngSubmit)="guardarRuta()" #form="ngForm">
-                <label for="idVendedor">Selecciona una ruta.</label>
+            <form (ngSubmit)="guardarRuta()" #form="ngForm" *ngFor="let ir of ruta">
+                <label for="idVendedor">Selecciona el vendedor.</label>
                 <select name="idVendedor" id="idVendedor" class="form-control" [(ngModel)]="rutasModel.idVendedor">
-                  <option value="0">Lista de rutas.</option>
+                  <option value="0" selected>Vendedor actual: {{ir.nombre}} {{ir.paterno}} </option>
                   <option value="{{item.id}}" *ngFor="let item of listaUsuarios">{{item.nombre}}</option>
                 </select>
                 <br>
                 <label for="nombre">Nombre de la ruta</label>
-                <input type="text" name="nombre" id="nombre" class="form-control" placeholder="{{ruta.nombre}}" [(ngModel)]="rutasModel.nombre">
+                <input type="text" name="nombre" id="nombre" class="form-control" placeholder="{{ir.Ruta}}" [(ngModel)]="rutasModel.nombre">
                 <br>
                 <button class="btn btn-primary">Guardar <i class="bi bi-save"></i></button>
             </form>

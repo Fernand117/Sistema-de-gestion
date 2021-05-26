@@ -4,41 +4,39 @@ import Swal from 'sweetalert2';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-rutas',
-  templateUrl: './rutas.component.html',
-  styleUrls: ['./rutas.component.scss']
+  selector: 'app-vendedores',
+  templateUrl: './vendedores.component.html',
+  styleUrls: ['./vendedores.component.scss']
 })
-export class RutasComponent implements OnInit {
+export class VendedoresComponent implements OnInit {
 
-  datos: any;
-  listRutas: any;
+  listVendedor: any;
+  itemVendedor: any;
   formData: FormData = new FormData();
 
   constructor(
     private apiService: ApiServiceService,
-    private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    this.getListRutas();
+    this.getListUsuarios();
   }
 
-  getListRutas() {
-    this.apiService.listaRutas().subscribe(
-      respuesta => {
-        this.datos = respuesta;
-        this.listRutas = this.datos['Rutas'];
-      }, err => {
-        console.log(err);
+  getListUsuarios() {
+    this.apiService.listaUsuarios().subscribe(
+      res => {
+        this.listVendedor = res;
+        this.itemVendedor = this.listVendedor['Usuarios'];
       }
     );
   }
 
-  deleteRuta(id: any){
+  deleteUsuario(id: any){
     Swal.fire({
       title: 'Alerta',
-      text: "Desea eliminar la ruta con ID: " + id + "?",
+      text: "Desea eliminar el usuario con ID: " + id + "?",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -47,7 +45,7 @@ export class RutasComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.formData.append('id', id);
-        this.apiService.eliminarRutas(this.formData).subscribe(
+        this.apiService.eliminarUsuario(this.formData).subscribe(
           response => {
             console.log(response);
             Swal.fire(
@@ -55,12 +53,12 @@ export class RutasComponent implements OnInit {
               'La ruta ' + id + " ha sido eliminada",
               'success'
             );
-            this.getListRutas();
+            this.getListUsuarios();
           }, err => {
             if (err['status'] === 500) {
               Swal.fire(
                 'Error!',
-                'No puede eliminar esta ruta porque tiene puntos de ventas asignados',
+                'No puede eliminar este usuario porque tiene rutas de asignadas',
                 'error'
               );
             }

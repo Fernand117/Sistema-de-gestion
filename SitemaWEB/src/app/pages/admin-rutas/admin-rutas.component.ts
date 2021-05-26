@@ -65,8 +65,16 @@ export class AdminRutasComponent implements OnInit {
 
   guardarRuta() {
     this.formData.append('id', this.id);
-    this.formData.append('idUsuario', this.rutasModel.idVendedor);
-    this.formData.append('nombre', this.rutasModel.nombre);
+    if (this.ruta[0]['idUsuario'] !== this.rutasModel.idVendedor && this.rutasModel.idVendedor > 0) {
+      this.formData.append('idUsuario', this.rutasModel.idVendedor.toString());
+    } else {
+      this.formData.append('idUsuario', this.ruta[0]['idUsuario']);
+    }
+    if (this.ruta[0]['Ruta'] !== this.rutasModel.nombre && this.rutasModel.nombre !== ''){
+      this.formData.append('nombre', this.rutasModel.nombre);
+    } else {
+      this.formData.append('nombre', this.ruta[0]['Ruta']);
+    }
 
     if (this.id === 'add') {
       this.apiService.registrarRuta(this.formData).subscribe(

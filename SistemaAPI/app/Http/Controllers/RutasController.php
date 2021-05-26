@@ -4,16 +4,23 @@ namespace App\Http\Controllers;
 
 use App\models\Rutas;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RutasController extends Controller
 {
     public function listarRutas()
     {
-        $rutas = Rutas::all();
+        $rutas = DB::select('select * from ViewRutas');
+        $itemsRutas = json_decode(json_encode($rutas), true);
+
+        for($i = 0; $i < count($rutas); $i++) {
+            $itemsRutas[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/perfiles/'.$itemsRutas[$i]['foto_perfil'];
+        }
+
         if (count($rutas) <= 0) {
 		    return response()->json(['Mensaje' => 'Aún no hay rutas registradas.'], 404);
         } else {
-		    return response()->json(['Rutas' => $rutas]);
+		    return response()->json(['Rutas' => $itemsRutas]);
         }
     }
 
@@ -21,7 +28,7 @@ class RutasController extends Controller
     {
         $datos = $request->all();
         $id = $datos['id'];
-        $consultaRuta = Rutas::find($id);
+        $consultaRuta = DB::select('select * from ViewRutas where id = ?', [$id]);
         if ($consultaRuta != null) {
             return response()->json(['Ruta' => $consultaRuta]);
         } else {

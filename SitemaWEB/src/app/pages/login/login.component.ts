@@ -50,15 +50,20 @@ export class LoginComponent implements OnInit {
           this.apiService.loginUsuario(this.formData).subscribe(
             res => {
               this.datos = res;
-              Swal.fire({
-                position: 'top-end',
-                icon: 'success',
-                title: 'Sesión iniciada.',
-                showConfirmButton: false,
-                timer: 1500
-              });
-              localStorage.setItem('Usuario', JSON.stringify(this.datos['Usuarios']));
-              this.router.navigateByUrl('inicio');
+              const tipo = this.datos['Usuarios'][0]['tipo'];
+              if (tipo === 'Administrador') {
+                Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: 'Sesión iniciada.',
+                  showConfirmButton: false,
+                  timer: 1500
+                });
+                localStorage.setItem('Usuario', JSON.stringify(this.datos['Usuarios']));
+                this.router.navigateByUrl('inicio');
+              } else {
+                this.alertFailed('Usted no tiene persmisos de usuario para ingresar al sistema, contacte con el administrador del área.');
+              }
             }, error => {
               if (error['status'] === 404) {
                 this.alertFailed(error['error']['Mensaje']);

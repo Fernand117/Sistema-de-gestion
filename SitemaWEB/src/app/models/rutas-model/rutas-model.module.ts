@@ -10,10 +10,10 @@ import { CommonModule } from '@angular/common';
   ]
 })
 export class RutasModelModule {
-  idVendedor: string;
+  idVendedor: number;
   nombre: string;
   constructor() {
-    this.idVendedor = "";
+    this.idVendedor = 0;
     this.nombre = "";
   }
 }

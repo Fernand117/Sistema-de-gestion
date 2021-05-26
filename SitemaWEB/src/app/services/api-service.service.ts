@@ -16,6 +16,10 @@ export class ApiServiceService {
     return this.http.get(`${this.url}/lista/usuarios`);
   }
 
+  eliminarUsuario(datos: any) {
+    return this.http.post(`${this.url}/eliminar/usuario`, datos);
+  }
+
   loginUsuario(datos: any) {
     return this.http.post(`${this.url}/login/usuarios`, datos);
   }

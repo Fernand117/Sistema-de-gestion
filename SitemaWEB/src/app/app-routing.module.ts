@@ -6,6 +6,8 @@ import { RutasComponent } from './pages/rutas/rutas.component';
 import { AdminRutasComponent } from './pages/admin-rutas/admin-rutas.component';
 import { PuntosVentasComponent } from './pages/puntos-ventas/puntos-ventas.component';
 import { AdminPuntosComponent } from './pages/admin-puntos/admin-puntos.component';
+import { VendedoresComponent } from './pages/vendedores/vendedores.component';
+import { AdminVendedoresComponent } from './pages/admin-vendedores/admin-vendedores.component';
 
 const routes: Routes = [
   {
@@ -25,6 +27,12 @@ const routes: Routes = [
   },
   {
     path: 'admin/puntos/:id', component: AdminPuntosComponent
+  },
+  {
+    path: 'vendedores', component: VendedoresComponent
+  },
+  {
+    path: 'admin/vededor/:id', component: AdminVendedoresComponent
   },
   {
     path: '**', redirectTo: 'login', pathMatch: 'full'

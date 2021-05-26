@@ -35,6 +35,9 @@ import java.net.HttpURLConnection;
 import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
+    private Button btnLogin;
+    private TextInputEditText txtUsuario; //ESTOS TIENES QUE PONERLOS COMO EditText
+    private TextInputEditText txtPassword; //ESTOS TIENES QUE PONERLOS COMO EditText
 
     private String line;
     private int responseCode;
@@ -45,10 +48,6 @@ public class LoginActivity extends AppCompatActivity {
     private BufferedReader bufferedReader;
 
     private DataBaseBack dataBaseBack;
-
-    private Button btnLogin;
-    private TextInputEditText txtUsuario;
-    private TextInputEditText txtPassword;
     private TextView txtMensaje;
     private Intent homeIntent;
     private UsuariosModel usuariosModel;
@@ -61,6 +60,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         getSupportActionBar().hide();
 
+        txtUsuario = (TextInputEditText) findViewById(R.id.txtUsuario);
+        txtPassword = (TextInputEditText) findViewById(R.id.txtPassword);
+        txtMensaje = (TextView) findViewById(R.id.txtMensaje);
+
         dataBaseBack = new DataBaseBack(this);
         usuariosModel = new UsuariosModel();
 
@@ -68,9 +71,7 @@ public class LoginActivity extends AppCompatActivity {
         contentValues = new ContentValues();
 
         homeIntent = new Intent(LoginActivity.this, MainActivity.class);
-        txtUsuario = (TextInputEditText) findViewById(R.id.txtUsuario);
-        txtPassword = (TextInputEditText) findViewById(R.id.txtPassword);
-        txtMensaje = (TextView) findViewById(R.id.txtMensaje);
+
 
         btnLogin = (Button) findViewById(R.id.btnLogin);
         btnLogin.setOnClickListener(new View.OnClickListener() {
