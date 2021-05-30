@@ -1,18 +1,29 @@
 package com.example.ebtapp.ui;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NavUtils;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
+import android.database.Cursor;
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.ebtapp.MainActivity;
 import com.example.ebtapp.R;
 import com.example.ebtapp.adapters.PVentasRutasAdapter;
+import com.example.ebtapp.database.DataBaseBack;
 import com.example.ebtapp.model.PVentasModel;
 import com.example.ebtapp.model.Rutas;
+import com.example.ebtapp.model.UsuariosModel;
 import com.example.ebtapp.service.APIService;
 
 import org.json.JSONArray;

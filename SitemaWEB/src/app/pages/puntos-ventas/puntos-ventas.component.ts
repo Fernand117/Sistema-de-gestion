@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiServiceService } from '../../services/api-service.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-puntos-ventas',
@@ -14,11 +15,15 @@ export class PuntosVentasComponent implements OnInit {
   formData: FormData = new FormData();
 
   constructor(
-    private apiService: ApiServiceService
+    private apiService: ApiServiceService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.getListPuntos();
+    if (localStorage.getItem('Usuario') === null) {
+      this.router.navigateByUrl('/login');
+    }
   }
 
   getListPuntos() {

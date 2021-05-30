@@ -29,7 +29,7 @@
                 <td>{{item.fecha_nac}}</td>
                 <td>{{item.usuario}}</td>
                 <td>{{item.tipo}}</td>
-                <td><button class="btn btn-warning" [routerLink]="['/admin/rutas', item.id]"><i class="bi bi-pencil-square"></i></button></td>
+                <td><button class="btn btn-warning" [routerLink]="['/admin/vendedor', item.id]"><i class="bi bi-pencil-square"></i></button></td>
                 <td><button class="btn btn-danger" (click)="deleteUsuario(item.id)"><i class="bi bi-trash"></i></button></td>
             </tr>
         </tbody>

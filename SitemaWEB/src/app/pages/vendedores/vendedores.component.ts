@@ -12,6 +12,8 @@ export class VendedoresComponent implements OnInit {
 
   listVendedor: any;
   itemVendedor: any;
+  datos: any;
+  usuario: any;
   formData: FormData = new FormData();
 
   constructor(
@@ -22,6 +24,9 @@ export class VendedoresComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListUsuarios();
+    if (localStorage.getItem('Usuario') === null) {
+      this.router.navigateByUrl('/login');
+    }
   }
 
   getListUsuarios() {
@@ -44,26 +49,36 @@ export class VendedoresComponent implements OnInit {
       confirmButtonText: 'Confirmar'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.formData.append('id', id);
-        this.apiService.eliminarUsuario(this.formData).subscribe(
-          response => {
-            console.log(response);
-            Swal.fire(
-              'Eliminado!',
-              'La ruta ' + id + " ha sido eliminada",
-              'success'
-            );
-            this.getListUsuarios();
-          }, err => {
-            if (err['status'] === 500) {
+        this.datos = localStorage.getItem('Usuario');
+        this.usuario = JSON.parse(this.datos);
+        if (this.usuario[0]['IDUsuario'] === id) {
+          Swal.fire(
+            'Error!',
+            'No puede eliminar este usuario porque tiene sesión iniciada.',
+            'error'
+          );
+        } else {
+          this.formData.append('id', id);
+          this.apiService.eliminarUsuario(this.formData).subscribe(
+            response => {
+              console.log(response);
               Swal.fire(
-                'Error!',
-                'No puede eliminar este usuario porque tiene rutas de asignadas',
-                'error'
+                'Eliminado!',
+                'La ruta ' + id + " ha sido eliminada",
+                'success'
               );
+              this.getListUsuarios();
+            }, err => {
+              if (err['status'] === 500) {
+                Swal.fire(
+                  'Error!',
+                  'No puede eliminar este usuario porque tiene rutas de asignadas',
+                  'error'
+                );
+              }
             }
-          }
-        );
+          );
+        }
       }
     });
   }

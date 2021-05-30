@@ -79,10 +79,9 @@ select u.id as IDUsuario, u.nombre, u.paterno, u.materno, u.fecha_nac, u.usuario
 
 select * from ViewLoginUsuario where tipo = 'Administrador';
 select * from RUTAS;
+
 create view ViewRutas as
 select r.id, r.nombre as Ruta, r.idUsuario, u.nombre, u.paterno, u.foto_perfil from RUTAS r, USUARIOS u where r.idUsuario = u.id order by u.nombre;
-drop view ViewRutas;
-select * from ViewRutas;
 
 select * from RUTAS;
 
@@ -96,6 +95,7 @@ select * from TIPOS_USUARIOS;
 
 create view ViewUsuarios as
 select u.id, u.nombre, u.paterno, u.materno, u.fecha_nac, u.usuario, u.clave, u.foto_perfil, u.idTipo, t.tipo from USUARIOS u, TIPOS_USUARIOS t where u.idTipo = t.id;
+
 select * from ViewUsuarios where usuario = 'Fernand117';
 
 select * from USUARIOS, RUTAS, PUNTOS_VENTAS, DIRECCIONES;

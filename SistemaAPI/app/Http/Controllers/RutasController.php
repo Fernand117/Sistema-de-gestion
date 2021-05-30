@@ -30,7 +30,7 @@ class RutasController extends Controller
         $id = $datos['id'];
         $consultaRuta = DB::select('select * from ViewRutas where id = ?', [$id]);
         if ($consultaRuta != null) {
-            return response()->json(['Ruta' => $consultaRuta]);
+            return response()->json(['Rutas' => $consultaRuta]);
         } else {
             return response()->json(['Mensaje' => 'Esta ruta no existe'], 404);
         }

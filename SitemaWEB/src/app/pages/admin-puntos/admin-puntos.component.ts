@@ -28,18 +28,22 @@ export class AdminPuntosComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListaDetalles();
+
+    if (localStorage.getItem('Usuario') === null) {
+      this.router.navigateByUrl('/login');
+    }
   }
 
   getListaDetalles() {
     this.formData.append('id', this.id);
     if (this.id === 'add') {
-
+      this.listDatos = this.id;
     } else {
       this.apiService.listaPuntosVentasID(this.formData).subscribe(
         res => {
           this.itemDatos = res;
-          this.listDatos = this.itemDatos['Puntos'];
-          console.log(this.listDatos)
+          this.listDatos = this.itemDatos['Puntos'][0];
+          console.log(this.listDatos.Punto)
         }
       );
     }

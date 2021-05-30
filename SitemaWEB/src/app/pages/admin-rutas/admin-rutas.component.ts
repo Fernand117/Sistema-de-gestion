@@ -29,6 +29,10 @@ export class AdminRutasComponent implements OnInit {
   ngOnInit(): void {
     this.getRutaID();
     this.getlistaUsuarios();
+
+    if (localStorage.getItem('Usuario') === null) {
+      this.router.navigateByUrl('/login');
+    }
   }
 
   getlistaUsuarios() {

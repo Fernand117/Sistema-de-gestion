@@ -22,6 +22,9 @@ export class RutasComponent implements OnInit {
 
   ngOnInit(): void {
     this.getListRutas();
+    if (localStorage.getItem('Usuario') === null) {
+      this.router.navigateByUrl('/login');
+    }
   }
 
   getListRutas() {

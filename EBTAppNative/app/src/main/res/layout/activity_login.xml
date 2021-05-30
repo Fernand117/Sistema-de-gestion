@@ -5,6 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.login.LoginActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@drawable/ebt_back3"
+            android:layout_gravity="top"/>
+    </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -12,7 +22,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="250dp"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -21,7 +31,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/unifrakturcookbold"
                     android:gravity="center"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="10dp"
                     android:text="El Buen Tono"
                     android:textSize="60dp" />
 
@@ -30,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:fontFamily="@font/loravariablefontwght"
-                    android:textColor="@color/primary"
+                    android:textColor="@color/white"
                     android:text="Sistema de gestión"
                     android:textSize="18dp" />
             </LinearLayout>
@@ -47,12 +58,19 @@
                     android:id="@+id/txtMensaje"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="Inicia sesión para continuar"
+                    android:textSize="20dp"
+                    android:layout_margin="20dp"
+                    android:textStyle="bold"
                     android:gravity="center"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nombre de Usuario">
+                    android:hint="Nombre de usuario"
+                    app:startIconDrawable="@drawable/ic_baseline_person_24"
+                    app:endIconMode="clear_text"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txtUsuario"
@@ -64,22 +82,32 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:startIconDrawable="@drawable/ic_baseline_lock_24"
+                    app:endIconMode="password_toggle"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:hint="Contraseña">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/txtPassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="textPassword" />
+                        android:layout_marginTop="10dp"
+                        android:inputType="textPassword"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
                     android:id="@+id/btnLogin"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/back_buttons"
                     android:text="Iniciar sesión"
                     android:textColor="@color/white"
-                    android:backgroundTint="@color/primary_dark1"/>
+                    app:backgroundTint="@color/primary_dark1"
+                    app:icon="@drawable/ic_baseline_login_24"
+                    app:iconTint="@color/white"
+                    app:iconGravity="textStart"
+                    style="@style/Widget.MaterialComponents.Button.TextButton.Icon"/>
             </LinearLayout>
 
         </LinearLayout>

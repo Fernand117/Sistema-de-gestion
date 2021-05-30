@@ -67,7 +67,6 @@ public class HomeFragment extends Fragment {
         progressDialog = new ProgressDialog(getContext());
 
         new getRutasAsync().execute();
-
         return view;
     }
 

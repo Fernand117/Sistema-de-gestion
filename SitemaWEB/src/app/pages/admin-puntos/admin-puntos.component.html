@@ -3,16 +3,16 @@
     <app-header></app-header>
     <div class="formulario">
 
-        <form (ngSubmit)="guardarDatos()" #form="ngForm" *ngFor="let ipv of listDatos">
+        <form (ngSubmit)="guardarDatos()" #form="ngForm">
             <label for="idRuta">Selecciona una ruta.</label>
             <select name="idRuta" id="idRuta" class="form-control" [(ngModel)]="puntosModel.idRuta">
-              <option value="0" selected>Ruta actual: {{ipv.Ruta}} </option>
+              <option value="0" selected>Ruta actual:{{listDatos.Ruta}} </option>
               <option value="{{item.id}}" *ngFor="let item of listDatosRutas">{{item.Ruta}}</option>
             </select>
             <label for="foto">Foto del punto de venta.</label>
             <input type="file" (change)="cargar_imagen($event)" name="foto" id="foto" class="form-control" [(ngModel)]="puntosModel.foto" accept="image/png, image/jpeg">
             <label for="nombre">Nombre del PV.</label>
-            <input type="text" name="nombre" id="nombre" placeholder="{{ipv.Punto}}" class="form-control" [(ngModel)]="puntosModel.nombre">
+            <input type="text" name="nombre" id="nombre" placeholder="{{listDatos.Punto}}" class="form-control" [(ngModel)]="puntosModel.nombre">
             <button class="btn btn-primary">Guardar <i class="bi bi-save"></i></button>
         </form>
 

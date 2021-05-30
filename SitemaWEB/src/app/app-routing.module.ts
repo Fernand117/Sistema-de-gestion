@@ -32,7 +32,7 @@ const routes: Routes = [
     path: 'vendedores', component: VendedoresComponent
   },
   {
-    path: 'admin/vededor/:id', component: AdminVendedoresComponent
+    path: 'admin/vendedor/:id', component: AdminVendedoresComponent
   },
   {
     path: '**', redirectTo: 'login', pathMatch: 'full'

@@ -36,8 +36,8 @@ import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
-    private TextInputEditText txtUsuario; //ESTOS TIENES QUE PONERLOS COMO EditText
-    private TextInputEditText txtPassword; //ESTOS TIENES QUE PONERLOS COMO EditText
+    private TextInputEditText txtUsuario;
+    private TextInputEditText txtPassword;
 
     private String line;
     private int responseCode;
@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                 } else {
                     usuariosModel.setUsuario(txtUsuario.getText().toString());
                     usuariosModel.setClave(txtPassword.getText().toString());
-                    txtMensaje.setTextColor(Color.GREEN);
+                    txtMensaje.setTextColor(Color.BLACK);
                     new loginAsync().execute();
                 }
             }
@@ -167,13 +167,15 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (jsonObject != null){
                             JSONArray jsonArray = jsonObject.optJSONArray(jsonResponse);
+                            System.out.println("JSON RESPUESTA: " + jsonArray);
                             for (int i= 0; i < jsonArray.length(); i++){
                                 JSONObject jsonObjectUs = jsonArray.getJSONObject(i);
-                                usuariosModel.setId(Integer.parseInt(jsonObjectUs.getString("id")));
+
+                                usuariosModel.setId(Integer.parseInt(jsonObjectUs.getString("IDUsuario")));
                                 usuariosModel.setUsuario(jsonObjectUs.getString("usuario"));
                                 usuariosModel.fullName(jsonObjectUs.getString("nombre"), jsonObjectUs.getString("paterno"), jsonObjectUs.getString("materno"));
                                 usuariosModel.setUrl_foto(jsonObjectUs.getString("foto_perfil"));
-                                usuariosModel.setIdTipo(Integer.parseInt(jsonObjectUs.getString("idTipo")));
+                                usuariosModel.setIdTipo(Integer.parseInt(jsonObjectUs.getString("IDTipo")));
                             }
                         }
                     } else {

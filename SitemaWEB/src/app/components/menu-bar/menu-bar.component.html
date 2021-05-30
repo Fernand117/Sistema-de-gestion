@@ -2,7 +2,7 @@
     <div class="menu" *ngFor="let item of usuario">
         <img src="{{item.foto_perfil}}" alt="foto" class="img">
         <h3 class="txtNombre"> {{item.nombre}} </h3>
-        <button class="btn btn-danger">Cerrar sesión <i class="bi bi-box-arrow-left"></i></button>
+        <button class="btn btn-danger" (click)="closeSession()">Cerrar sesión <i class="bi bi-box-arrow-left"></i></button>
         <ul>
             <li>
                 <a [routerLink]="['/inicio']">Inicio</a>
