@@ -18,7 +18,7 @@
             }
             body {
                 font-family: 'Courier New', Courier, monospace;
-                background-image: url("http://www.serverfer.com/sistemaAPI/img/mechanical-key_2K.jpg");
+                background-image: url("https://ebtapi.herokuapp.com/img/mechanical-key_2K.jpg");
             }
 
             header{

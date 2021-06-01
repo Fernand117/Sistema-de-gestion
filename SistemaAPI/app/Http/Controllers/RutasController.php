@@ -14,7 +14,7 @@ class RutasController extends Controller
         $itemsRutas = json_decode(json_encode($rutas), true);
 
         for($i = 0; $i < count($rutas); $i++) {
-            $itemsRutas[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/perfiles/'.$itemsRutas[$i]['foto_perfil'];
+            $itemsRutas[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/img/perfiles/'.$itemsRutas[$i]['foto_perfil'];
         }
 
         if (count($rutas) <= 0) {
@@ -29,10 +29,10 @@ class RutasController extends Controller
         $datos = $request->all();
         $id = $datos['id'];
         $consultaRuta = DB::select('select * from ViewRutas where id = ?', [$id]);
-        if ($consultaRuta != null) {
-            return response()->json(['Rutas' => $consultaRuta]);
-        } else {
+        if (count($consultaRuta) <= 0) {
             return response()->json(['Mensaje' => 'Esta ruta no existe'], 404);
+        } else {
+            return response()->json(['Rutas' => $consultaRuta]);
         }
     }
 
@@ -43,7 +43,7 @@ class RutasController extends Controller
 
         $rutas = Rutas::where('idUsuario', '=', $id)->get();
         if (count($rutas) <= 0){
-            return response()->json(['Mensaje' => 'Usted no tiene rutas asignadas.', 404]);
+            return response()->json(['Mensaje' => 'Usted no tiene rutas asignadas.'], 404);
         } else {
             return response()->json(['Rutas' => $rutas]);
         }

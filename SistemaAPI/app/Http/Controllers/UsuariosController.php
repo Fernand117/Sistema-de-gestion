@@ -17,7 +17,7 @@ class UsuariosController extends Controller
         } else {
             $items = json_decode(json_encode($usuario), true);
             for ($i=0; $i < count($usuario); $i++) { 
-                $items[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/perfiles/'.$items[$i]['foto_perfil'];
+                $items[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/img/perfiles/'.$items[$i]['foto_perfil'];
             }
             return response()->json(['Usuarios' => $items]);
         }
@@ -31,7 +31,7 @@ class UsuariosController extends Controller
         } else {
             $items = json_decode(json_encode($usuarios), true);
             for ($i=0; $i < count($usuarios); $i++) { 
-                $items[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/perfiles/'.$items[$i]['foto_perfil'];
+                $items[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/img/perfiles/'.$items[$i]['foto_perfil'];
             }
             return response()->json(['Usuarios' => $items]);
         }
@@ -66,9 +66,7 @@ class UsuariosController extends Controller
             $usuario->clave = md5($datos['clave']);
             $usuario->idTipo = $datos['tipo'];
             $usuario->save();
-    
-	    #$consultaUsuario = DB::select('select * from USUARIOS where usuario = ?', [$datos['usuario']]);
-	    $consultaUsuario = Usuarios::where('usuario','=', $datos['usuario'])->get();
+	        $consultaUsuario = Usuarios::where('usuario','=', $datos['usuario'])->get();
             if (count($consultaUsuario) <= 0) {
                 return response()->json(['Mensaje' => 'No se pudo registrar al usuario'], 404);
             } else {

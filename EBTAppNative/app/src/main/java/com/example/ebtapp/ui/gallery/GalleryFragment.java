@@ -165,7 +165,6 @@ public class GalleryFragment extends Fragment {
                         try {
                             jsonObject = new JSONObject(builderResult.toString());
                             if (jsonObject != null){
-                                System.out.println("RESPUESTA JSON RUTAS ====> " + jsonObject);
                                 JSONArray jsonArray = jsonObject.getJSONArray(jsonResponse);
                                 for (int i = 0; i < jsonArray.length(); i++){
                                     JSONObject jsonRutas = jsonArray.getJSONObject(i);
