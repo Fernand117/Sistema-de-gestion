@@ -24,6 +24,7 @@ import com.example.ebtapp.databinding.FragmentGalleryBinding;
 import com.example.ebtapp.model.Rutas;
 import com.example.ebtapp.service.APIService;
 import com.example.ebtapp.ui.PuntosVentasActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,6 +54,7 @@ public class GalleryFragment extends Fragment {
     private ListView listViewRutas;
     private Rutas rutas;
     private TextView txtMensaje;
+    private FloatingActionButton btnNRuta;
     private ArrayList<HashMap<String, String>> listRutas;
     private GalleryViewModel galleryViewModel;
     private FragmentGalleryBinding binding;
@@ -65,6 +67,7 @@ public class GalleryFragment extends Fragment {
         rutas = new Rutas();
         txtMensaje = (TextView) view.findViewById(R.id.txtMensajelist);
         listViewRutas = (ListView) view.findViewById(R.id.listRutas);
+        btnNRuta = (FloatingActionButton) view.findViewById(R.id.btnNRuta);
         listRutas = new ArrayList<HashMap<String, String>>();
 
         listViewRutas.setOnItemClickListener(new AdapterView.OnItemClickListener() {

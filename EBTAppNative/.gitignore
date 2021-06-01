@@ -7,9 +7,12 @@
 /.idea/workspace.xml
 /.idea/navEditor.xml
 /.idea/assetWizardSettings.xml
+/gradle/wrapper/gradle-wrapper.properties
+/gradle/wrapper/gradle-wrapper.jar
 .DS_Store
 /build
 /captures
 .externalNativeBuild
 .cxx
 local.properties
+build.gradle

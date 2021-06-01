@@ -167,6 +167,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         if (jsonObject != null){
                             JSONArray jsonArray = jsonObject.optJSONArray(jsonResponse);
+                            System.out.print(jsonArray);
                             System.out.println("JSON RESPUESTA: " + jsonArray);
                             for (int i= 0; i < jsonArray.length(); i++){
                                 JSONObject jsonObjectUs = jsonArray.getJSONObject(i);
@@ -222,7 +223,7 @@ public class LoginActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                homeIntent.putExtra("usuario", usuariosModel.getUsuario());
+                //homeIntent.putExtra("usuario", usuariosModel.getUsuario());
                 startActivity(homeIntent);
             }
         }

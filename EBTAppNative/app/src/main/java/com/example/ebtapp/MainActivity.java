@@ -40,18 +40,12 @@ public class MainActivity extends AppCompatActivity {
 
         dataBaseBack = new DataBaseBack(this);
         usuariosModel = new UsuariosModel();
-        usuariosModel.setUsuario(getIntent().getStringExtra("usuario"));
+        //usuariosModel.setUsuario(getIntent().getStringExtra("usuario"));
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.appBarMain.toolbar);
-        binding.appBarMain.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -71,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         try {
             SQLiteDatabase database = dataBaseBack.getWritableDatabase();
             if (database != null){
-                String[] args = new String[] {usuariosModel.getUsuario()};
-                Cursor cursor = database.rawQuery("SELECT * FROM usuario WHERE usuario = ?", args);
+                //String[] args = new String[] {usuariosModel.getUsuario()};
+                Cursor cursor = database.rawQuery("SELECT * FROM usuario", null);
                 if (cursor != null && cursor.getCount() > 0){
                     cursor.moveToFirst();
                     do {
