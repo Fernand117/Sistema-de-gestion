@@ -17,7 +17,7 @@ class UsuariosController extends Controller
         } else {
             $items = json_decode(json_encode($usuario), true);
             for ($i=0; $i < count($usuario); $i++) { 
-                $items[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/img/perfiles/'.$items[$i]['foto_perfil'];
+                $items[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/perfiles/'.$items[$i]['foto_perfil'];
             }
             return response()->json(['Usuarios' => $items]);
         }
@@ -31,7 +31,7 @@ class UsuariosController extends Controller
         } else {
             $items = json_decode(json_encode($usuarios), true);
             for ($i=0; $i < count($usuarios); $i++) { 
-                $items[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/img/perfiles/'.$items[$i]['foto_perfil'];
+                $items[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/perfiles/'.$items[$i]['foto_perfil'];
             }
             return response()->json(['Usuarios' => $items]);
         }

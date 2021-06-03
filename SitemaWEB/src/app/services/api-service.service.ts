@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core';
 })
 export class ApiServiceService {
 
-  private url = 'https://ebtapi.herokuapp.com/api';
+  private url = 'http://192.168.1.80/sistemaAPI/api';
+  //private url = 'https://ebtapi.herokuapp.com/api';
 
   constructor(
     private http: HttpClient

@@ -7,7 +7,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -62,7 +64,7 @@ public class GalleryFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_gallery, container, false);
-
+        
         dataBaseBack = new DataBaseBack(getContext());
         rutas = new Rutas();
         txtMensaje = (TextView) view.findViewById(R.id.txtMensajelist);
@@ -70,12 +72,39 @@ public class GalleryFragment extends Fragment {
         btnNRuta = (FloatingActionButton) view.findViewById(R.id.btnNRuta);
         listRutas = new ArrayList<HashMap<String, String>>();
 
+        listViewRutas.setOnTouchListener(new ListView.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                if (MotionEvent.ACTION_DOWN == 0) {
+                    v.getParent().requestDisallowInterceptTouchEvent(false);
+                    switch (action) {
+                        case MotionEvent.ACTION_DOWN:
+                            v.getParent().requestDisallowInterceptTouchEvent(true);
+                            break;
+                    }
+                } else if (MotionEvent.ACTION_UP == 1) {
+                    v.getParent().requestDisallowInterceptTouchEvent(false);
+                    switch (action) {
+                        case MotionEvent.ACTION_UP:
+                            v.getParent().requestDisallowInterceptTouchEvent(true);
+                            break;
+                    }
+                }
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;
+            }
+        });
+
         listViewRutas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String idRuta = ((TextView) view.findViewById(R.id.txtIDRuta)).getText().toString();
+                String ruta = ((TextView) view.findViewById(R.id.txtNombreRuta)).getText().toString();
                 Intent pvIntent = new Intent(getContext(), PuntosVentasActivity.class);
                 pvIntent.putExtra("idRuta", idRuta);
+                pvIntent.putExtra("punto", ruta);
                 startActivity(pvIntent);
             }
         });
@@ -197,7 +226,7 @@ public class GalleryFragment extends Fragment {
 
         @Override
         protected void onPostExecute(JSONObject jsonObject) {
-            //super.onPostExecute(jsonObject);
+            super.onPostExecute(jsonObject);
             if (progressDialog != null && progressDialog.isShowing()){
                 progressDialog.dismiss();
             }

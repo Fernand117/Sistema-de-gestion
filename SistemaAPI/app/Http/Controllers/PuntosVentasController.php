@@ -14,7 +14,7 @@ class PuntosVentasController extends Controller
         $item = json_decode(json_encode($puntos), true);
 
         for($i = 0; $i < count($puntos); $i++) {
-            $item[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/img/puntosVentas/'.$item[$i]['foto'];            
+            $item[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/puntosVentas/'.$item[$i]['foto'];            
         }
 
         if (count($puntos) > 0) {
@@ -31,7 +31,7 @@ class PuntosVentasController extends Controller
         $puntos = DB::select('select * from ViewPuntosVentas where IDPunto = ?', [$id]);
         $item = json_decode(json_encode($puntos), true);
         for ($i=0; $i < count($puntos); $i++) { 
-                    $item[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/img/puntosVentas/'.$item[$i]['foto'];
+                    $item[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/puntosVentas/'.$item[$i]['foto'];
         }
         if ($puntos != null) {
             return response()->json(['Puntos' => $item]);
@@ -50,7 +50,7 @@ class PuntosVentasController extends Controller
         $item = json_decode(json_encode($consulta), true);
 
         for ($i=0; $i < count($consulta); $i++) { 
-            $item[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/img/puntosVentas/'.$item[$i]['foto'];
+            $item[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/puntosVentas/'.$item[$i]['foto'];
         }
 
         if (count($consulta) <= 0){

@@ -16,8 +16,8 @@ public class APIService {
     private StringBuilder sbparams;
     private HttpURLConnection connection;
     private DataOutputStream dataOutputStream;
-    //private String urlBase = "http://192.168.1.80/sistemaAPI/api";
-    private String urlBase = "https://ebtapi.herokuapp.com/api";
+    private String urlBase = "http://192.168.1.80/sistemaAPI/api";
+    //private String urlBase = "https://ebtapi.herokuapp.com/api";
 
     public HttpURLConnection ServiceSF(HashMap<String, String> parametros, String urlComplement, String method, String style){
         urlBase = urlBase + urlComplement;

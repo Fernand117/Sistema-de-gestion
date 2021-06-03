@@ -43,7 +43,7 @@ export class AdminPuntosComponent implements OnInit {
         res => {
           this.itemDatos = res;
           this.listDatos = this.itemDatos['Puntos'][0];
-          console.log(this.listDatos.Punto)
+          console.log(this.listDatos['IDRuta']);
         }
       );
     }
@@ -72,16 +72,16 @@ export class AdminPuntosComponent implements OnInit {
 
   guardarDatos() {
     this.formData.append('id', this.id);
-    if (this.listDatos[0]['IDRuta'] !== this.puntosModel.idRuta && this.puntosModel.idRuta > 0) {
+    if (this.listDatos['IDRuta'] !== this.puntosModel.idRuta && this.puntosModel.idRuta > 0) {
       this.formData.append('idRuta', this.puntosModel.idRuta.toString());
     } else {
-      this.formData.append('idRuta', this.listDatos[0]['IDRuta']);
+      this.formData.append('idRuta', this.listDatos['IDRuta']);
     }
 
-    if (this.listDatos[0]['Punto'] !== this.puntosModel.nombre && this.puntosModel.nombre !== ''){
+    if (this.listDatos['Punto'] !== this.puntosModel.nombre && this.puntosModel.nombre !== ''){
       this.formData.append('nombre', this.puntosModel.nombre);
     } else {
-      this.formData.append('nombre', this.listDatos[0]['Punto']);
+      this.formData.append('nombre', this.listDatos['Punto']);
     }
     if (this.id === 'add') {
       this.apiService.crearPuntoVenta(this.formData).subscribe(

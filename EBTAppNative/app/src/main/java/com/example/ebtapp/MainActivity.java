@@ -1,19 +1,25 @@
 package com.example.ebtapp;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.Html;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ebtapp.database.DataBaseBack;
 import com.example.ebtapp.model.UsuariosModel;
+import com.example.ebtapp.ui.login.LoginActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -92,6 +98,38 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.btnSalir:
+                cerrarSesion();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void cerrarSesion() {
+        Toast toast = Toast.makeText(getApplicationContext(), "Serrando sesión", Toast.LENGTH_SHORT);
+        toast.show();
+        try {
+            SQLiteDatabase database = dataBaseBack.getWritableDatabase();
+            if (database != null){
+                database.acquireReference();
+                database.delete("usuario",null,null);
+                database.close();
+            }
+            finish();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moveTaskToBack(true);
     }
 
     @Override

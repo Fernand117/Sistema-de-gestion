@@ -13,6 +13,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -63,11 +64,37 @@ public class PuntosVentasActivity extends AppCompatActivity {
         rutas = new Rutas();
         pVentasModel = new PVentasModel();
         rutas.setId(Integer.parseInt(getIntent().getStringExtra("idRuta")));
+        rutas.setNombre(getIntent().getStringExtra("punto"));
+
+        getSupportActionBar().setTitle(rutas.getNombre());
 
         txtMensajePV = (TextView) findViewById(R.id.txtMensajePV);
         listViewPVRutas = (ListView) findViewById(R.id.listViewPV);
         listPVRutas = new ArrayList<HashMap<String, String>>();
-
+        listViewPVRutas.setOnTouchListener(new ListView.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                if (MotionEvent.ACTION_DOWN == 0) {
+                    v.getParent().requestDisallowInterceptTouchEvent(false);
+                    switch (action) {
+                        case MotionEvent.ACTION_DOWN:
+                            v.getParent().requestDisallowInterceptTouchEvent(true);
+                            break;
+                    }
+                } else if (MotionEvent.ACTION_UP == 1) {
+                    v.getParent().requestDisallowInterceptTouchEvent(false);
+                    switch (action) {
+                        case MotionEvent.ACTION_UP:
+                            v.getParent().requestDisallowInterceptTouchEvent(true);
+                            break;
+                    }
+                }
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;
+            }
+        });
         new getPVAsync().execute();
     }
 

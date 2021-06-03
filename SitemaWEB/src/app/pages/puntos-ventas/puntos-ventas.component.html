@@ -25,7 +25,7 @@
                 <td>{{item.Ruta}}</td>
                 <td>{{item.nombre}} {{item.paterno}}</td>
                 <td><button class="btn btn-warning" [routerLink]="['/admin/puntos', item.IDPunto]"><i class="bi bi-pencil-square"></i></button></td>
-                <td><button class="btn btn-danger" (click)="eliminarPuntoVenta(item.id)"><i class="bi bi-trash"></i></button></td>
+                <td><button class="btn btn-danger" (click)="eliminarPuntoVenta(item.IDPunto)"><i class="bi bi-trash"></i></button></td>
             </tr>
         </tbody>
     </table>

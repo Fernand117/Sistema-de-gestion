@@ -14,7 +14,7 @@ class RutasController extends Controller
         $itemsRutas = json_decode(json_encode($rutas), true);
 
         for($i = 0; $i < count($rutas); $i++) {
-            $itemsRutas[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/img/perfiles/'.$itemsRutas[$i]['foto_perfil'];
+            $itemsRutas[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/perfiles/'.$itemsRutas[$i]['foto_perfil'];
         }
 
         if (count($rutas) <= 0) {

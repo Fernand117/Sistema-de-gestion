@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,9 +8,118 @@
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
 
-    <ListView
-        android:id="@+id/listEntregas"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:background="@drawable/ebt_back3"
+            android:layout_gravity="top">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:fontFamily="@font/loravariablefontwght"
+                    android:textColor="@color/white"
+                    android:layout_marginTop="50dp"
+                    android:text="Dashboard"
+                    android:textSize="48dp" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="205dp"
+                android:orientation="horizontal">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="192dp"
+                    android:layout_height="150dp"
+                    app:strokeColor="@color/primary_dark1"
+                    app:cardCornerRadius="15dp"
+                    android:layout_margin="10dp"
+                    app:cardElevation="5dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical|center">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="35"
+                            android:textSize="50dp"
+                            android:gravity="center"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Rutas"
+                            android:gravity="center"
+                            android:textSize="20dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-</LinearLayout>
+                <androidx.cardview.widget.CardView
+                    android:layout_width="192dp"
+                    android:layout_height="150dp"
+                    app:cardCornerRadius="15dp"
+                    app:strokeColor="@color/primary"
+                    android:layout_margin="10dp"
+                    app:cardElevation="5dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical|center">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="67"
+                            android:textSize="50dp"
+                            android:gravity="center"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Puntos de venta"
+                            android:gravity="center"
+                            android:textSize="20dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="700dp"
+                android:orientation="vertical"
+                android:background="@drawable/back_listview">
+                <TextView
+                    android:id="@+id/txtMensajelist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="24sp" />
+                <ListView
+                    android:id="@+id/listEntregas"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:divider="@android:color/transparent"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
