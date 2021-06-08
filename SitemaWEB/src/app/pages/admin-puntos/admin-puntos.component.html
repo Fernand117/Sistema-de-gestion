@@ -2,17 +2,27 @@
 <div class="content">
     <app-header></app-header>
     <div class="formulario">
-
         <form (ngSubmit)="guardarDatos()" #form="ngForm">
-            <label for="idRuta">Selecciona una ruta.</label>
-            <select name="idRuta" id="idRuta" class="form-control" [(ngModel)]="puntosModel.idRuta">
+            <h2 class="titulo" id="titulo">Nuevo punto de venta</h2>
+            <div class="form">
+                <label for="idRuta">Selecciona una ruta.</label>
+                <select name="idRuta" id="idRuta" class="form-control" [(ngModel)]="puntosModel.idRuta">
               <option value="0" selected>Ruta actual:{{listDatos.Ruta}} </option>
               <option value="{{item.id}}" *ngFor="let item of listDatosRutas">{{item.Ruta}}</option>
             </select>
-            <label for="foto">Foto del punto de venta.</label>
-            <input type="file" (change)="cargar_imagen($event)" name="foto" id="foto" class="form-control" [(ngModel)]="puntosModel.foto" accept="image/png, image/jpeg">
-            <label for="nombre">Nombre del PV.</label>
-            <input type="text" name="nombre" id="nombre" placeholder="{{listDatos.Punto}}" class="form-control" [(ngModel)]="puntosModel.nombre">
+                <label for="foto">Foto del punto de venta.</label>
+                <input type="file" (change)="cargar_imagen($event)" name="foto" id="foto" class="form-control" [(ngModel)]="puntosModel.foto" accept="image/png, image/jpeg">
+                <label for="nombre">Nombre del PV.</label>
+                <input type="text" name="nombre" id="nombre" placeholder="{{listDatos.Punto}}" class="form-control" [(ngModel)]="puntosModel.nombre">
+            </div>
+            <div class="form">
+                <label for="direccion">Dirección</label>
+                <input type="text" name="direccion" id="direccion" placeholder="{{listDatos.direccion}}" class="form-control" [(ngModel)]="direccionModel.direccion">
+                <label for="localidad">Localidad</label>
+                <input type="text" name="localidad" id="localidad" placeholder="{{listDatos.localidad}}" class="form-control" [(ngModel)]="direccionModel.localidad">
+                <label for="municipio">municipio</label>
+                <input type="text" name="municipio" id="municipio" placeholder="{{listDatos.municipio}}" class="form-control" [(ngModel)]="direccionModel.municipio">
+            </div>
             <button class="btn btn-primary">Guardar <i class="bi bi-save"></i></button>
         </form>
 

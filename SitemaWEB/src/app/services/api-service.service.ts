@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core';
 })
 export class ApiServiceService {
 
-  private url = 'http://192.168.1.80/sistemaAPI/api';
+  private url = "http://www.serverfer.com/sistemaAPI/api";
+  //private url = 'http://192.168.1.80/sistemaAPI/api';
   //private url = 'https://ebtapi.herokuapp.com/api';
 
   constructor(
@@ -15,6 +16,10 @@ export class ApiServiceService {
 
   listaUsuarios() {
     return this.http.get(`${this.url}/lista/usuarios`);
+  }
+
+  usuarioID(datos: any) {
+    return this.http.post(`${this.url}/lista/usuarios-id`, datos);
   }
 
   eliminarUsuario(datos: any) {

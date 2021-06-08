@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiServiceService } from '../../services/api-service.service';
 import { PuntosModelModule } from '../../models/puntos-model/puntos-model.module';
+import { DireccionModelModule } from '../../models/direccion-model/direccion-model.module';
 
 @Component({
   selector: 'app-admin-puntos',
@@ -12,6 +13,7 @@ import { PuntosModelModule } from '../../models/puntos-model/puntos-model.module
 export class AdminPuntosComponent implements OnInit {
 
   puntosModel: PuntosModelModule = new PuntosModelModule();
+  direccionModel: DireccionModelModule = new DireccionModelModule();
   formData: FormData = new FormData();
   itemDatosRutas: any;
   listDatosRutas: any;
@@ -39,11 +41,12 @@ export class AdminPuntosComponent implements OnInit {
     if (this.id === 'add') {
       this.listDatos = this.id;
     } else {
+      document.getElementById("titulo")!.innerHTML = 'Editar punto de venta ' + this.id;
       this.apiService.listaPuntosVentasID(this.formData).subscribe(
         res => {
           this.itemDatos = res;
           this.listDatos = this.itemDatos['Puntos'][0];
-          console.log(this.listDatos['IDRuta']);
+          console.log(this.listDatos);
         }
       );
     }
@@ -83,6 +86,25 @@ export class AdminPuntosComponent implements OnInit {
     } else {
       this.formData.append('nombre', this.listDatos['Punto']);
     }
+
+    if (this.listDatos['direccion'] !== this.direccionModel.direccion && this.direccionModel.direccion !== '') {
+      this.formData.append('direccion', this.direccionModel.direccion);
+    } else {
+      this.formData.append('direccion', this.listDatos['direccion']);
+    }
+
+    if (this.listDatos['localidad'] !== this.direccionModel.localidad && this.direccionModel.localidad !== '') {
+      this.formData.append('localidad', this.direccionModel.localidad);
+    } else {
+      this.formData.append('localidad', this.listDatos['localidad']);
+    }
+
+    if (this.listDatos['municipio'] !== this.direccionModel.municipio && this.direccionModel.municipio !== '') {
+      this.formData.append('municipio', this.direccionModel.municipio);
+    } else {
+      this.formData.append('municipio', this.listDatos['municipio']);
+    }
+
     if (this.id === 'add') {
       this.apiService.crearPuntoVenta(this.formData).subscribe(
         res => {

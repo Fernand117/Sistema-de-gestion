@@ -4,4 +4,26 @@
     height: 100vh;
     overflow: scroll;
     padding: 2%;
+    .formulario {
+        width: 50%;
+        float: left;
+        padding: 2%;
+        padding-bottom: 0;
+        .imgPerfil {
+            width: 50%;
+            margin: 0 auto;
+            height: 125px;
+        }
+        .fileControl {
+            margin-top: 1%;
+        }
+    }
+    .extra {
+        width: 100%;
+        padding-top: 0;
+    }
+    .btn {
+        margin-top: 2%;
+        float: right;
+    }
 }

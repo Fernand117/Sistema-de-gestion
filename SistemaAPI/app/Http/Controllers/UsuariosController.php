@@ -37,6 +37,22 @@ class UsuariosController extends Controller
         }
     }
 
+    public function usuarioId(Request $request)
+    {
+        $datos = $request->all();
+        $id = $datos['id'];
+        $usuarios = DB::select('select * from ViewUsuarios where id = ?', [$id]);
+        if (count($usuarios) <= 0) {
+            return response()->json(['Mensaje' => 'Este usuario no existe.'], 404);
+        } else {
+            $items = json_decode(json_encode($usuarios), true);
+            for ($i=0; $i < count($usuarios); $i++) { 
+                $items[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/perfiles/'.$items[$i]['foto_perfil'];
+            }
+            return response()->json(['Usuarios' => $items]);
+        }
+    }
+
     public function registrarUsuarios(Request $request)
     {
         $datos = $request->all();

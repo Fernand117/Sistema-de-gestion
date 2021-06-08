@@ -80,15 +80,18 @@ select u.id as IDUsuario, u.nombre, u.paterno, u.materno, u.fecha_nac, u.usuario
 select * from ViewLoginUsuario where tipo = 'Administrador';
 select * from RUTAS;
 
-create view ViewRutas as
+#create view ViewRutas as
 select r.id, r.nombre as Ruta, r.idUsuario, u.nombre, u.paterno, u.foto_perfil from RUTAS r, USUARIOS u where r.idUsuario = u.id order by u.nombre;
+select * from DIRECCIONES;
 
 select * from RUTAS;
 
-create view ViewPuntosVentas as
-select p.id as IDPunto, p.nombre as Punto, p.foto, r.id as IDRuta, r.nombre as Ruta, u.nombre, u.paterno  from PUNTOS_VENTAS p, RUTAS r, USUARIOS u where p.idRuta = r.id and r.idUsuario = u.id;
+drop view ViewPuntosVentas;
 
-select * from ViewPuntosVentas where IDPunto = 13;
+create view ViewPuntosVentas as
+select p.id as IDPunto, p.nombre as Punto, p.foto, r.id as IDRuta, r.nombre as Ruta, d.direccion, d.localidad, d.municipio, u.nombre, u.paterno  from PUNTOS_VENTAS p, RUTAS r, DIRECCIONES d, USUARIOS u where p.idRuta = r.id and r.idUsuario = u.id and d.idPVentas = p.id;
+
+select * from ViewPuntosVentas;
 
 select * from USUARIOS;
 select * from TIPOS_USUARIOS;

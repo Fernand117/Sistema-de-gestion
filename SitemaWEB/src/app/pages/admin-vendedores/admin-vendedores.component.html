@@ -2,12 +2,32 @@
 <div class="content">
     <app-header></app-header>
     <form class="form">
-        <label for="nombre">Nombre</label>
-        <input type="text" placeholder="Ej. Juan Martinez" class="form-control" required>
-        <label for="paterno">Apellido paterno</label>
-        <input type="text" placeholder="Rodriquez" class="form-control" required>
-        <label for="materno">Apellido materno</label>
-        <input type="text" placeholder="Marquez" class="form-control" required>
-        <button class="btn btn-success">Guardar</button>
+        <div class="formulario">
+            <label for="nombre">Nombre</label>
+            <input type="text" name="nombre" id="nombre" placeholder="{{itemUsuarios.nombre}}" class="form-control" [(ngModel)]="usuario.nombre">
+            <label for="paterno">Apellido paterno</label>
+            <input type="text" name="paterno" id="paterno" placeholder="{{itemUsuarios.paterno}}" class="form-control" [(ngModel)]="usuario.paterno">
+            <label for="materno">Apellido materno</label>
+            <input type="text" name="materno" id="materno" placeholder="{{itemUsuarios.materno}}" class="form-control" [(ngModel)]="usuario.materno">
+        </div>
+        <div class="formulario frmFoto">
+            <label for="foto">Foto del usuario</label>
+            <br>
+            <img src="{{itemUsuarios.foto_perfil}}" alt="" class="imgPerfil card-img-top">
+            <input type="file" name="foto" id="foto" class="form-control fileControl" [(ngModel)]="usuario.foto" accept="image/png, image/jpeg">
+        </div>
+        <div class="formulario extra">
+            <label for="fecha">Fecha de nacimiento</label>
+            <input type="date" name="fecha" id="fecha" class="form-control" [(ngModel)]="usuario.fecha_nac">
+            <label for="tipo">Tipo de usario</label>
+            <select name="tipo" id="tipo" class="form-control" [(ngModel)]="usuario.idTipo">
+              <option value="0" selected>Tipo de usuario: {{itemUsuarios.tipo}} </option>
+            </select>
+            <label for="usuario">Nombre de usuario</label>
+            <input type="text" name="usuario" id="usuario" placeholder="{{itemUsuarios.usuario}}" class="form-control" [(ngModel)]="usuario.usuario">
+            <label for="password">Contraseña</label>
+            <input type="password" name="password" id="password" placeholder="{{itemUsuarios.clave}}" class="form-control" [(ngModel)]="usuario.clave">
+        </div>
+        <button class="btn btn-primary">Guardar <i class="bi bi-save"></i></button>
     </form>
 </div>

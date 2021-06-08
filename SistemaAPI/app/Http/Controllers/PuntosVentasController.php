@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\models\Direcciones;
 use App\models\PuntosVentas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -79,6 +80,39 @@ class PuntosVentasController extends Controller
             $puntos->idRuta = $datos['idRuta'];
             $puntos->save();
             return response()->json(['Mensaje' => 'Punto de venta registrado correctamente']);
+        }
+    }
+
+    public function registrarPuntoVentaDireccion(Request $request)
+    {
+        $datos = $request->all();
+        $consultaDireccion = Direcciones::where('direccion', '=', $datos['direccion'])->get();
+        $consultaPunto = PuntosVentas::where('nombre','=', $datos['nombre'])->get();
+
+        if (count($consultaDireccion) > 0) {
+            return response()->json(['Mensaje' => 'Error, esta dirección ya está siendo ocupada'], 404);
+        } elseif (count($consultaPunto) > 0) {
+            return response()->json(['Mensaje' => 'Error, este punto de venta ya está registrado'], 404);
+        } else {
+            $punto = new PuntosVentas();
+            $direccion = new Direcciones();
+
+            if (isset($datos['foto'])) {
+                $extension = $request->file('foto')->getClientOriginalExtension();
+                $path = base_path().'/public/img/puntosVentas/';
+                $nombre = "foto_".date('Y_m_d_h_i_s').".".$extension;
+                $request->file("foto")->move($path, $nombre);
+                $punto->foto = $nombre;
+            }
+            $punto->nombre = $datos['nombre'];
+            $punto->idRuta = $datos['idRuta'];
+            $punto->save();
+            $direccion->direccion = $datos['direccion'];
+            $direccion->localidad = $datos['localidad'];
+            $direccion->municipio = $datos['municipio'];
+            $direccion->idPVentas = $punto->id;
+            $direccion->save();
+            return response()->json(['Mensaje' => 'Punto de venta creado correctamente.']);
         }
     }
 

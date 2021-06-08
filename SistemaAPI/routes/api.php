@@ -23,6 +23,7 @@ Route::post('editar/ripo', 'TipoUsuariosController@actualizarTipoUsuario');
 Route::post('eliminar/tipo', 'TipoUsuariosController@eliminarTipo');
 
 Route::get('lista/usuarios', 'UsuariosController@listarUsuarios');
+Route::post('lista/usuarios-id', 'UsuariosController@usuarioId');
 Route::post('login/usuarios', 'UsuariosController@loginUsuarios');
 Route::post('registrar/usuario', 'UsuariosController@registrarUsuarios');
 Route::post('editar/usuario', 'UsuariosController@actualizarUsuario');
@@ -38,7 +39,7 @@ Route::post('eliminar/ruta', 'RutasController@eliminarRuta');
 Route::get('listar/puntos-ventas', 'PuntosVentasController@listarPuntosVentas');
 Route::post('listar/puntos-rutas', 'PuntosVentasController@listarPuntosRutas');
 Route::post('listar/puntos-ventas/id', 'PuntosVentasController@listarPuntosVentasID');
-Route::post('registrar/puntos-ventas', 'PuntosVentasController@registrarPuntoVenta');
+Route::post('registrar/puntos-ventas', 'PuntosVentasController@registrarPuntoVentaDireccion');
 Route::post('editar/puntos-ventas', 'PuntosVentasController@actualizarPuntoVenta');
 Route::post('eliminar/puntos-ventas', 'PuntosVentasController@eliminarPuntoVenta');
 

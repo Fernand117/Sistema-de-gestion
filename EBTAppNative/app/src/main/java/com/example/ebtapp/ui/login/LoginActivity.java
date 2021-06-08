@@ -218,11 +218,9 @@ public class LoginActivity extends AppCompatActivity {
                         consultaUsuario.close();
                         database.close();
                     }
-
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-
                 //homeIntent.putExtra("usuario", usuariosModel.getUsuario());
                 startActivity(homeIntent);
             }
