@@ -18,8 +18,20 @@ export class ApiServiceService {
     return this.http.get(`${this.url}/lista/usuarios`);
   }
 
+  listaTipoUsuario() {
+    return this.http.get(`${this.url}/listar/tipos`);
+  }
+
   usuarioID(datos: any) {
     return this.http.post(`${this.url}/lista/usuarios-id`, datos);
+  }
+
+  registrarUsuario(datos: any) {
+    return this.http.post(`${this.url}/registrar/usuario`, datos);
+  }
+
+  actualizarUsuario(datos: any) {
+    return this.http.post(`${this.url}/editar/usuario`, datos);
   }
 
   eliminarUsuario(datos: any) {

@@ -13,9 +13,12 @@ import com.example.ebtapp.model.PVentasModel;
 import com.example.ebtapp.model.Rutas;
 import com.squareup.picasso.Picasso;
 
+import org.w3c.dom.Text;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class PVentasRutasAdapter  extends SimpleAdapter {
     /**
@@ -51,6 +54,9 @@ public class PVentasRutasAdapter  extends SimpleAdapter {
         }
 
         HashMap<String, Object> data = (HashMap<String, Object>) getItem(position);
+
+        TextView txtIDPV = view.findViewById(R.id.txtIdPV);
+        txtIDPV.setText((String) data.get("idpunto"));
 
         TextView txtNRuta = view.findViewById(R.id.txtNRuta);
         rutas.setNombre((String) data.get("ruta"));

@@ -53,19 +53,14 @@ class RutasController extends Controller
     {
         $datos = $request->all();
         $consultaRuta = Rutas::where('nombre','=', $datos['nombre'])->get();
-        if (count($consultaRuta) > 0) {
-            return response()->json(['Mensaje' => 'Esta ruta ya está registrada']);
-        } else {
+        if ($consultaRuta != null) {
             $rutas = new Rutas();
             $rutas->nombre = $datos['nombre'];
             $rutas->idUsuario = $datos['idUsuario'];
             $rutas->save();
-            $consultaRuta = Rutas::where('nombre','=', $datos['nombre'])->get();
-            if ($consultaRuta != null) {
-                return response()->json(['Mensaje' => 'La ruta ha sido registrada correctamente']);
-            } else {
-                return response()->json(['Mensaje' => 'No se pudo registrar la ruta'], 404);
-            }
+            return response()->json(['Mensaje' => 'La ruta ha sido registrada correctamente']);
+        } else {
+            return response()->json(['Mensaje' => 'Esta ruta ya está registrada'], 404);
         }
     }
 
@@ -75,12 +70,16 @@ class RutasController extends Controller
         $id = $datos['id'];
         $ruta = Rutas::find($id);
         if ($ruta != null) {
-            $ruta->nombre = $datos['nombre'];
-            $ruta->idUsuario = $datos['idUsuario'];
+            if (isset($datos['nombre'])) {
+                $ruta->nombre = $datos['nombre'];
+            }
+            if (isset($datos['idUsuario'])) {
+                $ruta->idUsuario = $datos['idUsuario'];
+            }
             $ruta->update();
             return response()->json(['Mensaje' => 'Ruta actualizada correctamente']);
         } else {
-            return response()->json(['Mensaje' => 'Esta ruta no existe']);
+            return response()->json(['Mensaje' => 'Esta ruta no existe'], 404);
         }
     }
 
@@ -93,7 +92,6 @@ class RutasController extends Controller
         if ($ruta != null) {
             $ruta->delete();
             $ruta = Rutas::find($id);
-
             if ($ruta != null) {
                 return response()->json(['Mensaje' => 'No se pudo eliminar la ruta selecionada'], 404);
             } else {

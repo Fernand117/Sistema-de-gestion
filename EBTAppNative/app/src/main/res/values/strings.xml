@@ -12,4 +12,6 @@
     <string name="menu_slideshow">Puntos de venta</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_rute">Añadir nueva ruta</string>
+    <string name="editar_ruta">Editar ruta</string>
 </resources>

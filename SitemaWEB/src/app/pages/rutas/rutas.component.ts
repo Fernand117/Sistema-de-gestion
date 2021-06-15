@@ -32,8 +32,6 @@ export class RutasComponent implements OnInit {
       respuesta => {
         this.datos = respuesta;
         this.listRutas = this.datos['Rutas'];
-      }, err => {
-        console.log(err);
       }
     );
   }
@@ -52,7 +50,6 @@ export class RutasComponent implements OnInit {
         this.formData.append('id', id);
         this.apiService.eliminarRutas(this.formData).subscribe(
           response => {
-            console.log(response);
             Swal.fire(
               'Eliminado!',
               'La ruta ' + id + " ha sido eliminada",

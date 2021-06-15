@@ -53,7 +53,7 @@ export class AdminRutasComponent implements OnInit {
       this.apiService.listRutaID(this.formData).subscribe(
         res => {
           this.datos = res;
-          this.ruta = this.datos['Ruta'];
+          this.ruta = this.datos['Rutas'];
         }
       );
     }

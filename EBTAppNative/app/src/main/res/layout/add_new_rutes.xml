@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="400dp"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:padding="16dp"
+    android:orientation="vertical"
+    android:background="@drawable/back_listview"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/add_rute"
+            android:gravity="center"
+            android:textSize="34dp"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:startIconDrawable="@drawable/ic_baseline_alt_route_24"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:hint="Nombre de la ruta">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtANRuta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:inputType="text"/>
+        </com.google.android.material.textfield.TextInputLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0">
+        <Button
+            android:id="@+id/btnSRuta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:text="Guardar"/>
+        <Button
+            android:id="@+id/btnCancelarRtua"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:text="Cancelar"/>
+    </LinearLayout>
+</LinearLayout>

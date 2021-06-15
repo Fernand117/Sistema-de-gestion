@@ -37,6 +37,22 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
+                        android:text="ID: "
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"/>
+                    <TextView
+                        android:id="@+id/txtIdPV"
+                        android:text="Id del punto de venta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
                         android:text="Ruta:"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

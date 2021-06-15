@@ -14,6 +14,7 @@ import { PuntosVentasComponent } from './pages/puntos-ventas/puntos-ventas.compo
 import { AdminPuntosComponent } from './pages/admin-puntos/admin-puntos.component';
 import { VendedoresComponent } from './pages/vendedores/vendedores.component';
 import { AdminVendedoresComponent } from './pages/admin-vendedores/admin-vendedores.component';
+import { NgFallimgModule } from 'ng-fallimg';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,10 @@ import { AdminVendedoresComponent } from './pages/admin-vendedores/admin-vendedo
   imports: [
     BrowserModule,
     AppRoutingModule,
+    NgFallimgModule.forRoot({
+      default: '/assets/default_user.jpg',
+      profile: '/assets/default_user.jpg'
+    }),
     FormsModule,
     HttpClientModule
   ],

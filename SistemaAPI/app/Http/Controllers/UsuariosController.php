@@ -30,7 +30,7 @@ class UsuariosController extends Controller
             return response()->json(['Mensaje' => 'Aún no existen usuarios registrados'], 404);
         } else {
             $items = json_decode(json_encode($usuarios), true);
-            for ($i=0; $i < count($usuarios); $i++) { 
+            for ($i=0; $i < count($usuarios); $i++) {
                 $items[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/perfiles/'.$items[$i]['foto_perfil'];
             }
             return response()->json(['Usuarios' => $items]);
@@ -95,37 +95,48 @@ class UsuariosController extends Controller
     {
         $datos = $request->all();
 
-        $usuarioActual = $datos['usuario'];
+        $id = $datos['id'];
 
-        $consultaUsuarioE = Usuarios::where('usuario', '=', $usuarioActual)->get();
+        $consultaUsuarioE = Usuarios::find($id);
         
         if ($consultaUsuarioE != null) {
-            $usuario = new Usuarios();
             if (isset($datos['foto'])) {
                 $extension = $request->file('foto')->getClientOriginalExtension();
-                $path = base_path().'/public/img/productos';
+                $path = base_path().'/public/img/perfiles/';
                 $name = "foto_".date('Y_m_d_g_i_s').".".$extension;
                 $request->file("foto")->move($path, $name);
-                $usuario->foto_perfil = $name;
-            } else {
-                $usuario->foto_perfil = 'default';
+                $consultaUsuarioE->foto_perfil = $name;
             }
-            $usuario->nombre = $datos['nombre'];
-            $usuario->paterno = $datos['paterno'];
-            $usuario->materno = $datos['materno'];
-            $usuario->fecha_nac = $datos['fecha_nac'];
-            $usuario->usuario = $datos['usuario'];
-            $usuario->clave = md5($datos['clave']);
-            $usuario->idTipo = $datos['tipo'];
-            $usuario->update();
-    
-	    #$consultaUsuario = DB::select('select * from USUARIOS where usuario = ?', [$datos['usuario']]);
-	    $consultaUsuario = Usuarios::where('usuario', '=' , $datos['usuario'])->get();
-            if ($consultaUsuario != null) {
-                return response()->json(['Mensaje' => 'No se pudo registrar al usuario'], 404);
-            } else {
-                return response()->json(['Mensaje' => 'Usuario registrado correctamente']);
+
+            if (isset($datos['nombre'])) {
+                $consultaUsuarioE->nombre = $datos['nombre'];
             }
+            
+            if (isset($datos['paterno'])) {
+                $consultaUsuarioE->paterno = $datos['paterno'];
+            }
+
+            if (isset($datos['materno'])) {
+                $consultaUsuarioE->materno = $datos['materno'];
+            }
+
+            if (isset($datos['fecha_nac'])) {
+                $consultaUsuarioE->fecha_nac = $datos['fecha_nac'];
+            }
+
+            if (isset($datos['usuario'])) {
+                $consultaUsuarioE->usuario = $datos['usuario'];
+            }
+
+            if (isset($datos['clave'])) {
+                $consultaUsuarioE->clave = md5($datos['clave']);
+            }
+
+            if (isset($datos['tipo'])) {
+                $consultaUsuarioE->idTipo = $datos['tipo'];
+            }
+            $consultaUsuarioE->update();
+            return response()->json(['Mensaje' => 'Usuario actualizado correctamente']);
         } else {
             return response()->json(['Mensaje' => 'Este usuario no existe'], 404);
         }

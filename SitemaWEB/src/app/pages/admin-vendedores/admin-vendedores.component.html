@@ -1,7 +1,7 @@
 <app-menu-bar></app-menu-bar>
 <div class="content">
     <app-header></app-header>
-    <form class="form">
+    <form (ngSubmit)="guardarUsuario()" #form="ngForm">
         <div class="formulario">
             <label for="nombre">Nombre</label>
             <input type="text" name="nombre" id="nombre" placeholder="{{itemUsuarios.nombre}}" class="form-control" [(ngModel)]="usuario.nombre">
@@ -13,8 +13,8 @@
         <div class="formulario frmFoto">
             <label for="foto">Foto del usuario</label>
             <br>
-            <img src="{{itemUsuarios.foto_perfil}}" alt="" class="imgPerfil card-img-top">
-            <input type="file" name="foto" id="foto" class="form-control fileControl" [(ngModel)]="usuario.foto" accept="image/png, image/jpeg">
+            <img src="{{itemUsuarios.foto_perfil}}" ng-fallimg="profile" alt="" name="imgPerfil" id="imgPerfil" class="imgPerfil card-img-top">
+            <input type="file" (change)="cargar_imagen($event)" name="foto" id="foto" class="form-control" [(ngModel)]="usuario.foto" accept="image/png, image/jpeg">
         </div>
         <div class="formulario extra">
             <label for="fecha">Fecha de nacimiento</label>
@@ -22,6 +22,7 @@
             <label for="tipo">Tipo de usario</label>
             <select name="tipo" id="tipo" class="form-control" [(ngModel)]="usuario.idTipo">
               <option value="0" selected>Tipo de usuario: {{itemUsuarios.tipo}} </option>
+              <option value="{{item.id}}" *ngFor="let item of itemTiposUsuarios">{{item.tipo}}</option>
             </select>
             <label for="usuario">Nombre de usuario</label>
             <input type="text" name="usuario" id="usuario" placeholder="{{itemUsuarios.usuario}}" class="form-control" [(ngModel)]="usuario.usuario">
