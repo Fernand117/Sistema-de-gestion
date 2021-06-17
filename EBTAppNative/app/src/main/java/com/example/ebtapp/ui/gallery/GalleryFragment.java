@@ -31,6 +31,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.loader.content.AsyncTaskLoader;
 
 import com.example.ebtapp.R;
+import com.example.ebtapp.adapters.RutasAdapter;
 import com.example.ebtapp.database.DataBaseBack;
 import com.example.ebtapp.databinding.FragmentGalleryBinding;
 import com.example.ebtapp.model.Rutas;
@@ -38,10 +39,13 @@ import com.example.ebtapp.service.APIService;
 import com.example.ebtapp.ui.PuntosVentasActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -64,6 +68,7 @@ public class GalleryFragment extends Fragment {
     private BufferedReader bufferedReader;
 
     private Rutas rutas;
+    private RutasAdapter rutasAdapter;
     private TextView txtMensaje;
     private ListView listViewRutas;
 
@@ -110,7 +115,7 @@ public class GalleryFragment extends Fragment {
             }
         });
 
-        listViewRutas.setOnTouchListener(new ListView.OnTouchListener() {
+        /*listViewRutas.setOnTouchListener(new ListView.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 int action = event.getAction();
@@ -133,17 +138,23 @@ public class GalleryFragment extends Fragment {
                 v.onTouchEvent(event);
                 return true;
             }
-        });
+        });*/
 
         listViewRutas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String idRuta = ((TextView) view.findViewById(R.id.txtIDRuta)).getText().toString();
-                String ruta = ((TextView) view.findViewById(R.id.txtNombreRuta)).getText().toString();
-                Intent pvIntent = new Intent(getContext(), PuntosVentasActivity.class);
-                pvIntent.putExtra("idRuta", idRuta);
-                pvIntent.putExtra("punto", ruta);
-                startActivity(pvIntent);
+                int viewId = view.getId();
+                switch (viewId) {
+                    case R.id.btnVerRuta:
+                        HashMap<String, Object> param = (HashMap<String, Object>) rutasAdapter.getItem(position);
+                        String idRuta = (String) param.get("id");
+                        String ruta = (String) param.get("nombre");
+                        Intent pvIntent = new Intent(getContext(), PuntosVentasActivity.class);
+                        pvIntent.putExtra("idRuta", idRuta);
+                        pvIntent.putExtra("punto", ruta);
+                        startActivity(pvIntent);
+                        break;
+                }
             }
         });
 
@@ -355,8 +366,8 @@ public class GalleryFragment extends Fragment {
                                     rutas.setId(Integer.parseInt(jsonRutas.getString("id")));
                                     rutas.setNombre(jsonRutas.getString("nombre"));
                                     HashMap<String, String> mapRutas = new HashMap<>();
-                                    mapRutas.put("Nombre", rutas.getNombre());
-                                    mapRutas.put("IDRuta", String.valueOf(rutas.getId()));
+                                    mapRutas.put("nombre", rutas.getNombre());
+                                    mapRutas.put("id", String.valueOf(rutas.getId()));
                                     listRutas.add(mapRutas);
                                 }
                             }
@@ -384,15 +395,11 @@ public class GalleryFragment extends Fragment {
             }
 
             if (responseCode == 200){
-                SimpleAdapter simpleAdapter = new SimpleAdapter(
-                        getContext(), listRutas,
-                        R.layout.item_list_rutas,
-                        new String[]{"Nombre", "IDRuta"}, new int[]{R.id.txtNombreRuta, R.id.txtIDRuta}
-                );
-                simpleAdapter.notifyDataSetChanged();
+                rutasAdapter = new RutasAdapter(getContext(), listRutas, R.layout.item_list_rutas, new String[]{}, new int[]{});
+                rutasAdapter.notifyDataSetChanged();
                 listViewRutas.invalidateViews();
                 listViewRutas.refreshDrawableState();
-                listViewRutas.setAdapter(simpleAdapter);
+                listViewRutas.setAdapter(rutasAdapter);
             }
         }
     }

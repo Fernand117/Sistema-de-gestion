@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
         private static final String jsonMsj = "Mensaje";
         private static final String jsonResponse = "Usuarios";
         private ProgressDialog progressDialog;
-        APIService usuariosService = new APIService();
+        APIService apiService = new APIService();
 
         @Override
         protected void onPreExecute() {
@@ -131,7 +131,7 @@ public class LoginActivity extends AppCompatActivity {
                 HashMap<String, String> params = new HashMap<>();
                 params.put("usuario", usuariosModel.getUsuario());
                 params.put("clave", usuariosModel.getClave());
-                connection = usuariosService.ServiceSF(params, urlComplement, method, style);
+                connection = apiService.ServiceSF(params, urlComplement, method, style);
                 try {
                     responseCode = connection.getResponseCode();
 

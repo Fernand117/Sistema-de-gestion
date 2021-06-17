@@ -51,8 +51,7 @@ public class APIService {
                     dataOutputStream.flush();
                     dataOutputStream.close();
                 } else if (style.equals("formData")){
-                    String boundary = UUID.randomUUID().toString();
-                    connection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+                    return connection;
                 }
             } catch (IOException e) {
                 e.printStackTrace();

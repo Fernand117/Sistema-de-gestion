@@ -30,34 +30,29 @@
             </LinearLayout>
         </FrameLayout>
     </LinearLayout>
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <LinearLayout
+            android:layout_marginTop="200dp"
+            android:orientation="vertical"
+            android:background="@drawable/back_listview">
+            <TextView
+                android:id="@+id/txtMensajelist"
                 android:layout_width="match_parent"
-                android:layout_height="700dp"
-                android:layout_marginTop="300dp"
-                android:orientation="vertical"
-                android:background="@drawable/back_listview">
-                <TextView
-                    android:id="@+id/txtMensajelist"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="24sp" />
-                <ListView
-                    android:id="@+id/listRutas"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:divider="@android:color/transparent"/>
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="24sp" />
+            <ListView
+                android:id="@+id/listRutas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@android:color/transparent"/>
         </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"

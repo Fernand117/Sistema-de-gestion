@@ -25,40 +25,35 @@
                     android:gravity="center"
                     android:fontFamily="@font/loravariablefontwght"
                     android:textColor="@color/white"
-                    android:layout_marginTop="100dp"
+                    android:layout_marginTop="50dp"
                     android:text="Puntos de venta"
                     android:textSize="48dp" />
             </LinearLayout>
         </FrameLayout>
     </LinearLayout>
-
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-            <LinearLayout
+            android:layout_marginTop="200dp"
+            android:orientation="vertical"
+            android:background="@drawable/back_listview">
+            <TextView
+                android:id="@+id/txtMensajePV"
                 android:layout_width="match_parent"
-                android:layout_height="700dp"
-                android:layout_marginTop="350dp"
-                android:orientation="vertical"
-                android:background="@drawable/back_listview">
-                <TextView
-                    android:id="@+id/txtMensajePV"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:textSize="20sp"/>
-                <ListView
-                    android:id="@+id/listViewPV"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:divider="@android:color/transparent"/>
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textSize="20sp"/>
+            <ListView
+                android:id="@+id/listViewPV"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@android:color/transparent"/>
         </LinearLayout>
-    </ScrollView>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -73,7 +68,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="5dp"
             android:visibility="gone"
-            app:backgroundTint="@color/primary"
+            app:backgroundTint="@color/primary1"
             android:src="@drawable/ic_baseline_delete_24"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabEditarPV"
@@ -84,7 +79,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:visibility="gone"
-            app:backgroundTint="@color/primary"
+            app:backgroundTint="@color/primary1"
             android:src="@drawable/ic_sharp_edit_24"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabCancelarPV"
@@ -92,10 +87,10 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="5dp"
             android:visibility="gone"
-            app:backgroundTint="@color/primary"
+            app:backgroundTint="@color/primary1"
             android:src="@drawable/ic_baseline_close_24"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabNuevoPV"

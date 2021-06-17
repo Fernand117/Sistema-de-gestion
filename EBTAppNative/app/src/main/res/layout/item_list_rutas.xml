@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:descendantFocusability="blocksDescendants"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
@@ -38,12 +39,25 @@
                 android:layout_gravity="center_vertical"/>
             <TextView
                 android:id="@+id/txtNombreRuta"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
                 android:text="Nombre Ruta"
                 android:layout_gravity="center_vertical"/>
         </LinearLayout>
+        <Button
+            android:id="@+id/btnVerRuta"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textColor="@color/white"
+            android:layout_gravity="end"
+            android:focusable="false"
+            android:clickable="false"
+            app:backgroundTint="@android:color/transparent"
+            app:icon="@drawable/ic_baseline_arrow_forward_ios_24"
+            app:iconTint="@color/primary_dark"
+            app:iconGravity="textStart"
+            style="@style/Widget.MaterialComponents.Button.TextButton.Icon"/>
     </com.google.android.material.card.MaterialCardView>
 
 </LinearLayout>

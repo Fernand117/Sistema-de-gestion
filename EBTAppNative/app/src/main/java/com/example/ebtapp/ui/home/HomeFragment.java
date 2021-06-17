@@ -79,7 +79,7 @@ public class HomeFragment extends Fragment {
     private class getRutasAsync extends AsyncTask<String, String, JSONObject> {
 
         private static final String method = "GET";
-        private static final String type = "nomral";
+        private static final String style = "nomral";
         private static final String jsonError = "Mensaje";
         private static final String jsonResponse = "Rutas";
         private static final String urlComplement = "/lista/rutas";
@@ -98,7 +98,7 @@ public class HomeFragment extends Fragment {
         protected JSONObject doInBackground(String... strings) {
             try {
                 params = new HashMap<>();
-                connection = apiService.ServiceSF(params, urlComplement, method, type);
+                connection = apiService.ServiceSF(params, urlComplement, method, style);
                 try {
                     responseCode = connection.getResponseCode();
                     if (responseCode == 404) {

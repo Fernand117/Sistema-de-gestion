@@ -4,7 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
@@ -69,6 +71,14 @@ public class PVentasRutasAdapter  extends SimpleAdapter {
         ImageView imgPVenta = view.findViewById(R.id.imgPV);
         pVentasModel.setFoto((String) data.get("foto"));
         Picasso.with(view.getContext()).load(pVentasModel.getFoto()).resize(300, 180).into(imgPVenta);
+
+        Button btnVerPVentas = view.findViewById(R.id.btnVerPVentas);
+        btnVerPVentas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((ListView) parent).performItemClick(v, position, 0);
+            }
+        });
 
         return  view;
     }

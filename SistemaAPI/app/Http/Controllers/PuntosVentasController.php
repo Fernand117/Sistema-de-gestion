@@ -145,7 +145,9 @@ class PuntosVentasController extends Controller
         $datos = $request->all();
         $id = $datos['id'];
         $puntoId = PuntosVentas::find($id);
+        $direccion = Direcciones::where('idPVentas','=', $id);
         if ($puntoId != null) {
+            $direccion->delete();
             $puntoId->delete();
             return response()->json(['Mensaje' => 'Punto de venta eliminado correctamente']);
         } else {
