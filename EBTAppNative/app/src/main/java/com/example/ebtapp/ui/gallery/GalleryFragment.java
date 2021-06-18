@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.ContextMenu;
@@ -18,6 +19,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -26,6 +29,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.loader.content.AsyncTaskLoader;
@@ -107,14 +112,6 @@ public class GalleryFragment extends Fragment {
         fabEliminarRuta = (FloatingActionButton) view.findViewById(R.id.fabEliminarRuta);
 
         new listRutasAsync().execute();
-
-        fabCancelar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                fabButtons();
-            }
-        });
-
         /*listViewRutas.setOnTouchListener(new ListView.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -139,7 +136,6 @@ public class GalleryFragment extends Fragment {
                 return true;
             }
         });*/
-
         listViewRutas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -159,10 +155,14 @@ public class GalleryFragment extends Fragment {
         });
 
         listViewRutas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 String ruta = ((TextView) view.findViewById(R.id.txtNombreRuta)).getText().toString();
                 String idRuta = ((TextView) view.findViewById(R.id.txtIDRuta)).getText().toString();
+
+                getActivity().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                getActivity().getWindow().setStatusBarColor(ContextCompat.getColor(getContext(), R.color.primary1));
 
                 rutas.setNombre(ruta);
                 rutas.setId(Integer.parseInt(idRuta));
@@ -208,6 +208,7 @@ public class GalleryFragment extends Fragment {
         });
 
         fabEditarRuta.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
                 dialog = new Dialog(getContext());
@@ -235,7 +236,10 @@ public class GalleryFragment extends Fragment {
                         dialog.dismiss();
                     }
                 });
-
+                Window window = getActivity().getWindow();
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.setStatusBarColor(ContextCompat.getColor(getContext(), R.color.primary_dark));
                 dialog.show();
             }
         });
@@ -262,6 +266,18 @@ public class GalleryFragment extends Fragment {
                     }
                 });
                 dialog.show();
+            }
+        });
+
+        fabCancelar.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+            @Override
+            public void onClick(View v) {
+                Window window = getActivity().getWindow();
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.setStatusBarColor(ContextCompat.getColor(getContext(), R.color.primary_dark));
+                fabButtons();
             }
         });
 

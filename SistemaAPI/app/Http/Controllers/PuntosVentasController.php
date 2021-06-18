@@ -46,7 +46,7 @@ class PuntosVentasController extends Controller
         $datos = $request->all();
         $idRuta = $datos['idRuta'];
 
-        $consulta = DB::select('select * from ViewRutasPuntos where IDRuta = ?;', [$idRuta]);
+        $consulta = DB::select('select * from ViewPuntosVentas where IDRuta = ?;', [$idRuta]);
 
         $item = json_decode(json_encode($consulta), true);
 
@@ -58,28 +58,6 @@ class PuntosVentasController extends Controller
             return response()->json(['Mensaje' => 'Aún no hay puntos de ventas para esta ruta.'], 404);
         } else {
             return response()->json(['Puntos' => $item]);
-        }
-    }
-
-    public function registrarPuntoVenta(Request $request)
-    {
-        $datos = $request->all();
-        $consultaPunto = PuntosVentas::where('nombre', '=', $datos['nombre'])->get();
-        if (count($consultaPunto) > 0) {
-            return response()->json(['Mensaje' => 'Este punto de venta ya está registrado.'], 404);
-        } else {
-            $puntos = new PuntosVentas();
-            if (isset($datos['foto'])) {
-                $extension = $request->file('foto')->getClientOriginalExtension();
-                $path = base_path().'/public/img/puntosVentas/';
-                $nombre = "foto_".date('Y_m_d_h_i_s').".".$extension;
-                $request->file("foto")->move($path,$nombre);
-                $puntos->foto = $nombre;
-            }
-            $puntos->nombre = $datos['nombre'];
-            $puntos->idRuta = $datos['idRuta'];
-            $puntos->save();
-            return response()->json(['Mensaje' => 'Punto de venta registrado correctamente']);
         }
     }
 
@@ -121,6 +99,7 @@ class PuntosVentasController extends Controller
         $datos = $request->all();
         $id = $datos['id'];
         $punto = PuntosVentas::find($id);
+        $direccion = Direcciones::where('idPVentas','=', $id);
         if ($punto != null) {
             if (isset($datos['foto'])) {
                 $extension = $request->file('foto')->getClientOriginalExtension();
@@ -135,7 +114,17 @@ class PuntosVentasController extends Controller
             if (isset($datos['idRuta'])) {
                 $punto->idRuta = $datos['idRuta'];
             }
+            if (isset($datos['direccion'])) {
+                $direccion->direccion = $datos['direccion'];
+            }
+            if (isset($datos['localidad'])) {
+                $direccion->localidad = $datos['localidad'];
+            }
+            if (isset($datos['municipio'])) {
+                $direccion->municipio = $datos['municipio'];
+            }
             $punto->update();
+            $direccion->update();
             return response()->json(['Mensaje' => 'Punto de venta actualizado correctamente']);
         }
     }

@@ -12,12 +12,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Añadir nuevo punto de venta"
+        android:text="Editar punto de venta"
         android:gravity="center"
         android:textSize="28dp"/>
 
     <ImageView
-        android:id="@+id/imgPuntoVenta"
+        android:id="@+id/imgPuntoVentaE"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginTop="10dp"
@@ -33,7 +33,7 @@
         android:hint="Nombre del punto de venta">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtNombrePVenta"
+            android:id="@+id/txtNombrePVentaE"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -49,7 +49,7 @@
         android:hint="Direccion">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtDireccion"
+            android:id="@+id/txtDireccionE"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -65,7 +65,7 @@
         android:hint="Localidad">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtLocalidad"
+            android:id="@+id/txtLocalidadE"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -81,7 +81,7 @@
         android:hint="Municipio">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtMunicipio"
+            android:id="@+id/txtMunicipioE"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -93,14 +93,14 @@
         android:layout_height="wrap_content"
         android:layout_weight="0">
         <Button
-            android:id="@+id/btnSPV"
+            android:id="@+id/btnSPVE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textColor="@color/white"
             android:text="Guardar"/>
         <Button
-            android:id="@+id/btnCPV"
+            android:id="@+id/btnCPVE"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

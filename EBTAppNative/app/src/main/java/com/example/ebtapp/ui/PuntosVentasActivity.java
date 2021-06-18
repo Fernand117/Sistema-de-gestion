@@ -48,6 +48,7 @@ import com.example.ebtapp.service.APIService;
 import com.example.ebtapp.ui.gallery.GalleryFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.squareup.picasso.Picasso;
 
 import org.apache.commons.io.FileUtils;
 import org.json.JSONArray;
@@ -239,9 +240,58 @@ public class PuntosVentasActivity extends AppCompatActivity {
         });
 
         fabEditarPV.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
+                dialog = new Dialog(PuntosVentasActivity.this);
+                dialog.setContentView(R.layout.edit_puntosventas);
 
+                imgPuntoVenta = (ImageView) dialog.findViewById(R.id.imgPuntoVentaE);
+                txtDireccion = (TextInputEditText) dialog.findViewById(R.id.txtDireccionE);
+                txtLocalidad = (TextInputEditText) dialog.findViewById(R.id.txtLocalidadE);
+                txtMunicipio = (TextInputEditText) dialog.findViewById(R.id.txtMunicipioE);
+                txtNombrePV = (TextInputEditText) dialog.findViewById(R.id.txtNombrePVentaE);
+
+                Picasso.with(PuntosVentasActivity.this).load(pVentasModel.getFoto()).resize(300, 180).into(imgPuntoVenta);
+                txtNombrePV.setText(pVentasModel.getNombre());
+                txtDireccion.setText(direccionesModel.getDireccion());
+                txtLocalidad.setText(direccionesModel.getLocalidad());
+                txtMunicipio.setText(direccionesModel.getMunicipio());
+
+                btnGuardarPV = (Button) dialog.findViewById(R.id.btnSPVE);
+                btnCancelarPV = (Button) dialog.findViewById(R.id.btnCPVE);
+
+                imgPuntoVenta.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        tomarFoto(v);
+                    }
+                });
+
+                btnGuardarPV.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        pVentasModel.setNombre(txtNombrePV.getText().toString());
+                        direccionesModel.setDireccion(txtDireccion.getText().toString());
+                        direccionesModel.setLocalidad(txtLocalidad.getText().toString());
+                        direccionesModel.setMunicipio(txtMunicipio.getText().toString());
+                        new editarPuntoVentaAsync().execute();
+                        dialog.dismiss();
+                    }
+                });
+
+                btnCancelarPV.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog.dismiss();
+                    }
+                });
+
+                Window window = getWindow();
+                window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.primary_dark));
+                dialog.show();
             }
         });
 
@@ -396,11 +446,14 @@ public class PuntosVentasActivity extends AppCompatActivity {
                                 System.out.println(jsonArray);
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jsonPVRutas = jsonArray.getJSONObject(i);
-                                    rutas.setId(Integer.parseInt(jsonPVRutas.getString("IDRuta")));
-                                    rutas.setNombre(jsonPVRutas.getString("Ruta"));
-                                    pVentasModel.setId(Integer.parseInt(jsonPVRutas.getString("IDPUnto")));
+                                    pVentasModel.setId(Integer.parseInt(jsonPVRutas.optString("IDPunto")));
                                     pVentasModel.setNombre(jsonPVRutas.getString("Punto"));
                                     pVentasModel.setFoto(jsonPVRutas.getString("foto"));
+                                    rutas.setId(Integer.parseInt(jsonPVRutas.getString("IDRuta")));
+                                    rutas.setNombre(jsonPVRutas.getString("Ruta"));
+                                    direccionesModel.setDireccion(jsonPVRutas.getString("direccion"));
+                                    direccionesModel.setLocalidad(jsonPVRutas.getString("localidad"));
+                                    direccionesModel.setMunicipio(jsonPVRutas.getString("municipio"));
                                     HashMap<String, String> mapPVRutas = new HashMap<>();
                                     mapPVRutas.put("idruta", String.valueOf(rutas.getId()));
                                     mapPVRutas.put("ruta", rutas.getNombre());
@@ -523,6 +576,164 @@ public class PuntosVentasActivity extends AppCompatActivity {
                     dataOutputStream.write(FileUtils.readFileToByteArray(imgFile));
                     dataOutputStream.writeBytes("\r\n");
                     dataOutputStream.writeBytes("--" + boundary + "--\r\n");
+                    dataOutputStream.flush();
+
+                    responseCode = connection.getResponseCode();
+                    if (responseCode == 404) {
+                        inputStream = new BufferedInputStream(connection.getErrorStream());
+                        bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                        builderResult = new StringBuilder();
+
+                        while ((line = bufferedReader.readLine()) != null) {
+                            builderResult.append(line);
+                        }
+                        try {
+                            jsonObject = new JSONObject(builderResult.toString());
+                            if (jsonObject != null) {
+                                mensaje = jsonObject.getString(jsonMsj);
+                            }
+                        } catch (JSONException jsonException) {
+                            jsonException.printStackTrace();
+                        }
+                    } else if (responseCode == 200) {
+                        inputStream = new BufferedInputStream(connection.getInputStream());
+                        bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                        builderResult = new StringBuilder();
+
+                        while ((line = bufferedReader.readLine()) != null) {
+                            builderResult.append(line);
+                        }
+                        try {
+                            jsonObject = new JSONObject(builderResult.toString());
+                            if (jsonObject != null) {
+                                mensaje = jsonObject.getString(jsonMsj);
+                            }
+                        } catch (JSONException jsonException) {
+                            jsonException.printStackTrace();
+                        }
+                    } else if (responseCode == 500) {
+                        inputStream = new BufferedInputStream(connection.getErrorStream());
+                        bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                        builderResult = new StringBuilder();
+
+                        while ((line = bufferedReader.readLine()) != null) {
+                            builderResult.append(line);
+                        }
+                        mensaje = builderResult.toString();
+                        System.out.println(mensaje);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return jsonObject;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            if (progressDialog != null && progressDialog.isShowing()) {
+                progressDialog.dismiss();
+                Toast.makeText(PuntosVentasActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+                listPVRutas.clear();
+                fabButtons();
+                new listaPuntosVentasAsync().execute();
+            }
+        }
+    }
+
+    private class editarPuntoVentaAsync extends AsyncTask<String, String, JSONObject> {
+
+        private ProgressDialog progressDialog;
+        private APIService apiService = new APIService();
+        private static final String urlComplement = "/editar/puntos-ventas";
+        private static final String method = "POST";
+        private static final String style = "formData";
+        private static final String jsonMsj = "Mensaje";
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(PuntosVentasActivity.this);
+            progressDialog.setTitle("Espere por favor");
+            progressDialog.setMessage("Actualizando información");
+            progressDialog.setIndeterminate(true);
+            progressDialog.setCancelable(true);
+            progressDialog.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... strings) {
+            try {
+                if (imgBitmap != null) {
+                    imgFile = new File(getApplicationContext().getCacheDir(), "foto.jpg");
+                    imgFile.createNewFile();
+
+                    Bitmap fotoBitmap = imgBitmap;
+                    ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                    fotoBitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                    byte[] bitmapdata = byteArrayOutputStream.toByteArray();
+
+                    FileOutputStream fileOutputStream = new FileOutputStream(imgFile);
+                    fileOutputStream.write(bitmapdata);
+                    fileOutputStream.flush();
+                    fileOutputStream.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            try {
+                HashMap<String, String> params = new HashMap<>();
+                connection = apiService.ServiceSF(params, urlComplement, method, style);
+                try {
+                    String boundary = UUID.randomUUID().toString();
+                    connection.setRequestProperty("Accept", "");
+                    connection.setRequestProperty("Accept-Encoding", "gzip, deflate, br");
+                    connection.setRequestProperty("Accept-Charset", charset);
+                    connection.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
+                    dataOutputStream =  new DataOutputStream(connection.getOutputStream());
+
+                    dataOutputStream.writeBytes("--" + boundary + "\r\n");
+                    dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"id\"\r\n");
+                    dataOutputStream.writeUTF("\r\n" + pVentasModel.getId() + "\r\n");
+                    dataOutputStream.writeBytes("--" + boundary + "\r\n");
+
+                    dataOutputStream.writeBytes("--" + boundary + "\r\n");
+                    dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"nombre\"\r\n");
+                    dataOutputStream.writeUTF("\r\n" + pVentasModel.getNombre() + "\r\n");
+                    dataOutputStream.writeBytes("--" + boundary + "\r\n");
+
+                    dataOutputStream.writeBytes("--" + boundary + "\r\n");
+                    dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"idRuta\"\r\n");
+                    dataOutputStream.writeUTF("\r\n" + rutas.getId() + "\r\n");
+                    dataOutputStream.writeBytes("--" + boundary + "\r\n");
+
+                    dataOutputStream.writeBytes("--" + boundary + "\r\n");
+                    dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"direccion\"\r\n");
+                    dataOutputStream.writeUTF("\r\n" + direccionesModel.getDireccion() + "\r\n");
+                    dataOutputStream.writeBytes("--" + boundary + "\r\n");
+
+                    dataOutputStream.writeBytes("--" + boundary + "\r\n");
+                    dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"localidad\"\r\n");
+                    dataOutputStream.writeUTF("\r\n" + direccionesModel.getLocalidad() + "\r\n");
+                    dataOutputStream.writeBytes("--" + boundary + "\r\n");
+
+                    dataOutputStream.writeBytes("--" + boundary + "\r\n");
+                    dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"municipio\"\r\n");
+                    dataOutputStream.writeUTF("\r\n" + direccionesModel.getMunicipio() + "\r\n");
+                    dataOutputStream.writeBytes("--" + boundary + "\r\n");
+
+                    if (imgFile != null) {
+                        dataOutputStream.writeBytes("--" + boundary + "\r\n");
+                        dataOutputStream.writeBytes("Content-Disposition: form-data; name=\"foto\"; filename=\"" + imgFile + "\"\r\n\r\n");
+                        dataOutputStream.write(FileUtils.readFileToByteArray(imgFile));
+                        dataOutputStream.writeBytes("\r\n");
+                        dataOutputStream.writeBytes("--" + boundary + "--\r\n");
+                    }
+
                     dataOutputStream.flush();
 
                     responseCode = connection.getResponseCode();
