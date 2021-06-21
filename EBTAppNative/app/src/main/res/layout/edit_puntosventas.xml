@@ -29,8 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:startIconDrawable="@drawable/ic_baseline_storefront_24"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="Nombre del punto de venta">
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtNombrePVentaE"
@@ -45,8 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:startIconDrawable="@drawable/ic_baseline_directions_24"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="Direccion">
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtDireccionE"
@@ -61,8 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:startIconDrawable="@drawable/ic_baseline_my_location_24"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="Localidad">
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtLocalidadE"
@@ -77,8 +74,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:startIconDrawable="@drawable/ic_baseline_location_city_24"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="Municipio">
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtMunicipioE"

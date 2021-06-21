@@ -15,100 +15,100 @@
             android:background="@drawable/ebt_back3"
             android:layout_gravity="top"/>
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/unifrakturcookbold"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:text="El Buen Tono"
+                android:textSize="60dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:fontFamily="@font/loravariablefontwght"
+                android:textColor="@color/white"
+                android:text="Sistema de gestión"
+                android:textSize="18dp" />
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/txtMensaje"
                 android:layout_width="match_parent"
-                android:layout_height="250dp"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:text="Inicia sesión para continuar"
+                android:textSize="20dp"
+                android:layout_margin="20dp"
+                android:textStyle="bold"
+                android:gravity="center"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/unifrakturcookbold"
-                    android:gravity="center"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="10dp"
-                    android:text="El Buen Tono"
-                    android:textSize="60dp" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:fontFamily="@font/loravariablefontwght"
-                    android:textColor="@color/white"
-                    android:text="Sistema de gestión"
-                    android:textSize="18dp" />
-            </LinearLayout>
-
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="vertical"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp">
+                android:layout_height="wrap_content"
+                android:hint="Nombre de usuario"
+                app:startIconDrawable="@drawable/ic_baseline_person_24"
+                app:endIconMode="clear_text"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
-                <TextView
-                    android:id="@+id/txtMensaje"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtUsuario"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Inicia sesión para continuar"
-                    android:textSize="20dp"
-                    android:layout_margin="20dp"
-                    android:textStyle="bold"
-                    android:gravity="center"/>
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:startIconDrawable="@drawable/ic_baseline_lock_24"
+                app:endIconMode="password_toggle"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:hint="Contraseña">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txtPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nombre de usuario"
-                    app:startIconDrawable="@drawable/ic_baseline_person_24"
-                    app:endIconMode="clear_text"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/txtUsuario"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="text" />
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:startIconDrawable="@drawable/ic_baseline_lock_24"
-                    app:endIconMode="password_toggle"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:hint="Contraseña">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/txtPassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:inputType="textPassword"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <Button
-                    android:id="@+id/btnLogin"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/back_buttons"
-                    android:text="Iniciar sesión"
-                    android:textColor="@color/white"
-                    app:backgroundTint="@color/primary_dark1"
-                    app:icon="@drawable/ic_baseline_login_24"
-                    app:iconTint="@color/white"
-                    app:iconGravity="textStart"
-                    style="@style/Widget.MaterialComponents.Button.TextButton.Icon"/>
-            </LinearLayout>
+                    android:inputType="textPassword"/>
+            </com.google.android.material.textfield.TextInputLayout>
 
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/back_buttons"
+                android:text="Iniciar sesión"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/primary_dark1"
+                app:icon="@drawable/ic_baseline_login_24"
+                app:iconTint="@color/white"
+                app:iconGravity="textStart"
+                style="@style/Widget.MaterialComponents.Button.TextButton.Icon"/>
         </LinearLayout>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,11 +40,13 @@
             android:layout_height="match_parent"
             android:layout_marginTop="200dp"
             android:orientation="vertical"
+            android:padding="5dp"
             android:background="@drawable/back_listview">
             <TextView
                 android:id="@+id/txtMensajePV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
                 android:gravity="center"
                 android:textSize="20sp"/>
             <ListView

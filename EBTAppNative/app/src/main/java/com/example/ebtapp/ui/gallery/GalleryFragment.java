@@ -218,7 +218,7 @@ public class GalleryFragment extends Fragment {
                 btnCancelarRuta = (Button) dialog.findViewById(R.id.btnCERtua);
                 txtNruta = (TextInputEditText) dialog.findViewById(R.id.txtENRuta);
 
-                txtNruta.setText(rutas.getNombre());
+                txtNruta.setHint(rutas.getNombre());
 
                 btnGuardarRuta.setOnClickListener(new View.OnClickListener() {
                     @Override

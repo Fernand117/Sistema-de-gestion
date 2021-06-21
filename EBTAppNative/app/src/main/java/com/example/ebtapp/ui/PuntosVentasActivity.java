@@ -178,13 +178,21 @@ public class PuntosVentasActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                String punto = ((TextView) view.findViewById(R.id.txtNPV)).getText().toString();
-                String idPv = ((TextView) view.findViewById(R.id.txtIdPV)).getText().toString();
-                getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.primary1));
+                try {
+                    HashMap<String, Object> param = (HashMap<String, Object>) pVentasRutasAdapter.getItem(position);
 
-                pVentasModel.setId(Integer.parseInt(idPv));
-                pVentasModel.setNombre(punto);
+                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                    getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.primary1));
+                    String idPunto = (String) param.get("idpunto");
+                    pVentasModel.setId((Integer) Integer.parseInt(idPunto));
+                    pVentasModel.setNombre((String) param.get("punto"));
+                    pVentasModel.setFoto((String) param.get("foto"));
+                    direccionesModel.setDireccion((String) param.get("direccion"));
+                    direccionesModel.setLocalidad((String) param.get("localidad"));
+                    direccionesModel.setMunicipio((String) param.get("municipio"));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 fabCancelarPV.setVisibility(View.VISIBLE);
                 fabEditarPV.setVisibility(View.VISIBLE);
@@ -253,10 +261,10 @@ public class PuntosVentasActivity extends AppCompatActivity {
                 txtNombrePV = (TextInputEditText) dialog.findViewById(R.id.txtNombrePVentaE);
 
                 Picasso.with(PuntosVentasActivity.this).load(pVentasModel.getFoto()).resize(300, 180).into(imgPuntoVenta);
-                txtNombrePV.setText(pVentasModel.getNombre());
-                txtDireccion.setText(direccionesModel.getDireccion());
-                txtLocalidad.setText(direccionesModel.getLocalidad());
-                txtMunicipio.setText(direccionesModel.getMunicipio());
+                txtNombrePV.setHint(pVentasModel.getNombre());
+                txtDireccion.setHint(direccionesModel.getDireccion());
+                txtLocalidad.setHint(direccionesModel.getLocalidad());
+                txtMunicipio.setHint(direccionesModel.getMunicipio());
 
                 btnGuardarPV = (Button) dialog.findViewById(R.id.btnSPVE);
                 btnCancelarPV = (Button) dialog.findViewById(R.id.btnCPVE);
@@ -283,6 +291,7 @@ public class PuntosVentasActivity extends AppCompatActivity {
                 btnCancelarPV.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        fabButtons();
                         dialog.dismiss();
                     }
                 });
@@ -423,7 +432,7 @@ public class PuntosVentasActivity extends AppCompatActivity {
                             jsonObject = new JSONObject(builderResult.toString());
 
                             if (jsonObject != null){
-                                listViewPVRutas.setVisibility(View.INVISIBLE);
+                                listViewPVRutas.setVisibility(View.GONE);
                                 txtMensajePV.setText(jsonObject.getString(jsonMsj));
                             }
                         } catch (JSONException jsonException) {
@@ -460,6 +469,9 @@ public class PuntosVentasActivity extends AppCompatActivity {
                                     mapPVRutas.put("idpunto", String.valueOf(pVentasModel.getId()));
                                     mapPVRutas.put("punto", pVentasModel.getNombre());
                                     mapPVRutas.put("foto", pVentasModel.getFoto());
+                                    mapPVRutas.put("direccion", direccionesModel.getDireccion());
+                                    mapPVRutas.put("localidad", direccionesModel.getLocalidad());
+                                    mapPVRutas.put("municipio", direccionesModel.getMunicipio());
                                     listPVRutas.add(mapPVRutas);
                                 }
                                 return jsonObject;
@@ -488,6 +500,7 @@ public class PuntosVentasActivity extends AppCompatActivity {
             super.onPostExecute(jsonObject);
 
             if (progressDialog != null && progressDialog.isShowing()){
+                txtMensajePV.setVisibility(View.GONE);
                 progressDialog.dismiss();
             }
             pVentasRutasAdapter = new PVentasRutasAdapter(PuntosVentasActivity.this, listPVRutas, R.layout.item_pv_list, new String[]{}, new int[]{});
