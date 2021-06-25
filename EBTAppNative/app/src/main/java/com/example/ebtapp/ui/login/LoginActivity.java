@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ebtapp.MainActivity;
 import com.example.ebtapp.R;
@@ -206,6 +207,8 @@ public class LoginActivity extends AppCompatActivity {
                         String[] args = new String[] {usuariosModel.getUsuario()};
                         Cursor consultaUsuario = database.rawQuery("SELECT * FROM usuario WHERE usuario = ?", args);
                         if (consultaUsuario != null && consultaUsuario.getCount() <= 0) {
+                            Toast.makeText(LoginActivity.this, "Bienvenido", Toast.LENGTH_SHORT).show();
+                        } else {
                             Cursor consutlaUsuarios = database.rawQuery("SELECT * FROM usuario", null);
                             if (consutlaUsuarios != null && consutlaUsuarios.getCount() > 0) {
                                 database.delete("usuario",null,null);
@@ -214,6 +217,7 @@ public class LoginActivity extends AppCompatActivity {
                                 saveData();
                             }
                             consutlaUsuarios.close();
+                            Toast.makeText(LoginActivity.this, "Bienvenido", Toast.LENGTH_SHORT).show();
                         }
                         consultaUsuario.close();
                         database.close();
@@ -221,7 +225,6 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-                //homeIntent.putExtra("usuario", usuariosModel.getUsuario());
                 startActivity(homeIntent);
             }
         }

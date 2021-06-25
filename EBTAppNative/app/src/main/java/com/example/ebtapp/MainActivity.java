@@ -1,6 +1,8 @@
 package com.example.ebtapp;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.ebtapp.database.DataBaseBack;
 import com.example.ebtapp.model.UsuariosModel;
+import com.example.ebtapp.ui.PuntosVentasActivity;
 import com.example.ebtapp.ui.login.LoginActivity;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -47,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
         dataBaseBack = new DataBaseBack(this);
         usuariosModel = new UsuariosModel();
-        //usuariosModel.setUsuario(getIntent().getStringExtra("usuario"));
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -112,19 +114,35 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void cerrarSesion() {
-        Toast toast = Toast.makeText(getApplicationContext(), "Serrando sesión", Toast.LENGTH_SHORT);
-        toast.show();
-        try {
-            SQLiteDatabase database = dataBaseBack.getWritableDatabase();
-            if (database != null){
-                database.acquireReference();
-                database.delete("usuario",null,null);
-                database.close();
+        AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+        dialog.setTitle("Importante");
+        dialog.setMessage("¿Desea cerrar sesión?");
+        dialog.setCancelable(false);
+        dialog.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Toast toast = Toast.makeText(getApplicationContext(), "Cerrando sesión", Toast.LENGTH_SHORT);
+                toast.show();
+                try {
+                    SQLiteDatabase database = dataBaseBack.getWritableDatabase();
+                    if (database != null){
+                        database.acquireReference();
+                        database.delete("usuario",null,null);
+                        database.close();
+                    }
+                    finish();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
-            finish();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        });
+        dialog.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
     }
 
     @Override

@@ -1,23 +1,30 @@
 <div class="content">
     <div class="menu" *ngFor="let item of usuario">
-        <img src="{{item.foto_perfil}}" alt="foto" class="img">
-        <h3 class="txtNombre"> {{item.nombre}} </h3>
-        <button class="btn btn-danger" (click)="closeSession()">Cerrar sesión <i class="bi bi-box-arrow-left"></i></button>
+        <div class="contPerfil">
+            <div class="cimg">
+                <img src="{{item.foto_perfil}}" alt="foto" class="img">
+            </div>
+            <div class="cp">
+                <h6> {{item.usuario}} </h6>
+                <h3 class="txtNombre"> {{item.nombre}} {{item.paterno}} {{item.materno}} </h3>
+                <button class="btn btn-danger" (click)="closeSession()">Cerrar sesión <i class="bi bi-box-arrow-left"></i></button>
+            </div>
+        </div>
         <ul>
             <li>
-                <a [routerLink]="['/inicio']">Inicio</a>
+                <button class="btn btn-danger" [routerLink]="['/inicio']">Inicio</button>
             </li>
             <li>
-                <a [routerLink]="['/rutas']">Rutas</a>
+                <button class="btn btn-danger" [routerLink]="['/rutas']">Rutas</button>
             </li>
             <li>
-                <a [routerLink]="['/puntos']">Puntos de venta</a>
+                <button class="btn btn-danger" [routerLink]="['/puntos']">Puntos de venta</button>
             </li>
             <li>
-                <a [routerLink]="['/vendedores']">Vendedores</a>
+                <button class="btn btn-danger" [routerLink]="['/vendedores']">Vendedores</button>
             </li>
             <li>
-                <a href="">Tiros</a>
+                <button class="btn btn-danger">Tiros</button>
             </li>
         </ul>
     </div>

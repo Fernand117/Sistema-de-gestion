@@ -29,6 +29,8 @@ Route::post('registrar/usuario', 'UsuariosController@registrarUsuarios');
 Route::post('editar/usuario', 'UsuariosController@actualizarUsuario');
 Route::post('eliminar/usuario', 'UsuariosController@eliminarUsuario');
 
+Route::post('total/puntos-ventas', 'UsuariosController@totalPuntosVentas');
+
 Route::get('lista/rutas', 'RutasController@listarRutas');
 Route::post('lista/ruta/id', 'RutasController@listarRutaID');
 Route::post('lista/rutas/usuario', 'RutasController@listaRutasUsuario');

@@ -89,7 +89,7 @@ select * from RUTAS;
 drop view ViewPuntosVentas;
 
 create view ViewPuntosVentas as
-select p.id as IDPunto, p.nombre as Punto, p.foto, r.id as IDRuta, r.nombre as Ruta, d.direccion, d.localidad, d.municipio, u.nombre, u.paterno  from PUNTOS_VENTAS p, RUTAS r, DIRECCIONES d, USUARIOS u where p.idRuta = r.id and r.idUsuario = u.id and d.idPVentas = p.id;
+select p.id as IDPunto, p.nombre as Punto, p.foto, r.id as IDRuta, r.nombre as Ruta, d.direccion, d.localidad, d.municipio, u.usuario ,u.nombre, u.paterno  from PUNTOS_VENTAS p, RUTAS r, DIRECCIONES d, USUARIOS u where p.idRuta = r.id and r.idUsuario = u.id and d.idPVentas = p.id;
 
 select * from ViewPuntosVentas;
 
@@ -103,3 +103,4 @@ select * from ViewUsuarios where usuario = 'Fernand117';
 
 select * from USUARIOS, RUTAS, PUNTOS_VENTAS, DIRECCIONES;
 select * from DIRECCIONES;
+select * from ViewRutas;
