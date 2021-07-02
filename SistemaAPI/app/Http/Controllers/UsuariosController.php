@@ -17,21 +17,22 @@ class UsuariosController extends Controller
         if (isset($datos['usuario'])) {
             $totalPuntos = DB::select("select count(*) as Total from ViewPuntosVentas where usuario = ?", [$usuario]);
             $totalRutas = DB::select("select count(*) as Total from ViewRutas where idUsuario = ?", [$id]);
-            $ultimosPuntos = DB::select("select * from ViewPuntosVentas where usuario = ? order by Punto asc limit 5", [$usuario]);
+            $ultimosPuntos = DB::select("select * from ViewPuntosVentas where usuario = ? order by IDPunto desc limit 5", [$usuario]);
             $item = json_decode(json_encode($ultimosPuntos), true);
             for($i = 0; $i < count($ultimosPuntos); $i++) {
                 $item[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/puntosVentas/'.$item[$i]['foto'];            
             }
             return response()->json(['Puntos' => $totalPuntos] + ['Rutas' => $totalRutas] + ['Lista' => $item]);
-        } else {
+		} else {
+			$totalUsuarios = DB::select("select count(*) as Total from USUARIOS");
             $totalPuntos = DB::select("select count(*) as Total from ViewPuntosVentas");
             $totalRutas = DB::select("select count(*) as Total from ViewRutas");
-            $ultimosPuntos = DB::select("select * from ViewPuntosVentas order by Punto asc limit 5");
+            $ultimosPuntos = DB::select("select * from ViewPuntosVentas order by IDPunto desc limit 5");
             $item = json_decode(json_encode($ultimosPuntos), true);
             for($i = 0; $i < count($ultimosPuntos); $i++) {
                 $item[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/puntosVentas/'.$item[$i]['foto'];            
             }
-            return response()->json(['Puntos' => $totalPuntos] + ['Rutas' => $totalRutas] + ['Lista' => $item]);
+            return response()->json(['Puntos' => $totalPuntos] + ['Rutas' => $totalRutas] + ['Lista' => $item] + ['Usuarios' => $totalUsuarios]);
         }
     }
 

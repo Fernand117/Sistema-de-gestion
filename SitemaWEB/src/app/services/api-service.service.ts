@@ -14,6 +14,10 @@ export class ApiServiceService {
     private http: HttpClient
   ) { }
 
+  totalDatosVendedor(datos: any) {
+	  return this.http.post(`${this.url}/total/puntos-ventas`, datos);
+  }
+
   listaUsuarios() {
     return this.http.get(`${this.url}/lista/usuarios`);
   }

@@ -1,38 +1,52 @@
 <app-menu-bar></app-menu-bar>
 <div class="content">
     <app-header></app-header>
+    <br>
+    <h3>Últimos datos registrados.</h3>
     <div class="report">
-        <div class="cont-report"></div>
-        <div class="cont-report"></div>
-        <div class="cont-report"></div>
+        <div class="cont-report">
+            <div class="contDts">
+                <h2>{{totalPuntos[0].Total}}</h2>
+                <h4>Puntos de venta</h4>
+            </div>
+        </div>
+        <div class="cont-report">
+            <div class="contDts">
+                <h2>{{totalRutas[0].Total}}</h2>
+                <h4>Rutas</h4>
+            </div>
+        </div>
+        <div class="cont-report">
+            <div class="contDts">
+                <h2>{{totalUsuarios[0].Total}}</h2>
+                <h4>Usuarios</h4>
+            </div>
+        </div>
     </div>
 
     <table class="table">
         <thead class="table-dark">
             <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">ID</th>
+                <th scope="col">Punto</th>
+                <th scope="col">Ruta</th>
+                <th scope="col">Municipio</th>
+                <th scope="col">Localidad</th>
+                <th scope="col">Dirección</th>
+                <th scope="col">Vendedor</th>
+                <th scope="col">Municipio</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-            </tr>
-            <tr>
-                <th scope="row">2</th>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-            </tr>
-            <tr>
-                <th scope="row">3</th>
-                <td colspan="2">Larry the Bird</td>
-                <td>@twitter</td>
+            <tr *ngFor="let item of listaPuntos">
+                <th scope="row">{{item.IDPunto}}</th>
+                <td>{{item.Punto}}</td>
+                <td>{{item.Ruta}}</td>
+                <td>{{item.municipio}}</td>
+                <td>{{item.localidad}}</td>
+                <td>{{item.direccion}}</td>
+                <td>{{item.nombre}}</td>
+                <td class="col-6 col-sm-1"> <img src="{{item.foto}}" alt="" class="card-img-top"> </td>
             </tr>
         </tbody>
     </table>
