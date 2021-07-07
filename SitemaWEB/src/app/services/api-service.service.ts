@@ -85,4 +85,8 @@ export class ApiServiceService {
   eliminarPuntoVenta(datos: any) {
     return this.http.post(`${this.url}/eliminar/puntos-ventas`, datos);
   }
+
+  listaTiros() {
+    return this.http.get(`${this.url}/lista/tiros`);
+  }
 }

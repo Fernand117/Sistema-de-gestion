@@ -1,0 +1,28 @@
+<app-menu-bar></app-menu-bar>
+<div class="content">
+    <app-header></app-header>
+    <div class="sheader">
+        <h1 class="txtTitle">Lista de tiros.</h1>
+        <button class="btn btnAdd btn-success" [routerLink]="['/admin/rutas', 'add']">Crear nuevo tiro <i class="bi bi-plus-circle"></i></button>
+    </div>
+    <table class="table">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Tiro</th>
+                <th scope="col">Punto</th>
+                <th scope="col">Vendedor</th>
+                <th scope="col">Foto</th>
+                <th scope="col">Editar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of itemTiros">
+                <th scope="row"> {{item.IDTiro}} </th>
+                <td>{{item.Punto}}</td>
+                <td>{{item.nombre}} {{item.paterno}}</td>
+                <th class="col-6 col-sm-1"> <img src="{{item.foto}}" alt="" class="card-img-top"> </th>
+                <td><button class="btn btn-warning" [routerLink]="['/admin/rutas', item.id]"><i class="bi bi-pencil-square"></i></button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

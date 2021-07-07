@@ -8,6 +8,7 @@ import { PuntosVentasComponent } from './pages/puntos-ventas/puntos-ventas.compo
 import { AdminPuntosComponent } from './pages/admin-puntos/admin-puntos.component';
 import { VendedoresComponent } from './pages/vendedores/vendedores.component';
 import { AdminVendedoresComponent } from './pages/admin-vendedores/admin-vendedores.component';
+import { TirosComponent } from './pages/tiros/tiros.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,9 @@ const routes: Routes = [
   },
   {
     path: 'vendedores', component: VendedoresComponent
+  },
+  {
+    path: 'tiros', component: TirosComponent
   },
   {
     path: 'admin/vendedor/:id', component: AdminVendedoresComponent

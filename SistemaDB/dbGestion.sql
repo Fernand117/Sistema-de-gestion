@@ -104,3 +104,25 @@ select * from ViewUsuarios where usuario = 'Fernand117';
 select * from USUARIOS, RUTAS, PUNTOS_VENTAS, DIRECCIONES;
 select * from DIRECCIONES;
 select * from ViewRutas;
+
+create view ViewDetallesTiros as
+select p.id as IDPunto, p.nombre as Punto, p.foto,
+       r.id as IDRuta, r.nombre as Ruta,
+       d.id as IDDireccion, d.direccion, d.localidad, d.municipio,
+       u.id as IDUsuario, u.usuario ,u.nombre, u.paterno,
+       t.id as IDTiro, t.fecha, t.salida, t.devolucion, t.venta, t.total
+from PUNTOS_VENTAS p
+    inner join RUTAS r on p.idRuta = r.id
+    inner join DIRECCIONES d on d.idPVentas = p.id
+    inner join USUARIOS u on r.idUsuario = u.id
+    inner join TIROS t on t.idPVenta = p.id;
+
+select *
+from ViewDetallesTiros;
+
+select *
+from ViewDetallesTiros
+where IDPunto = 47
+order by IDTiro desc limit 1;
+
+select * from ViewDetallesTiros;

@@ -15,6 +15,7 @@ import { AdminPuntosComponent } from './pages/admin-puntos/admin-puntos.componen
 import { VendedoresComponent } from './pages/vendedores/vendedores.component';
 import { AdminVendedoresComponent } from './pages/admin-vendedores/admin-vendedores.component';
 import { NgFallimgModule } from 'ng-fallimg';
+import { TirosComponent } from './pages/tiros/tiros.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { NgFallimgModule } from 'ng-fallimg';
     PuntosVentasComponent,
     AdminPuntosComponent,
     VendedoresComponent,
-    AdminVendedoresComponent
+    AdminVendedoresComponent,
+    TirosComponent
   ],
   imports: [
     BrowserModule,

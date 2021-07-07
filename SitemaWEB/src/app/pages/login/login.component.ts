@@ -1,3 +1,4 @@
+import { Form, FormGroup, FormsModule, NgForm } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { UsuarioModelModule } from '../../models/usuario-model/usuario-model.module';
 import { ApiServiceService } from '../../services/api-service.service';
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  loginUsuarios() {
+  loginUsuarios(form:NgForm) {
     if (this.usuariosModel.usuario === '') {
       this.alertFailed('Ingrese su nombre de usuario por favor!');
     } else if (this.usuariosModel.clave === '') {
@@ -62,12 +63,15 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('Usuario', JSON.stringify(this.datos['Usuarios']));
                 this.router.navigateByUrl('inicio');
               } else {
+                form.resetForm();
                 this.alertFailed('Usted no tiene persmisos de usuario para ingresar al sistema, contacte con el administrador del área.');
               }
             }, error => {
               if (error['status'] === 404) {
+                form.resetForm();
                 this.alertFailed(error['error']['Mensaje']);
               } else {
+                form.resetForm();
                 this.alertFailed('Servidor no disponible.');
               }
             }
