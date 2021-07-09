@@ -1,0 +1,21 @@
+<app-menu-bar></app-menu-bar>
+<div class="content">
+    <app-header></app-header>
+    <div class="formulario">
+        <form (ngSubmit)="guardarDatos()" #form="ngForm" class="form">
+            <label for="vendedor">Vendedor:</label>
+            <select name="vendedor" id="vendedor" class="form-control" [(ngModel)]="vendedorModel.idTipo">
+              <option value="0">Seleccione un vendedor</option>
+              <option value="{{item.id}}" *ngFor="let item of itemVendedor">{{item.nombre}} {{item.paterno}}</option>
+            </select>
+            <br>
+            <label for="punto">Punto de venta:</label>
+            <select name="punto" id="punto" class="form-control" [(ngModel)]="puntoModel.id">
+              <option value="0">Seleccione un punto de venta</option>
+              <option value="{{item.IDPunto}}" *ngFor="let item of itemPunto">{{item.Punto}}</option>
+            </select>
+            <br>
+            <button class="btn btn-primary">Guardar <i class="bi bi-save"></i></button>
+        </form>
+    </div>
+</div>

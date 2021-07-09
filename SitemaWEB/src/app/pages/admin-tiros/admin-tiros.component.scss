@@ -4,6 +4,18 @@
     height: 100vh;
     overflow: scroll;
     padding: 2%;
+    .formulario {
+        width: 90%;
+        height: 100px;
+        margin: 0 auto;
+        margin-top: 5%;
+        .form {
+            padding: 10px;
+        }
+        .btn {
+            float: right;
+        }
+    }
     .sheader {
         margin-top: 5%;
         .txtTitle {
@@ -12,8 +24,5 @@
         .btnAdd {
             float: right;
         }
-    }
-    .table {
-        text-align: center;
     }
 }

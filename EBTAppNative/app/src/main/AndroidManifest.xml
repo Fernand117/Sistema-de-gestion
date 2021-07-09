@@ -4,8 +4,8 @@
     package="com.example.ebtapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +16,10 @@
         android:theme="@style/Theme.EBTApp"
         android:usesCleartextTraffic="true"
         tools:targetApi="m">
-        <activity android:name=".ui.PuntosVentasActivity"
+        <activity
+            android:name=".ui.TirosActivity"/>
+        <activity
+            android:name=".ui.PuntosVentasActivity"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -32,7 +35,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/Theme.EBTApp.NoActionBar"/>
+            android:theme="@style/Theme.EBTApp.NoActionBar" />
 
         <meta-data
             android:name="preloaded_fonts"

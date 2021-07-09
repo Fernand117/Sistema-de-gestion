@@ -169,6 +169,10 @@ public class PuntosVentasActivity extends AppCompatActivity {
                         HashMap<String, Object> data = (HashMap<String, Object>)pVentasRutasAdapter.getItem(position);
                         String pventanombre = (String) data.get("punto");
                         Toast.makeText(PuntosVentasActivity.this, pventanombre, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(PuntosVentasActivity.this, TirosActivity.class);
+                        intent.putExtra("idPVenta", (String) data.get("idpunto"));
+                        intent.putExtra("punto", pventanombre);
+                        startActivity(intent);
                         break;
                 }
             }

@@ -30,7 +30,7 @@ class TirosController extends Controller
         return response()->json(['Detalles' => $itemConsultaTiro]);
     }
 
-    public function calcTiros(Request $request)
+    public function generarTiro(Request $request)
     {
         $datos = $request->all();
         $idUsuario = $datos['idUsuario'];

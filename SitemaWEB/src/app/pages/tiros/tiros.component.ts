@@ -1,5 +1,7 @@
+import { AdminPuntosComponent } from './../admin-puntos/admin-puntos.component';
 import { Component, OnInit } from '@angular/core';
 import { ApiServiceService } from '../../services/api-service.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-tiros',
@@ -24,7 +26,6 @@ export class TirosComponent implements OnInit {
       res => {
         this.tirosResponse = res;
         this.itemTiros = this.tirosResponse['Tiros'];
-        console.log(this.itemTiros);
       }
     );
   }

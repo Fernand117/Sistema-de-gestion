@@ -89,4 +89,8 @@ export class ApiServiceService {
   listaTiros() {
     return this.http.get(`${this.url}/lista/tiros`);
   }
+
+  generarTiro(datos: any) {
+    return this.http.post(`${this.url}/crear/tiro`, datos);
+  }
 }
