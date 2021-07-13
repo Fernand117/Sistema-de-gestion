@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ebtapp.R;
 import com.example.ebtapp.database.DataBaseBack;
@@ -52,14 +54,16 @@ public class TirosActivity extends AppCompatActivity {
     private TextView txtTiro;
     private TextView txtTotal;
     private TextView txtSalida;
-    private TextView txtFechaTiro;
+    //private TextView txtFechaTiro;
     private TextView txtDevolucion;
     private TextInputEditText txtVenta;
+    private TextInputEditText txtPrecio;
 
     private Button btnGuardar;
     private ImageView imgPunto;
 
     private String line;
+    private String mensajeRes;
     private int responseCode;
     private JSONObject jsonObject;
     private InputStream inputStream;
@@ -97,11 +101,27 @@ public class TirosActivity extends AppCompatActivity {
         txtTiro = (TextView) findViewById(R.id.txtIdTiro);
         txtTotal = (TextView) findViewById(R.id.txtTotal);
         txtSalida = (TextView) findViewById(R.id.txtSalida);
-        txtFechaTiro = (TextView) findViewById(R.id.txtFechaTiro);
+        //txtFechaTiro = (TextView) findViewById(R.id.txtFechaTiro);
         txtVenta = (TextInputEditText) findViewById(R.id.txtVenta);
         txtDevolucion = (TextView) findViewById(R.id.txtDevolucion);
+        txtPrecio =  (TextInputEditText) findViewById(R.id.txtPrecio);
 
         new detallesTiro().execute();
+
+        btnGuardar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (txtVenta.getText().toString().isEmpty() && txtPrecio.getText().toString().isEmpty()) {
+                    mensaje("Por favor, ingrese la cantidad de periódico a vender y el precio.");
+                } else if (txtPrecio.getText().toString().isEmpty()) {
+                    mensaje("Por favor ingrese el precio del periódico");
+                } else if (txtVenta.getText().toString().isEmpty()){
+                    mensaje("Por favor, ingrese la cantidad de periódico a vender.");
+                } else {
+                    new actualizarTiro().execute();
+                }
+            }
+        });
     }
 
     private class detallesTiro extends AsyncTask<String, String, JSONObject> {
@@ -147,6 +167,7 @@ public class TirosActivity extends AppCompatActivity {
 
                         try {
                             jsonObject = new JSONObject(builderResult.toString());
+                            mensajeRes = jsonObject.getString("Mensaje");
                         } catch (JSONException jsonException) {
                             jsonException.printStackTrace();
                         }
@@ -193,7 +214,7 @@ public class TirosActivity extends AppCompatActivity {
                                     tirosModel.setIdUsuario(usuariosModel.getId());
                                 }
                             }
-                        } catch (JSONException jsonException){
+                        } catch (JSONException jsonException) {
                             jsonException.printStackTrace();
                         }
                     }
@@ -229,9 +250,121 @@ public class TirosActivity extends AppCompatActivity {
                 txtTiro.setText(String.valueOf(tirosModel.getId()));
                 txtTotal.setText(String.valueOf(tirosModel.getTotal()));
                 txtSalida.setText(String.valueOf(tirosModel.getSalida()));
-                txtFechaTiro.setText(String.valueOf(tirosModel.getFecha()));
+                //txtFechaTiro.setText(String.valueOf(tirosModel.getFecha()));
                 txtDevolucion.setText(String.valueOf(tirosModel.getDevolucion()));
+                if (tirosModel.getTotal() > 0) {
+                    txtVenta.setEnabled(false);
+                    txtVenta.setHint(null);
+                    txtVenta.setText(String.valueOf(tirosModel.getVenta()));
+
+                    txtPrecio.setEnabled(false);
+
+                    btnGuardar.setEnabled(false);
+                }
+            } else {
+                mensaje(mensajeRes);
+                txtVenta.setEnabled(false);
+                txtPrecio.setEnabled(false);
+                btnGuardar.setEnabled(false);
             }
         }
+    }
+
+    private class actualizarTiro extends AsyncTask<String, String, JSONObject> {
+
+        private ProgressDialog progressDialog;
+        private APIService apiService = new APIService();
+        private static final String method = "POST";
+        private static final String style = "normal";
+        private static final String jsonMsj = "Mensaje";
+        private static final String urlComplement = "/actualizar/tiro";
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            progressDialog = new ProgressDialog(TirosActivity.this);
+            progressDialog.setMessage("Actualizando punto de venta");
+            progressDialog.setTitle("Espere por favor");
+            progressDialog.setIndeterminate(true);
+            progressDialog.setCancelable(true);
+            progressDialog.show();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... strings) {
+            try {
+                HashMap<String, String> params = new HashMap<>();
+                params.put("idTiro", String.valueOf(tirosModel.getId()));
+                params.put("venta", txtVenta.getText().toString());
+                params.put("precio", txtPrecio.getText().toString());
+
+                connection = apiService.ServiceSF(params, urlComplement, method, style);
+
+                try {
+                    responseCode = connection.getResponseCode();
+
+                    if (responseCode == 404) {
+                        inputStream = new BufferedInputStream(connection.getErrorStream());
+                        inputStream = new BufferedInputStream(connection.getErrorStream());
+                        bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                        builderResult = new StringBuilder();
+
+                        while ((line = bufferedReader.readLine()) != null){
+                            builderResult.append(line);
+                        }
+
+                        try {
+                            jsonObject = new JSONObject(builderResult.toString());
+                            mensajeRes = jsonObject.getString("Mensaje");
+                        } catch (JSONException jsonException) {
+                            jsonException.printStackTrace();
+                        }
+                    } else if (responseCode == 200) {
+                        inputStream = new BufferedInputStream(connection.getInputStream());
+                        bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                        builderResult = new StringBuilder();
+
+                        while ((line = bufferedReader.readLine()) != null) {
+                            builderResult.append(line);
+                        }
+
+                        try {
+                            jsonObject = new JSONObject(builderResult.toString());
+                            if (jsonObject != null) {
+                                JSONArray jsonArray = jsonObject.getJSONArray(jsonMsj);
+                                mensajeRes = jsonArray.toString();
+                            }
+                        } catch (JSONException jsonException) {
+                            jsonException.printStackTrace();
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return jsonObject;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            super.onPostExecute(jsonObject);
+            if (progressDialog != null && progressDialog.isShowing()){
+                progressDialog.dismiss();
+            }
+
+            if (responseCode == 200) {
+                mensaje(mensajeRes);
+                new detallesTiro().execute();
+            } else {
+                mensaje(mensajeRes);
+            }
+        }
+    }
+
+    private void mensaje(String mensaje) {
+        Toast.makeText(TirosActivity.this, mensaje, Toast.LENGTH_SHORT).show();
     }
 }

@@ -29,7 +29,7 @@
                 <td>{{item.devolucion}}</td>
                 <td>{{item.total}}</td>
                 <th class="col-6 col-sm-1"> <img src="{{item.foto}}" alt="" class="card-img-top"> </th>
-                <td><button class="btn btn-danger"><i class="bi bi-trash"></i></button></td>
+                <td><button class="btn btn-danger" (click)="eliminarTiro(item.IDTiro)"><i class="bi bi-trash"></i></button></td>
             </tr>
         </tbody>
     </table>

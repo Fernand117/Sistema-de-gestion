@@ -35,6 +35,7 @@ Route::get('lista/tiros', 'TirosController@listaTiros');
 Route::post('crear/tiro', 'TirosController@generarTiro');
 Route::post('actualizar/tiro', 'TirosController@actualizarTiro');
 Route::post('detalles/tiros', 'TirosController@detallesTiros');
+Route::post('eliminar/tiro', 'TirosController@eliminarTiro');
 
 Route::get('lista/rutas', 'RutasController@listarRutas');
 Route::post('lista/ruta/id', 'RutasController@listarRutaID');

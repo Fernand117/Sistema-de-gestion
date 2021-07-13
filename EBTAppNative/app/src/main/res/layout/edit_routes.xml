@@ -21,8 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         app:startIconDrawable="@drawable/ic_baseline_alt_route_24"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:hint="Nombre de la ruta">
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtENRuta"

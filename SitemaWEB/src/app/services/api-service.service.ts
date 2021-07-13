@@ -54,6 +54,10 @@ export class ApiServiceService {
     return this.http.post(`${this.url}/lista/ruta/id`, data);
   }
 
+  listaRutaUsuario(datos: any) {
+    return this.http.post(`${this.url}/lista/rutas/usuario`, datos);
+  }
+
   registrarRuta(datos: any) {
     return this.http.post(`${this.url}/registrar/ruta`, datos);
   }
@@ -74,6 +78,10 @@ export class ApiServiceService {
     return this.http.post(`${this.url}/listar/puntos-ventas/id`, datos);
   }
 
+  listaPuntoVentaRuta(datos: any) {
+    return this.http.post(`${this.url}/listar/puntos-rutas`, datos);
+  }
+
   crearPuntoVenta(datos: any) {
     return this.http.post(`${this.url}/registrar/puntos-ventas`, datos);
   }
@@ -92,5 +100,9 @@ export class ApiServiceService {
 
   generarTiro(datos: any) {
     return this.http.post(`${this.url}/crear/tiro`, datos);
+  }
+
+  eliminarTiro(datos: any) {
+    return this.http.post(`${this.url}/eliminar/tiro`, datos);
   }
 }

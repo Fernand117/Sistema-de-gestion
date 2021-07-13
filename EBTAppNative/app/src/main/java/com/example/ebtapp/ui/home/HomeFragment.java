@@ -2,6 +2,7 @@ package com.example.ebtapp.ui.home;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -11,6 +12,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -32,6 +34,7 @@ import com.example.ebtapp.model.Rutas;
 import com.example.ebtapp.model.UsuariosModel;
 import com.example.ebtapp.service.APIService;
 import com.example.ebtapp.ui.PuntosVentasActivity;
+import com.example.ebtapp.ui.TirosActivity;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.squareup.picasso.Picasso;
@@ -98,6 +101,25 @@ public class HomeFragment extends Fragment {
         listPVRutas = new ArrayList<HashMap<String, String>>();
 
         new getTotalPuntosVentas().execute();
+
+        viewPuntos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int viewID = view.getId();
+                switch (viewID) {
+                    case R.id.btnVerPVentas:
+                        HashMap<String, Object> data = (HashMap<String, Object>)pVentasRutasAdapter.getItem(position);
+                        String pventanombre = (String) data.get("punto");
+                        Toast.makeText(getContext(), pventanombre, Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getContext(), TirosActivity.class);
+                        intent.putExtra("idPVenta", (String) data.get("idpunto"));
+                        intent.putExtra("punto", pventanombre);
+                        startActivity(intent);
+                        break;
+                }
+            }
+        });
+
         return view;
     }
 

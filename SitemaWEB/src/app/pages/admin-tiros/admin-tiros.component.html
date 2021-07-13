@@ -1,14 +1,24 @@
 <app-menu-bar></app-menu-bar>
 <div class="content">
     <app-header></app-header>
+    <br>
+    <h2>Generar un nuevo tiro</h2>
     <div class="formulario">
         <form (ngSubmit)="guardarDatos()" #form="ngForm" class="form">
             <label for="vendedor">Vendedor:</label>
-            <select name="vendedor" id="vendedor" class="form-control" [(ngModel)]="vendedorModel.idTipo">
+            <select name="vendedor" id="vendedor" class="form-control" [(ngModel)]="vendedorModel.idTipo" (change)="vendedorSeleccionado()">
               <option value="0">Seleccione un vendedor</option>
               <option value="{{item.id}}" *ngFor="let item of itemVendedor">{{item.nombre}} {{item.paterno}}</option>
             </select>
             <br>
+
+            <label for="ruta">Ruta:</label>
+            <select name="ruta" id="ruta" class="form-control" [(ngModel)]="rutasModel.idVendedor" (change)="rutaSeleccionada()">
+              <option value="0">Seleccione una ruta</option>
+              <option value="{{item.id}}" *ngFor="let item of itemRutas">{{item.nombre}}</option>
+            </select>
+            <br>
+
             <label for="punto">Punto de venta:</label>
             <select name="punto" id="punto" class="form-control" [(ngModel)]="puntoModel.id">
               <option value="0">Seleccione un punto de venta</option>
