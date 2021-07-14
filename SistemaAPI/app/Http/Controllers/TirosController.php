@@ -13,7 +13,7 @@ class TirosController extends Controller
         $tiros = DB::select('select * from ViewDetallesTiros order by IDTiro desc');
         $itemConsultaTiro = json_decode(json_encode($tiros), true);
         for ($i=0; $i < count($tiros); $i++) {
-            $itemConsultaTiro[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/puntosVentas/'.$itemConsultaTiro[$i]['foto'];
+            $itemConsultaTiro[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/img/puntosVentas/'.$itemConsultaTiro[$i]['foto'];
         }
         return response()->json(['Tiros' => $itemConsultaTiro]);
     }
@@ -26,7 +26,7 @@ class TirosController extends Controller
         if ($consultaTiro != null) {
             $itemConsultaTiro = json_decode(json_encode($consultaTiro), true);
             for ($i=0; $i < count($consultaTiro); $i++) {
-                $itemConsultaTiro[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/puntosVentas/'.$itemConsultaTiro[$i]['foto'];
+                $itemConsultaTiro[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/img/puntosVentas/'.$itemConsultaTiro[$i]['foto'];
             }
             return response()->json(['Detalles' => $itemConsultaTiro]);
         } else {
