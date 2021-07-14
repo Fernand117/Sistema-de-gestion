@@ -67,7 +67,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginBottom="5dp"
             android:visibility="gone"
-            app:backgroundTint="@color/primary"
+            app:backgroundTint="@color/primary_dark1"
             android:src="@drawable/ic_baseline_delete_24"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabEditarRuta"
@@ -78,7 +78,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:visibility="gone"
-            app:backgroundTint="@color/primary"
+            app:backgroundTint="@color/primary_dark1"
             android:src="@drawable/ic_sharp_edit_24"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabCancelar"
@@ -89,7 +89,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:visibility="gone"
-            app:backgroundTint="@color/primary"
+            app:backgroundTint="@color/primary_dark1"
             android:src="@drawable/ic_baseline_close_24"/>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/btnNRuta"
