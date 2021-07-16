@@ -434,7 +434,6 @@ public class PuntosVentasActivity extends AppCompatActivity {
 
                         try {
                             jsonObject = new JSONObject(builderResult.toString());
-
                             if (jsonObject != null){
                                 listViewPVRutas.setVisibility(View.GONE);
                                 txtMensajePV.setText(jsonObject.getString(jsonMsj));

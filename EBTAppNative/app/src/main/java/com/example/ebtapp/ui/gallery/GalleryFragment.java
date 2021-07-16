@@ -342,7 +342,7 @@ public class GalleryFragment extends Fragment {
 
                 try {
                     responseCode = connection.getResponseCode();
-
+                    System.out.println("CÓDIGO DE RESPUESTA DEL SERVIDOR ==> " + responseCode);
                     if (responseCode == 404){
                         inputStream = new BufferedInputStream(connection.getErrorStream());
                         bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -374,6 +374,7 @@ public class GalleryFragment extends Fragment {
 
                         try {
                             jsonObject = new JSONObject(builderResult.toString());
+
                             if (jsonObject != null){
                                 JSONArray jsonArray = jsonObject.getJSONArray(jsonResponse);
                                 for (int i = 0; i < jsonArray.length(); i++){
@@ -389,6 +390,16 @@ public class GalleryFragment extends Fragment {
                         } catch (JSONException jsonException) {
                             jsonException.printStackTrace();
                         }
+                    } else if (responseCode == 500) {
+                        inputStream = new BufferedInputStream(connection.getErrorStream());
+                        bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                        builderResult = new StringBuilder();
+
+                        while ((line = bufferedReader.readLine()) != null){
+                            builderResult.append(line);
+                        }
+
+                        System.out.println("RESPUESTA DEL SERVIDOR ==> " + builderResult.toString());
                     }
 
                 } catch (IOException e){

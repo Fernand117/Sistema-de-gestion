@@ -206,7 +206,7 @@ public class LoginActivity extends AppCompatActivity {
                         database.acquireReference();
                         String[] args = new String[] {usuariosModel.getUsuario()};
                         Cursor consultaUsuario = database.rawQuery("SELECT * FROM usuario WHERE usuario = ?", args);
-                        if (consultaUsuario != null && consultaUsuario.getCount() <= 0) {
+                        if (consultaUsuario != null && consultaUsuario.getCount() > 0) {
                             Toast.makeText(LoginActivity.this, "Bienvenido", Toast.LENGTH_SHORT).show();
                         } else {
                             Cursor consutlaUsuarios = database.rawQuery("SELECT * FROM usuario", null);
