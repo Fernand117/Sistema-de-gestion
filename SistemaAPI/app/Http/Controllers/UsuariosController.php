@@ -20,7 +20,7 @@ class UsuariosController extends Controller
             $ultimosPuntos = DB::select("select * from ViewPuntosVentas where usuario = ? order by IDPunto desc limit 5", [$usuario]);
             $item = json_decode(json_encode($ultimosPuntos), true);
             for($i = 0; $i < count($ultimosPuntos); $i++) {
-                $item[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/img/puntosVentas/'.$item[$i]['foto'];            
+                $item[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/puntosVentas/'.$item[$i]['foto'];            
             }
             return response()->json(['Puntos' => $totalPuntos] + ['Rutas' => $totalRutas] + ['Lista' => $item]);
 		} else {
@@ -30,7 +30,7 @@ class UsuariosController extends Controller
             $ultimosPuntos = DB::select("select * from ViewPuntosVentas order by IDPunto desc limit 5");
             $item = json_decode(json_encode($ultimosPuntos), true);
             for($i = 0; $i < count($ultimosPuntos); $i++) {
-                $item[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/img/puntosVentas/'.$item[$i]['foto'];            
+                $item[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/puntosVentas/'.$item[$i]['foto'];            
             }
             return response()->json(['Puntos' => $totalPuntos] + ['Rutas' => $totalRutas] + ['Lista' => $item] + ['Usuarios' => $totalUsuarios]);
         }
@@ -45,7 +45,7 @@ class UsuariosController extends Controller
         } else {
             $items = json_decode(json_encode($usuario), true);
             for ($i=0; $i < count($usuario); $i++) { 
-                $items[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/img/perfiles/'.$items[$i]['foto_perfil'];
+                $items[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/perfiles/'.$items[$i]['foto_perfil'];
             }
             return response()->json(['Usuarios' => $items]);
         }
@@ -59,7 +59,7 @@ class UsuariosController extends Controller
         } else {
             $items = json_decode(json_encode($usuarios), true);
             for ($i=0; $i < count($usuarios); $i++) {
-                $items[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/img/perfiles/'.$items[$i]['foto_perfil'];
+                $items[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/perfiles/'.$items[$i]['foto_perfil'];
             }
             return response()->json(['Usuarios' => $items]);
         }
@@ -75,7 +75,7 @@ class UsuariosController extends Controller
         } else {
             $items = json_decode(json_encode($usuarios), true);
             for ($i=0; $i < count($usuarios); $i++) { 
-                $items[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/img/perfiles/'.$items[$i]['foto_perfil'];
+                $items[$i]['foto_perfil'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/perfiles/'.$items[$i]['foto_perfil'];
             }
             return response()->json(['Usuarios' => $items]);
         }

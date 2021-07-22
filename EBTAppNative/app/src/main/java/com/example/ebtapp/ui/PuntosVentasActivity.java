@@ -607,6 +607,7 @@ public class PuntosVentasActivity extends AppCompatActivity {
                             jsonObject = new JSONObject(builderResult.toString());
                             if (jsonObject != null) {
                                 mensaje = jsonObject.getString(jsonMsj);
+                                System.out.println("RESPUESTA DEL SERVIDOR ====> " + mensaje);
                             }
                         } catch (JSONException jsonException) {
                             jsonException.printStackTrace();
@@ -636,7 +637,7 @@ public class PuntosVentasActivity extends AppCompatActivity {
                             builderResult.append(line);
                         }
                         mensaje = builderResult.toString();
-                        System.out.println(mensaje);
+                        System.out.println("RESPUESTA DEL SERVIDOR 500 ====> " + mensaje);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -653,10 +654,15 @@ public class PuntosVentasActivity extends AppCompatActivity {
             super.onPostExecute(jsonObject);
             if (progressDialog != null && progressDialog.isShowing()) {
                 progressDialog.dismiss();
-                Toast.makeText(PuntosVentasActivity.this, mensaje, Toast.LENGTH_SHORT).show();
-                listPVRutas.clear();
-                fabButtons();
-                new listaPuntosVentasAsync().execute();
+                if (responseCode == 500 || responseCode == 404) {
+                    txtMensajePV.setVisibility(View.VISIBLE);
+                    txtMensajePV.setText(mensaje);
+                } else {
+                    Toast.makeText(PuntosVentasActivity.this, mensaje, Toast.LENGTH_SHORT).show();
+                    listPVRutas.clear();
+                    fabButtons();
+                    new listaPuntosVentasAsync().execute();
+                }
             }
         }
     }
