@@ -10,6 +10,7 @@ import { VendedoresComponent } from './pages/vendedores/vendedores.component';
 import { AdminVendedoresComponent } from './pages/admin-vendedores/admin-vendedores.component';
 import { TirosComponent } from './pages/tiros/tiros.component';
 import { AdminTirosComponent } from './pages/admin-tiros/admin-tiros.component';
+import { ReporteVentaComponent } from './pages/reporte-venta/reporte-venta.component';
 
 const routes: Routes = [
   {
@@ -41,6 +42,9 @@ const routes: Routes = [
   },
   {
     path: 'admin/tiros/:id', component: AdminTirosComponent
+  },
+  {
+    path: 'reporte/venta/:id', component: ReporteVentaComponent
   },
   {
     path: '**', redirectTo: 'login', pathMatch: 'full'

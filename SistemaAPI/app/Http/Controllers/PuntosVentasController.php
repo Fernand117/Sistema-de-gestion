@@ -31,8 +31,8 @@ class PuntosVentasController extends Controller
         $id = $datos['id'];
         $puntos = DB::select('select * from ViewPuntosVentas where IDPunto = ?', [$id]);
         $item = json_decode(json_encode($puntos), true);
-        for ($i=0; $i < count($puntos); $i++) { 
-                    $item[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/puntosVentas/'.$item[$i]['foto'];
+        for ($i=0; $i < count($puntos); $i++) {
+            $item[$i]['foto'] = 'http://'.$_SERVER['SERVER_NAME'].'/sistemaAPI/img/puntosVentas/'.$item[$i]['foto'];
         }
         if ($puntos != null) {
             return response()->json(['Puntos' => $item]);
@@ -99,7 +99,8 @@ class PuntosVentasController extends Controller
         $datos = $request->all();
         $id = $datos['id'];
         $punto = PuntosVentas::find($id);
-        $direccion = Direcciones::where('idPVentas','=', $id);
+        $direccion = Direcciones::where('idPVentas', '=', $id)->get();
+
         if ($punto != null) {
             if (isset($datos['foto'])) {
                 $extension = $request->file('foto')->getClientOriginalExtension();
@@ -110,22 +111,26 @@ class PuntosVentasController extends Controller
             }
             if (isset($datos['nombre'])) {
                 $punto->nombre = $datos['nombre'];
+                $punto->update();
             }
             if (isset($datos['idRuta'])) {
                 $punto->idRuta = $datos['idRuta'];
+                $punto->update();
             }
+
             if (isset($datos['direccion'])) {
-                $direccion->direccion = $datos['direccion'];
+                $direccion[0]->direccion = $datos['direccion'];
+                $direccion[0]->update();
             }
             if (isset($datos['localidad'])) {
-                $direccion->localidad = $datos['localidad'];
+                $direccion[0]->localidad = $datos['localidad'];
+                $direccion[0]->update();
             }
             if (isset($datos['municipio'])) {
-                $direccion->municipio = $datos['municipio'];
+                $direccion[0]->municipio = $datos['municipio'];
+                $direccion[0]->update();
             }
-            $punto->update();
-            $direccion->update();
-            return response()->json(['Mensaje' => 'Punto de venta actualizado correctamente']);
+            return response()->json(['Mensaje' => "Punto de venta actualizado correctamente."]);
         }
     }
 

@@ -15,6 +15,7 @@ export class AdminTirosComponent implements OnInit {
 
   datosVendedor: any;
   itemVendedor: any;
+  salida:any = 3;
 
   datosPunto: any;
   itemPunto: any;
@@ -77,7 +78,7 @@ export class AdminTirosComponent implements OnInit {
   guardarDatos(): void {
     this.formData.append('idUsuario', this.vendedorModel.idTipo.toString());
     this.formData.append('idPVenta', this.puntoModel.id.toString());
-    this.formData.append('salida', '3');
+    this.formData.append('salida', this.salida);
     this.apiService.generarTiro(this.formData).subscribe(
       res => {
         this.datosRes = res;

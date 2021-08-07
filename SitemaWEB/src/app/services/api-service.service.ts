@@ -18,6 +18,10 @@ export class ApiServiceService {
     return this.http.post(`${this.url}/total/puntos-ventas`, datos);
   }
 
+  reporteVenta(datos: any) {
+    return this.http.post(`${this.url}/total/reporte/ventas`, datos);
+  }
+
   listaUsuarios() {
     return this.http.get(`${this.url}/lista/usuarios`);
   }

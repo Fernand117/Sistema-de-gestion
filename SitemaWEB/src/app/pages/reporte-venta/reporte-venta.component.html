@@ -1,0 +1,59 @@
+<app-menu-bar></app-menu-bar>
+<div class="content">
+    <app-header></app-header>
+    <div class="sheader">
+        <h1 class="txtTitle">Reporte de venta.</h1>
+    </div>
+    <div class="filtroFecha">
+        <input type="date" name="fecha" id="fecha" class="form-control" [(ngModel)]="fecha">
+        <button class="btn btn-success" (click)="reporteVenta()">Filtrar</button>
+    </div>
+    <div class="cmsj">
+        <h4 id="msj"></h4>
+    </div>
+    <div class="table-tiros">
+        <table class="table" id="tableTiros">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">Tiro</th>
+                    <th scope="col">Punto</th>
+                    <th scope="col">Vendedor</th>
+                    <th scope="col">Salida</th>
+                    <th scope="col">Venta</th>
+                    <th scope="col">Devolución</th>
+                    <th scope="col">Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of resItem">
+                    <th scope="row"> {{item.IDTiro}} </th>
+                    <td>{{item.Punto}}</td>
+                    <td>{{item.nombre}} {{item.paterno}}</td>
+                    <td>{{item.salida}}</td>
+                    <td>{{item.venta}}</td>
+                    <td>{{item.devolucion}}</td>
+                    <td>$ {{item.total}} MXN</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <table class="table" id="tableTotal">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">Salida Gral.</th>
+                <th scope="col">Venta Gral.</th>
+                <th scope="col">Devolución Gral</th>
+                <th scope="col">Total Gral.</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of totalItem">
+                <td>{{item.Salida}}</td>
+                <td>{{item.Venta}}</td>
+                <td>{{item.Devolucion}}</td>
+                <td>$ {{item.Total}} MXN</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

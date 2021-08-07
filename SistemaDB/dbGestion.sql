@@ -51,7 +51,7 @@ create table DIRECCIONES(
 
 create table TIROS(
     id int not null auto_increment,
-    fecha timestamp,
+    fecha date,
     salida int,
     devolucion int,
     venta int,
@@ -62,7 +62,7 @@ create table TIROS(
     foreign key (idPVenta) references PUNTOS_VENTAS(id),
     foreign key (idUsuario) references USUARIOS(id)
 );
-
+drop table TIROS;
 select * from PUNTOS_VENTAS;
 select  * from RUTAS;
 
@@ -126,3 +126,7 @@ where IDPunto = 47
 order by IDTiro desc limit 1;
 
 select * from ViewDetallesTiros;
+
+select sum(salida) as Salida, sum(venta) as Venta, sum(devolucion) as Devolucion, sum(total) as Total from ViewDetallesTiros where IDUsuario = 2 and fecha = '2021_08_06';
+select sum(total) as total from ViewDetallesTiros where IDUsuario = 3 and fecha = '2021_08_06';
+select * from ViewDetallesTiros where IDUsuario = 2;

@@ -119,6 +119,7 @@ export class AdminPuntosComponent implements OnInit {
         res => {
           this.itemDatos = res;
           this.listDatos = this.itemDatos['Mensaje'];
+          console.log(this.listDatos);
           this.mensaje(this.listDatos, '');
           this.router.navigateByUrl('/puntos');
         }

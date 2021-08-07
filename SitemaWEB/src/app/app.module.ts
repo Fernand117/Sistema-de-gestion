@@ -17,6 +17,7 @@ import { AdminVendedoresComponent } from './pages/admin-vendedores/admin-vendedo
 import { NgFallimgModule } from 'ng-fallimg';
 import { TirosComponent } from './pages/tiros/tiros.component';
 import { AdminTirosComponent } from './pages/admin-tiros/admin-tiros.component';
+import { ReporteVentaComponent } from './pages/reporte-venta/reporte-venta.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AdminTirosComponent } from './pages/admin-tiros/admin-tiros.component';
     VendedoresComponent,
     AdminVendedoresComponent,
     TirosComponent,
-    AdminTirosComponent
+    AdminTirosComponent,
+    ReporteVentaComponent
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,7 @@
                 <th scope="col">Tipo</th>
                 <th scope="col">Editar</th>
                 <th scope="col">Eliminar</th>
+                <th scope="col">Reporte</th>
             </tr>
         </thead>
         <tbody>
@@ -31,6 +32,7 @@
                 <td>{{item.tipo}}</td>
                 <td><button class="btn btn-warning" [routerLink]="['/admin/vendedor', item.id]"><i class="bi bi-pencil-square"></i></button></td>
                 <td><button class="btn btn-danger" (click)="deleteUsuario(item.id)"><i class="bi bi-trash"></i></button></td>
+                <td><button class="btn btn-primary" [routerLink]="['/reporte/venta', item.id]"><i class="bi bi-list-ol"></i></button></td>
             </tr>
         </tbody>
     </table>

@@ -41,7 +41,7 @@ class TirosController extends Controller
         $consultaTotal = DB::select('select * from TIROS where idUsuario = ? order by id desc limit 7', [$idUsuario]);
         $consultaTotalItem = json_decode(json_encode($consultaTotal), true);
         $tiros = new Tiros();
-        $tiros->fecha = date('Y_m_d_h_i_s');
+        $tiros->fecha = date('Y_m_d');
         $prom = 0;
         if (count($consultaTotal) > 0) {
             for ($i=0; $i < count($consultaTotal); $i++) { 

@@ -30,6 +30,7 @@ Route::post('editar/usuario', 'UsuariosController@actualizarUsuario');
 Route::post('eliminar/usuario', 'UsuariosController@eliminarUsuario');
 
 Route::post('total/puntos-ventas', 'UsuariosController@totalPuntosVentas');
+Route::post('total/reporte/ventas', 'UsuariosController@totalReporteVenta');
 
 Route::get('lista/tiros', 'TirosController@listaTiros');
 Route::post('crear/tiro', 'TirosController@generarTiro');
