@@ -43,7 +43,7 @@ class TirosController extends Controller
         $tiros = new Tiros();
         $tiros->fecha = date('Y_m_d');
         $prom = 0;
-        if (count($consultaTotal) > 0) {
+        if (count($consultaTotal) == 7) {
             for ($i=0; $i < count($consultaTotal); $i++) { 
                 $prom = $prom + $consultaTotalItem[$i]['venta'];
             }

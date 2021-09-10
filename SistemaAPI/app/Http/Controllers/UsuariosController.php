@@ -45,7 +45,23 @@ class UsuariosController extends Controller
             $fecha = $datos['fecha'];
         }
         $totalTiro = DB::select('select sum(salida) as Salida, sum(venta) as Venta, sum(devolucion) as Devolucion, sum(total) as Total from ViewDetallesTiros where IDUsuario = ? and fecha = ?', [$id, $fecha]);
-        $detallesTiros = DB::select('select * from ViewDetallesTiros where IDUsuario = ? and fecha = ?', [$id, $fecha]);
+        $detallesTiros = DB::select('select IDTiro, Punto, nombre, paterno, salida, venta, devolucion, total from ViewDetallesTiros where IDUsuario = ? and fecha = ?', [$id, $fecha]);
+        if ($detallesTiros != null) {
+            return response()->json(['Tiros' => $detallesTiros] + ['Total' => $totalTiro]);
+        } else {
+            return response()->json(['Mensaje' => 'Aún no hay tiros de este día para este punto de venta.'], 404);
+        }
+    }
+
+    public function reporteGral(Request $request) {
+        $datos = $request->all();
+        if ($datos['fecha'] == "undefined") {
+            $fecha = date('Y-m-d');
+        } else {
+            $fecha = $datos['fecha'];
+        }
+        $totalTiro = DB::select('select sum(salida) as Salida, sum(venta) as Venta, sum(devolucion) as Devolucion, sum(total) as Total from ViewDetallesTiros where fecha = ?', [$fecha]);
+        $detallesTiros = DB::select('select IDTiro, Punto, nombre, paterno, salida, venta, devolucion, total from ViewDetallesTiros where fecha = ?', [$fecha]);
         if ($detallesTiros != null) {
             return response()->json(['Tiros' => $detallesTiros] + ['Total' => $totalTiro]);
         } else {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiServiceService } from '../../services/api-service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { formatDate } from '@angular/common';
+import { ExcelService } from '../../services/excel.service';
 
 @Component({
   selector: 'app-reporte-venta',
@@ -22,7 +23,8 @@ export class ReporteVentaComponent implements OnInit {
   constructor(
     private apiService: ApiServiceService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private excelService: ExcelService
   ) { }
 
   id: any = this.route.snapshot.paramMap.get('id');
@@ -40,19 +42,40 @@ export class ReporteVentaComponent implements OnInit {
       this.formData.append('fecha', this.jstoday.toString());
     }
 
-    this.apiService.reporteVenta(this.formData).subscribe(
-      res => {
-        this.resDatos = res;
-        this.resItem = this.resDatos['Tiros'];
-        this.totalItem = this.resDatos['Total'];
-        document.getElementById('msj')!.innerHTML = '';
-      }, err => {
-        if (err['status'] === 404) {
-          document.getElementById('msj')!.innerHTML = err['error']['Mensaje'];
-        } else {
-          document.getElementById('msj')!.innerHTML = 'Ocurrió un error en el servidor!!';
+    if (this.id === 'general') {
+      this.apiService.reporteGral(this.formData).subscribe(
+        res => {
+          this.resDatos = res;
+          this.resItem = this.resDatos['Tiros'];
+          this.totalItem = this.resDatos['Total'];
+          document.getElementById('msj')!.innerHTML = '';
+        }, err => {
+          if (err['status'] === 404) {
+            document.getElementById('msj')!.innerHTML = err['error']['Mensaje'];
+          } else {
+            document.getElementById('msj')!.innerHTML = 'Ocurrió un error en el servidor!!';
+          }
         }
-      }
-    );
+      );
+    } else {
+      this.apiService.reporteVenta(this.formData).subscribe(
+        res => {
+          this.resDatos = res;
+          this.resItem = this.resDatos['Tiros'];
+          this.totalItem = this.resDatos['Total'];
+          document.getElementById('msj')!.innerHTML = '';
+        }, err => {
+          if (err['status'] === 404) {
+            document.getElementById('msj')!.innerHTML = err['error']['Mensaje'];
+          } else {
+            document.getElementById('msj')!.innerHTML = 'Ocurrió un error en el servidor!!';
+          }
+        }
+      );
+    }
+  }
+
+  exportarExcel(): void {
+    this.excelService.exportAsExcelFile(this.resItem, this.totalItem, 'Reporte de ventas');
   }
 }

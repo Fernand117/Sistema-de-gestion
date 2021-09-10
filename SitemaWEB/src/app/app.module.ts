@@ -18,6 +18,7 @@ import { NgFallimgModule } from 'ng-fallimg';
 import { TirosComponent } from './pages/tiros/tiros.component';
 import { AdminTirosComponent } from './pages/admin-tiros/admin-tiros.component';
 import { ReporteVentaComponent } from './pages/reporte-venta/reporte-venta.component';
+import { ExcelService } from './services/excel.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { ReporteVentaComponent } from './pages/reporte-venta/reporte-venta.compo
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ExcelService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

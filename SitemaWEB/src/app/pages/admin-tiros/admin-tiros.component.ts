@@ -15,7 +15,7 @@ export class AdminTirosComponent implements OnInit {
 
   datosVendedor: any;
   itemVendedor: any;
-  salida:any = 3;
+  salida: any = 3;
 
   datosPunto: any;
   itemPunto: any;
@@ -48,7 +48,8 @@ export class AdminTirosComponent implements OnInit {
       this.apiService.listaUsuarios().subscribe(
         res => {
           this.datosVendedor = res;
-          this.itemVendedor = this.datosVendedor['Usuarios'];
+          const usuariosJson = 'Usuarios';
+          this.itemVendedor = this.datosVendedor[usuariosJson];
         }
       );
     }
@@ -59,7 +60,8 @@ export class AdminTirosComponent implements OnInit {
     this.apiService.listaRutaUsuario(this.formData).subscribe(
       res => {
         this.datosRutas = res;
-        this.itemRutas = this.datosRutas['Rutas'];
+        const rutasJson = 'Rutas';
+        this.itemRutas = this.datosRutas[rutasJson];
         console.log(this.itemRutas);
       }
     );
@@ -70,7 +72,8 @@ export class AdminTirosComponent implements OnInit {
     this.apiService.listaPuntoVentaRuta(this.formData).subscribe(
       res => {
         this.datosPunto = res;
-        this.itemPunto = this.datosPunto['Puntos'];
+        const puntosJson = 'Puntos';
+        this.itemPunto = this.datosPunto[puntosJson];
       }
     );
   }
@@ -82,7 +85,8 @@ export class AdminTirosComponent implements OnInit {
     this.apiService.generarTiro(this.formData).subscribe(
       res => {
         this.datosRes = res;
-        this.itemRes = this.datosRes['Mensaje'];
+        const mensajeJson = 'Mensaje';
+        this.itemRes = this.datosRes[mensajeJson];
         Swal.fire(
           'Creado',
           this.itemRes
