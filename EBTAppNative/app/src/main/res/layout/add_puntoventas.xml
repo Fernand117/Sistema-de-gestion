@@ -21,7 +21,7 @@
                 android:layout_gravity="center"
                 android:text="Añadir nuevo punto de venta"
                 android:gravity="center"
-                android:textSize="28dp"/>
+                android:textSize="24dp"/>
 
             <ImageView
                 android:id="@+id/imgPuntoVenta"

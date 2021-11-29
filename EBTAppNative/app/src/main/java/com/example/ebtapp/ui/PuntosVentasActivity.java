@@ -108,7 +108,8 @@ public class PuntosVentasActivity extends AppCompatActivity {
     private File imgFile;
     private Bitmap imgBitmap;
     private ContentValues values;
-    private String result, imgUrl;
+    private String result;
+    private String imgUrl;
     private static final int PICTURE_RESULT = 123;
 
     @Override
@@ -185,8 +186,8 @@ public class PuntosVentasActivity extends AppCompatActivity {
                 try {
                     HashMap<String, Object> param = (HashMap<String, Object>) pVentasRutasAdapter.getItem(position);
 
-                    getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                    getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.primary1));
+                    /*getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                    getWindow().setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.primary1));*/
                     String idPunto = (String) param.get("idpunto");
                     pVentasModel.setId((Integer) Integer.parseInt(idPunto));
                     pVentasModel.setNombre((String) param.get("punto"));
@@ -300,10 +301,10 @@ public class PuntosVentasActivity extends AppCompatActivity {
                     }
                 });
 
-                Window window = getWindow();
+                /*Window window = getWindow();
                 window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.primary_dark));
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.primary_dark));*/
                 dialog.show();
             }
         });
@@ -337,10 +338,10 @@ public class PuntosVentasActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
-                Window window = getWindow();
+                /*Window window = getWindow();
                 window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.primary_dark));
+                window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(), R.color.primary_dark));*/
                 fabButtons();
             }
         });

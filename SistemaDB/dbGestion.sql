@@ -130,3 +130,12 @@ select * from ViewDetallesTiros;
 select sum(salida) as Salida, sum(venta) as Venta, sum(devolucion) as Devolucion, sum(total) as Total from ViewDetallesTiros where IDUsuario = 2 and fecha = '2021_08_06';
 select sum(total) as total from ViewDetallesTiros where IDUsuario = 3 and fecha = '2021_08_06';
 select * from ViewDetallesTiros where IDUsuario = 2;
+
+
+use RedSocialDB;
+drop table perfiles;
+drop table usuarios;
+drop table migrations;
+drop table personal_access_tokens;
+
+select * from usuarios;

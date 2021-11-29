@@ -161,8 +161,8 @@ public class GalleryFragment extends Fragment {
                 String ruta = ((TextView) view.findViewById(R.id.txtNombreRuta)).getText().toString();
                 String idRuta = ((TextView) view.findViewById(R.id.txtIDRuta)).getText().toString();
 
-                getActivity().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                getActivity().getWindow().setStatusBarColor(ContextCompat.getColor(getContext(), R.color.primary1));
+                /*getActivity().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+                getActivity().getWindow().setStatusBarColor(ContextCompat.getColor(getContext(), R.color.primary1));*/
 
                 rutas.setNombre(ruta);
                 rutas.setId(Integer.parseInt(idRuta));
@@ -235,10 +235,10 @@ public class GalleryFragment extends Fragment {
                         dialog.dismiss();
                     }
                 });
-                Window window = getActivity().getWindow();
+                /*Window window = getActivity().getWindow();
                 window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(ContextCompat.getColor(getContext(), R.color.primary_dark));
+                window.setStatusBarColor(ContextCompat.getColor(getContext(), R.color.primary_dark));*/
                 dialog.show();
             }
         });
@@ -272,10 +272,10 @@ public class GalleryFragment extends Fragment {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
-                Window window = getActivity().getWindow();
+                /*Window window = getActivity().getWindow();
                 window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                window.setStatusBarColor(ContextCompat.getColor(getContext(), R.color.primary_dark));
+                window.setStatusBarColor(ContextCompat.getColor(getContext(), R.color.primary_dark));*/
                 fabButtons();
             }
         });

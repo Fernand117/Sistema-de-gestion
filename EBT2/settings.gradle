@@ -1,0 +1,2 @@
+rootProject.name = "EBT2"
+include ':app'

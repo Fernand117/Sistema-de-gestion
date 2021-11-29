@@ -14,7 +14,7 @@
         android:layout_gravity="center"
         android:text="@string/editar_ruta"
         android:gravity="center"
-        android:textSize="34dp"/>
+        android:textSize="24dp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
